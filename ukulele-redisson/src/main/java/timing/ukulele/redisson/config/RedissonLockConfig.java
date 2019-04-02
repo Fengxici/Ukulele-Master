@@ -2,9 +2,6 @@ package timing.ukulele.redisson.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-/**
- * Created by kl on 2017/12/29.
- */
 @ConfigurationProperties(prefix = RedissonLockConfig.PREFIX)
 public class RedissonLockConfig {
 

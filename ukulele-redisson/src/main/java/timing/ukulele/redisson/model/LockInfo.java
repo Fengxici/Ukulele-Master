@@ -1,7 +1,6 @@
 package timing.ukulele.redisson.model;
 
 /**
- * Created by kl on 2017/12/29.
  * Content :锁基本信息
  */
 public class LockInfo {

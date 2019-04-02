@@ -2,6 +2,8 @@ package timing.ukulele.redisson.core;
 
 
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,9 @@ public class RedissonLockAspectHandler {
     @Autowired
     LockFactory lockFactory;
 
+    private ThreadLocal<Lock> currentThreadLock = new ThreadLocal<>();
+    private ThreadLocal<Boolean> currentThreadLockRes = new ThreadLocal<>();
+
     @Around(value = "@annotation(RedissonLock)")
     public Object around(ProceedingJoinPoint joinPoint, RedissonLock redissonLock) throws Throwable {
         Lock lock = lockFactory.getLock(joinPoint,redissonLock);
@@ -30,6 +35,21 @@ public class RedissonLockAspectHandler {
             if (currentThreadLock) {
                 lock.release();
             }
+        }
+    }
+
+
+    @AfterReturning(value = "@annotation(RedissonLock)")
+    public void afterReturning(RedissonLock redissonLock) {
+        if (currentThreadLockRes.get()) {
+            currentThreadLock.get().release();
+        }
+    }
+
+    @AfterThrowing(value = "@annotation(RedissonLock)")
+    public void afterThrowing (RedissonLock redissonLock) {
+        if (currentThreadLockRes.get()) {
+            currentThreadLock.get().release();
         }
     }
 }

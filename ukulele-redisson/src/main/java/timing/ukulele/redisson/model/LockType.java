@@ -1,7 +1,6 @@
 package timing.ukulele.redisson.model;
 
 /**
- * Created by kl on 2017/12/29.
  * Content :锁类型
  */
 public enum LockType {
