@@ -1,5 +1,8 @@
 package timing.ukulele.common.data;
 
+/**
+ * 服务层返回结果
+ */
 public class ResponseData<T> {
 
     /**

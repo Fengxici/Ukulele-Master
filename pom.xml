@@ -25,6 +25,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <poi-version>4.0.1</poi-version>
         <javax.servlet-api-version>4.0.1</javax.servlet-api-version>
+        <javax.validation-api-version>2.0.1.Final</javax.validation-api-version>
         <ehcache-version>2.10.6</ehcache-version>
         <bcprov-jdk16-version>1.46</bcprov-jdk16-version>
         <pinyin4j-version>2.5.1</pinyin4j-version>
@@ -85,6 +86,11 @@
                 <version>${org.springframework-version}</version>
             </dependency>
             <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-webmvc</artifactId>
+                <version>${org.springframework-version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.apache.poi</groupId>
                 <artifactId>poi-ooxml</artifactId>
                 <version>${poi-version}</version>
@@ -93,6 +99,11 @@
                 <groupId>javax.servlet</groupId>
                 <artifactId>javax.servlet-api</artifactId>
                 <version>${javax.servlet-api-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.validation</groupId>
+                <artifactId>validation-api</artifactId>
+                <version>${javax.validation-api-version}</version>
             </dependency>
             <dependency>
                 <groupId>net.sf.ehcache</groupId>
