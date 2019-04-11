@@ -24,9 +24,9 @@ public class RedissonLockAspectHandler {
     private ThreadLocal<Lock> currentThreadLock = new ThreadLocal<>();
     private ThreadLocal<Boolean> currentThreadLockRes = new ThreadLocal<>();
 
-    @Around(value = "@annotation(RedissonLock)")
+    @Around(value = "@annotation(redissonLock)")
     public Object around(ProceedingJoinPoint joinPoint, RedissonLock redissonLock) throws Throwable {
-        Lock lock = lockFactory.getLock(joinPoint,redissonLock);
+        Lock lock = lockFactory.getLock(joinPoint, redissonLock);
         boolean currentThreadLock = false;
         try {
             currentThreadLock = lock.acquire();
@@ -39,15 +39,15 @@ public class RedissonLockAspectHandler {
     }
 
 
-    @AfterReturning(value = "@annotation(RedissonLock)")
+    @AfterReturning(value = "@annotation(redissonLock)")
     public void afterReturning(RedissonLock redissonLock) {
         if (currentThreadLockRes.get()) {
             currentThreadLock.get().release();
         }
     }
 
-    @AfterThrowing(value = "@annotation(RedissonLock)")
-    public void afterThrowing (RedissonLock redissonLock) {
+    @AfterThrowing(value = "@annotation(redissonLock)")
+    public void afterThrowing(RedissonLock redissonLock) {
         if (currentThreadLockRes.get()) {
             currentThreadLock.get().release();
         }

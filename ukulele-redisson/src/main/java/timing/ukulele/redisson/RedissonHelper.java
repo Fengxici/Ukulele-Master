@@ -3,38 +3,31 @@ package timing.ukulele.redisson;
 import org.redisson.api.RBucket;
 import org.redisson.api.RType;
 import org.redisson.api.RedissonClient;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import timing.ukulele.redisson.cache.CacheManager;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
  * Redis缓存辅助类
  */
-public class RedissonHelper implements CacheManager, ApplicationContextAware {
-
+public class RedissonHelper implements CacheManager {
+    @Autowired
     private RedissonClient redisTemplate = null;
     private Integer EXPIRE = 60;
-
-    private ApplicationContext applicationContext;
-
-    public void setApplicationContext(ApplicationContext applicationContext) {
-        this.applicationContext = applicationContext;
-    }
 
     /**
      * 获取连接
      */
     private RedissonClient getRedis() {
         if (redisTemplate == null) {
-            synchronized (RedissonHelper.class) {
-                if (redisTemplate == null) {
-                    redisTemplate = applicationContext.getBean(RedissonClient.class);
-                }
-            }
+            throw new RuntimeException("RedissonClient 尚未初始化");
         }
         return redisTemplate;
     }
