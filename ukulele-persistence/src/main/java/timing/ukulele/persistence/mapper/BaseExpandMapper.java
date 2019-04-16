@@ -1,6 +1,7 @@
 package timing.ukulele.persistence.mapper;
 
-import com.github.pagehelper.Page;
+
+import com.baomidou.mybatisplus.core.metadata.IPage;
 
 import java.util.Map;
 
@@ -11,5 +12,5 @@ public interface BaseExpandMapper {
      * @param params 查询条件的Map
      * @return 分页对象
      */
-    Page<Integer> query(Map<String, Object> params);
+    IPage<Integer> query(Map<String, Object> params);
 }
