@@ -1,5 +1,7 @@
 package timing.ukulele.common.data;
 
+import org.springframework.lang.NonNull;
+
 /**
  * 服务层返回结果
  */
@@ -18,6 +20,14 @@ public class ResponseData<T> {
     private T data;
 
     public ResponseData() {
+    }
+
+    public ResponseData(@NonNull ResponseCode responseCode) {
+        this(responseCode.getCode(), responseCode.getMessage());
+    }
+
+    public ResponseData(@NonNull ResponseCode responseCode, T data) {
+        this(responseCode.getCode(), responseCode.getMessage(), data);
     }
 
     public ResponseData(Integer code, String message) {

@@ -109,7 +109,7 @@ public class ResponseVO<T> implements Serializable {
         return sb.toString();
     }
 
-    public static enum Status {
+    public enum Status {
         /**
          * 状态
          */
