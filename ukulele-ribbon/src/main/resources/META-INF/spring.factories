@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+timing.ukulele.ribbon.UkuleleRibbonAutoConfigure,\
+timing.ukulele.ribbon.UkuleleFeignAutoConfigure
