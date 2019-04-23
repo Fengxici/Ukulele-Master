@@ -29,10 +29,10 @@ public abstract class BaseController {
     }
 
     protected <T> ResponseData<T> paraErrorResponse(T data) {
-        return new ResponseData<>(ResponseCode.FACADE_ERROR, data);
+        return new ResponseData<>(ResponseCode.PARA_ERROR, data);
     }
 
     protected <T> ResponseData<T> paraErrorResponse() {
-        return new ResponseData<>(ResponseCode.FACADE_ERROR);
+        return new ResponseData<>(ResponseCode.PARA_ERROR);
     }
 }
