@@ -4,10 +4,11 @@ import javax.servlet.http.HttpServletRequest;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-/**
- * 获取客户端ip地址
- */
-public class IpUtil {
+
+public class RequestUtil {
+    /**
+     * 获取客户端ip地址
+     */
     public static String getIpAddr(HttpServletRequest request) {
         String ipAddress = null;
         try {
@@ -42,8 +43,7 @@ public class IpUtil {
             ipAddress = "";
         }
         // ipAddress = this.getRequest().getRemoteAddr();
-
         return ipAddress;
-
     }
+
 }
