@@ -16,8 +16,8 @@ public class BaseModel implements Serializable {
     private Long id;
     @TableField("enable_")
     private Boolean enable;
-    private Long createBy;
+    private String createBy;
     private Date createTime;
-    private Long updateBy;
+    private String updateBy;
     private Date updateTime;
 }

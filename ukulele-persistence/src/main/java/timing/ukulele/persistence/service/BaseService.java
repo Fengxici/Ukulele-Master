@@ -8,16 +8,19 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.lang.Nullable;
+import org.springframework.util.CollectionUtils;
 import timing.ukulele.persistence.mapper.BaseMapper;
 import timing.ukulele.persistence.model.BaseModel;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 /**
  * 模式使用从库，增删改使用主库
+ *
  * @param <T>
  */
 @DS("slave")
@@ -26,30 +29,68 @@ public class BaseService<T extends BaseModel> extends ServiceImpl<BaseMapper<T>,
     @DS("master")
     @Override
     public boolean save(T entity) {
+        Date now = new Date();
+        entity.setCreateTime(now);
+        entity.setUpdateTime(now);
+        if (entity.getEnable() == null) entity.setEnable(Boolean.TRUE);
         return super.save(entity);
     }
 
     @DS("master")
     @Override
     public boolean saveBatch(Collection<T> entityList, int batchSize) {
+        if (CollectionUtils.isEmpty(entityList))
+            return false;
+        Date now = new Date();
+        entityList.forEach(entity -> {
+            entity.setUpdateTime(now);
+            entity.setCreateTime(now);
+            if (entity.getEnable() == null) entity.setEnable(Boolean.TRUE);
+        });
         return super.saveBatch(entityList, batchSize);
     }
 
     @DS("master")
     @Override
     public boolean saveOrUpdate(T entity) {
+        Date now = new Date();
+        entity.setUpdateTime(now);
+        if (entity.getId() == null) {
+            entity.setCreateTime(now);
+            if (entity.getEnable() == null) entity.setEnable(Boolean.TRUE);
+        }
         return super.saveOrUpdate(entity);
     }
 
     @DS("master")
     @Override
     public boolean saveOrUpdateBatch(Collection<T> entityList) {
+        if (CollectionUtils.isEmpty(entityList))
+            return false;
+        Date now = new Date();
+        entityList.forEach(entity -> {
+            entity.setUpdateTime(now);
+            if (entity.getId() == null) {
+                entity.setCreateTime(now);
+                if (entity.getEnable() == null) entity.setEnable(Boolean.TRUE);
+            }
+        });
         return super.saveOrUpdateBatch(entityList);
     }
 
     @DS("master")
     @Override
     public boolean saveOrUpdateBatch(Collection<T> entityList, int batchSize) {
+        if (CollectionUtils.isEmpty(entityList))
+            return false;
+        Date now = new Date();
+        entityList.forEach(entity -> {
+            entity.setUpdateTime(now);
+            if (entity.getId() == null) {
+                entity.setCreateTime(now);
+                if (entity.getEnable() == null) entity.setEnable(Boolean.TRUE);
+            }
+        });
         return super.saveOrUpdateBatch(entityList, batchSize);
     }
 
@@ -80,18 +121,24 @@ public class BaseService<T extends BaseModel> extends ServiceImpl<BaseMapper<T>,
     @DS("master")
     @Override
     public boolean updateById(T entity) {
+        entity.setUpdateTime(new Date());
         return super.updateById(entity);
     }
 
     @DS("master")
     @Override
     public boolean update(T entity, Wrapper<T> updateWrapper) {
+        entity.setUpdateTime(new Date());
         return super.update(entity, updateWrapper);
     }
 
     @DS("master")
     @Override
     public boolean updateBatchById(Collection<T> entityList, int batchSize) {
+        if (CollectionUtils.isEmpty(entityList))
+            return false;
+        Date now = new Date();
+        entityList.forEach(entity -> entity.setUpdateTime(now));
         return super.updateBatchById(entityList, batchSize);
     }
 }
