@@ -14,8 +14,8 @@ import java.util.Date;
 public class BaseModel implements Serializable {
     @TableId(value = "id_", type = IdType.ID_WORKER)
     private Long id;
-    @TableField("enable_")
-    private Boolean enable;
+    @TableField("deleted_")
+    private Boolean deleted;
     private String createBy;
     private Date createTime;
     private String updateBy;

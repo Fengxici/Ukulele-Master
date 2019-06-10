@@ -2,12 +2,7 @@ package timing.ukulele.persistence.service;
 
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.segments.MergeSegments;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.lang.Nullable;
 import org.springframework.util.CollectionUtils;
 import timing.ukulele.persistence.mapper.BaseMapper;
 import timing.ukulele.persistence.model.BaseModel;
@@ -15,7 +10,6 @@ import timing.ukulele.persistence.model.BaseModel;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -32,7 +26,7 @@ public class BaseService<T extends BaseModel> extends ServiceImpl<BaseMapper<T>,
         Date now = new Date();
         entity.setCreateTime(now);
         entity.setUpdateTime(now);
-        if (entity.getEnable() == null) entity.setEnable(Boolean.TRUE);
+        if (entity.getDeleted() == null) entity.setDeleted(Boolean.FALSE);
         return super.save(entity);
     }
 
@@ -45,7 +39,7 @@ public class BaseService<T extends BaseModel> extends ServiceImpl<BaseMapper<T>,
         entityList.forEach(entity -> {
             entity.setUpdateTime(now);
             entity.setCreateTime(now);
-            if (entity.getEnable() == null) entity.setEnable(Boolean.TRUE);
+            if (entity.getDeleted() == null) entity.setDeleted(Boolean.FALSE);
         });
         return super.saveBatch(entityList, batchSize);
     }
@@ -57,7 +51,7 @@ public class BaseService<T extends BaseModel> extends ServiceImpl<BaseMapper<T>,
         entity.setUpdateTime(now);
         if (entity.getId() == null) {
             entity.setCreateTime(now);
-            if (entity.getEnable() == null) entity.setEnable(Boolean.TRUE);
+            if (entity.getDeleted() == null) entity.setDeleted(Boolean.FALSE);
         }
         return super.saveOrUpdate(entity);
     }
@@ -72,7 +66,7 @@ public class BaseService<T extends BaseModel> extends ServiceImpl<BaseMapper<T>,
             entity.setUpdateTime(now);
             if (entity.getId() == null) {
                 entity.setCreateTime(now);
-                if (entity.getEnable() == null) entity.setEnable(Boolean.TRUE);
+                if (entity.getDeleted() == null) entity.setDeleted(Boolean.FALSE);
             }
         });
         return super.saveOrUpdateBatch(entityList);
@@ -88,7 +82,7 @@ public class BaseService<T extends BaseModel> extends ServiceImpl<BaseMapper<T>,
             entity.setUpdateTime(now);
             if (entity.getId() == null) {
                 entity.setCreateTime(now);
-                if (entity.getEnable() == null) entity.setEnable(Boolean.TRUE);
+                if (entity.getDeleted() == null) entity.setDeleted(Boolean.FALSE);
             }
         });
         return super.saveOrUpdateBatch(entityList, batchSize);
