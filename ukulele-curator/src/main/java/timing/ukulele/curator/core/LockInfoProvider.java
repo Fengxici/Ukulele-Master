@@ -26,7 +26,6 @@ public class LockInfoProvider {
         String businessKeyName=businessKeyProvider.getKeyName(joinPoint,lock);
         String lockName = LOCK_NAME_PREFIX+LOCK_NAME_SEPARATOR+getName(lock.name(), signature)+businessKeyName;
         long waitTime = getWaitTime(lock);
-        long leaseTime = getLeaseTime(lock);
         return new LockInfo(type,lockName,waitTime);
     }
 
