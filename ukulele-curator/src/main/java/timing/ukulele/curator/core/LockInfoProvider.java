@@ -27,7 +27,7 @@ public class LockInfoProvider {
         String lockName = LOCK_NAME_PREFIX+LOCK_NAME_SEPARATOR+getName(lock.name(), signature)+businessKeyName;
         long waitTime = getWaitTime(lock);
         long leaseTime = getLeaseTime(lock);
-        return new LockInfo(type,lockName,waitTime,leaseTime);
+        return new LockInfo(type,lockName,waitTime);
     }
 
     private String getName(String annotationName, MethodSignature signature) {
@@ -42,11 +42,6 @@ public class LockInfoProvider {
     private long getWaitTime(ZookeeperLock lock) {
         return lock.waitTime() == Long.MIN_VALUE ?
                 timingLockConfig.getWaitTime() : lock.waitTime();
-    }
-
-    private long getLeaseTime(ZookeeperLock lock) {
-        return lock.leaseTime() == Long.MIN_VALUE ?
-                timingLockConfig.getLeaseTime() : lock.leaseTime();
     }
 }
 
