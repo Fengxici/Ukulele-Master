@@ -27,7 +27,7 @@ public class ReentrantLock implements Lock ,ConnectionStateListener {
     public boolean acquire() {
         try {
             reentrantLock = new InterProcessMutex(curatorClient, lockInfo.getName());
-            return reentrantLock.acquire(lockInfo.getLeaseTime(), TimeUnit.SECONDS);
+            return reentrantLock.acquire(lockInfo.getWaitTime(), TimeUnit.SECONDS);
         } catch (Exception e) {
             return false;
         }
