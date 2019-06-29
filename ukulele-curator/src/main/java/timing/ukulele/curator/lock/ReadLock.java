@@ -27,7 +27,7 @@ public class ReadLock implements Lock,ConnectionStateListener {
     public boolean acquire() {
         try {
             interProcessReadWriteLock = new InterProcessReadWriteLock(curatorClient, lockInfo.getName());
-            return interProcessReadWriteLock.readLock().acquire(lockInfo.getLeaseTime(), TimeUnit.SECONDS);
+            return interProcessReadWriteLock.readLock().acquire(lockInfo.getWaitTime(), TimeUnit.SECONDS);
         } catch (Exception e) {
             return false;
         }

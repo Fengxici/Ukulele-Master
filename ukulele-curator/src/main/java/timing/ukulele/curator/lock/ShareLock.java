@@ -28,7 +28,7 @@ public class ShareLock implements Lock ,ConnectionStateListener {
     public boolean acquire()  {
         try {
             shareLock = new InterProcessSemaphoreMutex(curatorClient, lockInfo.getName());
-            return shareLock.acquire(lockInfo.getLeaseTime(), TimeUnit.SECONDS);
+            return shareLock.acquire(lockInfo.getWaitTime(), TimeUnit.SECONDS);
         } catch (Exception e) {
             return false;
         }
