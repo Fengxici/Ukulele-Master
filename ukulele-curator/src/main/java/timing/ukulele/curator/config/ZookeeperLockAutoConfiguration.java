@@ -31,7 +31,7 @@ public class ZookeeperLockAutoConfiguration {
 
     @Bean(destroyMethod = "close")
     @ConditionalOnMissingBean
-    CuratorFramework redisson() throws Exception {
+    CuratorFramework curatorClient() throws Exception {
         RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000, 5);
 
         // 实例化Curator客户端
