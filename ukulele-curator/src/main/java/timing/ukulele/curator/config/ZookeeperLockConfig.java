@@ -10,8 +10,6 @@ public class ZookeeperLockConfig {
     private String clusterServer;
     //lock
     private long waitTime = 60;
-    private long leaseTime = 60;
-
 
     public String getPassword() {
         return password;
@@ -27,14 +25,6 @@ public class ZookeeperLockConfig {
 
     public void setWaitTime(long waitTime) {
         this.waitTime = waitTime;
-    }
-
-    public long getLeaseTime() {
-        return leaseTime;
-    }
-
-    public void setLeaseTime(long leaseTime) {
-        this.leaseTime = leaseTime;
     }
 
     public String getClusterServer() {
