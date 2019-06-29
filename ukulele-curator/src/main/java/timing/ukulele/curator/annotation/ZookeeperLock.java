@@ -27,11 +27,6 @@ public @interface ZookeeperLock {
      * @return
      */
     long waitTime() default Long.MIN_VALUE;
-    /**
-     *上锁以后xxx秒自动解锁
-     * @return
-     */
-    long leaseTime() default Long.MIN_VALUE;
 
     /**
      * 自定义业务key
