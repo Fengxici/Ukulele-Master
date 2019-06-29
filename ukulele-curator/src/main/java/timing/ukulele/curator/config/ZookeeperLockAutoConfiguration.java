@@ -21,7 +21,6 @@ import timing.ukulele.curator.lock.LockFactory;
  * Content :自动装配
  */
 @Configuration
-@AutoConfigureAfter(RedisAutoConfiguration.class)
 @EnableConfigurationProperties(ZookeeperLockConfig.class)
 @Import({ZookeeperLockAspectHandler.class})
 public class ZookeeperLockAutoConfiguration {
