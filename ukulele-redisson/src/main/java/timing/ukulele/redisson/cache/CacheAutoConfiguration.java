@@ -1,11 +1,13 @@
-package timing.ukulele.redisson;
+package timing.ukulele.redisson.cache;
 
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import timing.ukulele.redisson.cache.CacheManager;
+import timing.ukulele.redisson.TimingRedisAutoConfiguration;
 
 @Configuration
-public class CacheUtil {
+@AutoConfigureAfter(TimingRedisAutoConfiguration.class)
+public class CacheAutoConfiguration {
     private static CacheManager cacheManager;
 
     @Bean
@@ -16,9 +18,9 @@ public class CacheUtil {
 
     public static CacheManager getCache() {
         if (cacheManager == null) {
-            synchronized (CacheUtil.class) {
+            synchronized (CacheAutoConfiguration.class) {
                 if (cacheManager == null) {
-                    cacheManager = new RedissonHelper();
+                    cacheManager = new RedisHelper();
                 }
             }
         }

@@ -2,8 +2,9 @@ package timing.ukulele.redisson.lock;
 
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
-import timing.ukulele.redisson.model.LockInfo;
+import timing.ukulele.redisson.lock.model.LockInfo;
 
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -16,17 +17,19 @@ public class ReentrantLock implements Lock {
 
     private RLock rLock;
 
-    private LockInfo lockInfo;
+    private final LockInfo lockInfo;
 
     private RedissonClient redissonClient;
 
-    public ReentrantLock(RedissonClient redissonClient) {
+    public ReentrantLock(RedissonClient redissonClient, LockInfo lockInfo) {
         this.redissonClient = redissonClient;
+        this.lockInfo = lockInfo;
     }
+
     @Override
     public boolean acquire() {
         try {
-            rLock=redissonClient.getLock(lockInfo.getName());
+            rLock = redissonClient.getLock(lockInfo.getName());
             return rLock.tryLock(lockInfo.getWaitTime(), lockInfo.getLeaseTime(), TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             return false;
@@ -34,19 +37,14 @@ public class ReentrantLock implements Lock {
     }
 
     @Override
-    public void release() {
-        if(rLock.isHeldByCurrentThread()){
-            rLock.unlockAsync();
+    public boolean release() {
+        if (rLock.isHeldByCurrentThread()) {
+            try {
+                return rLock.forceUnlockAsync().get();
+            } catch (InterruptedException | ExecutionException e) {
+                return false;
+            }
         }
-
-    }
-
-    public LockInfo getLockInfo() {
-        return lockInfo;
-    }
-
-    public Lock setLockInfo(LockInfo lockInfo) {
-        this.lockInfo = lockInfo;
-        return this;
+        return false;
     }
 }

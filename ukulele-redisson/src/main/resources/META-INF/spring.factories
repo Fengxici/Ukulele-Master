@@ -1,2 +1,4 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-timing.ukulele.redisson.config.RedissonLockAutoConfiguration
+timing.ukulele.redisson.TimingRedisAutoConfiguration,\
+timing.ukulele.redisson.lock.config.RedisLockAutoConfiguration,\
+timing.ukulele.redisson.cache.CacheAutoConfiguration

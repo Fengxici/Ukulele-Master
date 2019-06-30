@@ -1,8 +1,8 @@
-package timing.ukulele.curator.annotation;
+package timing.ukulele.redisson.lock.annotation;
 
-import timing.ukulele.curator.model.LockTimeoutStrategy;
-import timing.ukulele.curator.model.LockType;
-import timing.ukulele.curator.model.ReleaseTimeoutStrategy;
+import timing.ukulele.redisson.lock.model.LockTimeoutStrategy;
+import timing.ukulele.redisson.lock.model.LockType;
+import timing.ukulele.redisson.lock.model.ReleaseTimeoutStrategy;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
  */
 @Target(value = {ElementType.METHOD})
 @Retention(value = RetentionPolicy.RUNTIME)
-public @interface ZookeeperLock {
+public @interface RedisLock {
     /**
      * 锁的名称
      *
@@ -37,11 +37,19 @@ public @interface ZookeeperLock {
     long waitTime() default Long.MIN_VALUE;
 
     /**
+     * 上锁以后xxx秒自动解锁
+     *
+     * @return
+     */
+    long leaseTime() default Long.MIN_VALUE;
+
+    /**
      * 自定义业务key
      *
      * @return
      */
     String[] keys() default {};
+
 
     /**
      * 加锁超时的处理策略
@@ -70,6 +78,4 @@ public @interface ZookeeperLock {
      * @return customReleaseTimeoutStrategy
      */
     String customReleaseTimeoutStrategy() default "";
-
 }
-

@@ -10,23 +10,23 @@ import timing.ukulele.curator.model.LockInfo;
 import timing.ukulele.curator.model.LockType;
 
 public class LockInfoProvider {
-    public static final String LOCK_NAME_PREFIX = "lock";
+    public static final String LOCK_NAME_PREFIX = "/lock";
     public static final String LOCK_NAME_SEPARATOR = ".";
 
 
     @Autowired
-    private ZookeeperLockConfig timingLockConfig;
+    private ZookeeperLockConfig zookeeperLockConfig;
 
     @Autowired
     private BusinessKeyProvider businessKeyProvider;
 
     public LockInfo get(ProceedingJoinPoint joinPoint, ZookeeperLock lock) {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
-        LockType type= lock.lockType();
-        String businessKeyName=businessKeyProvider.getKeyName(joinPoint,lock);
-        String lockName = LOCK_NAME_PREFIX+LOCK_NAME_SEPARATOR+getName(lock.name(), signature)+businessKeyName;
+        LockType type = lock.lockType();
+        String businessKeyName = businessKeyProvider.getKeyName(joinPoint, lock);
+        String lockName = LOCK_NAME_PREFIX + LOCK_NAME_SEPARATOR + getName(lock.name(), signature) + businessKeyName;
         long waitTime = getWaitTime(lock);
-        return new LockInfo(type,lockName,waitTime);
+        return new LockInfo(type, lockName, waitTime);
     }
 
     private String getName(String annotationName, MethodSignature signature) {
@@ -40,7 +40,7 @@ public class LockInfoProvider {
 
     private long getWaitTime(ZookeeperLock lock) {
         return lock.waitTime() == Long.MIN_VALUE ?
-                timingLockConfig.getWaitTime() : lock.waitTime();
+                zookeeperLockConfig.getWaitTime() : lock.waitTime();
     }
 }
 

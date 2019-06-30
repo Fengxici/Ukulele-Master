@@ -1,4 +1,4 @@
-package timing.ukulele.redisson.annotation;
+package timing.ukulele.redisson.lock.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -7,6 +7,6 @@ import java.lang.annotation.Target;
 
 @Target(value = {ElementType.PARAMETER, ElementType.TYPE})
 @Retention(value = RetentionPolicy.RUNTIME)
-public @interface RedissonLockKey {
+public @interface RedisLockKey {
     String value() default "";
 }

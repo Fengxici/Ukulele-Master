@@ -1,77 +1,83 @@
-package timing.ukulele.curator.core;
+package timing.ukulele.redisson.lock.core;
+
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.AfterThrowing;
-import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
-import timing.ukulele.curator.annotation.ZookeeperLock;
-import timing.ukulele.curator.handler.ZookeeperLockInvocationException;
-import timing.ukulele.curator.lock.Lock;
-import timing.ukulele.curator.lock.LockFactory;
-import timing.ukulele.curator.model.LockInfo;
+import timing.ukulele.redisson.lock.annotation.RedisLock;
+import timing.ukulele.redisson.lock.handler.RedisLockInvocationException;
+import timing.ukulele.redisson.lock.Lock;
+import timing.ukulele.redisson.lock.LockFactory;
+import timing.ukulele.redisson.lock.model.LockInfo;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
- * 给添加@ZookeeperLock切面加锁处理
+ * 给添加@TRedisLock切面加锁处理
  */
 @Aspect
 @Component
-public class ZookeeperLockAspectHandler {
+public class RedisLockAspectHandler {
+    private static final Logger logger = LoggerFactory.getLogger(RedisLockAspectHandler.class);
+
     private final LockFactory lockFactory;
+
     private final LockInfoProvider lockInfoProvider;
+
     private ThreadLocal<Lock> currentThreadLock = new ThreadLocal<>();
     private ThreadLocal<LockRes> currentThreadLockRes = new ThreadLocal<>();
-    private static final Logger logger = LoggerFactory.getLogger(ZookeeperLockAspectHandler.class);
 
     @Autowired
-    public ZookeeperLockAspectHandler(LockFactory lockFactory, LockInfoProvider lockInfoProvider) {
+    public RedisLockAspectHandler(LockFactory lockFactory, LockInfoProvider lockInfoProvider) {
         this.lockFactory = lockFactory;
         this.lockInfoProvider = lockInfoProvider;
     }
 
-    @Around(value = "@annotation(zookeeperLock)")
-    public Object around(ProceedingJoinPoint joinPoint, ZookeeperLock zookeeperLock) throws Throwable {
-        LockInfo lockInfo = lockInfoProvider.get(joinPoint, zookeeperLock);
-        lockInfo.setLeaseTime(System.currentTimeMillis());
+    @Around(value = "@annotation(redisLock)")
+    public Object around(ProceedingJoinPoint joinPoint, RedisLock redisLock) throws Throwable {
+        LockInfo lockInfo = lockInfoProvider.get(joinPoint, redisLock);
         currentThreadLockRes.set(new LockRes(lockInfo, false));
         Lock lock = lockFactory.getLock(lockInfo);
         boolean lockRes = lock.acquire();
+
         if (!lockRes) {
             if (logger.isWarnEnabled()) {
                 logger.warn("Timeout while acquiring Lock({})", lockInfo.getName());
             }
-            if (!StringUtils.isEmpty(zookeeperLock.customLockTimeoutStrategy())) {
-                return handleCustomLockTimeout(zookeeperLock.customLockTimeoutStrategy(), joinPoint);
+
+            if (!StringUtils.isEmpty(redisLock.customLockTimeoutStrategy())) {
+
+                return handleCustomLockTimeout(redisLock.customLockTimeoutStrategy(), joinPoint);
+
             } else {
-                lockInfo.setLeaseTime((System.currentTimeMillis() - lockInfo.getLeaseTime()) / 1000);
-                zookeeperLock.lockTimeoutStrategy().handle(lockInfo, lock, joinPoint);
+                redisLock.lockTimeoutStrategy().handle(lockInfo, lock, joinPoint);
             }
         }
+
         currentThreadLock.set(lock);
         currentThreadLockRes.get().setRes(true);
+
         return joinPoint.proceed();
     }
 
+    @AfterReturning(value = "@annotation(redisLock)")
+    public void afterReturning(JoinPoint joinPoint, RedisLock redisLock) throws Throwable {
 
-    @AfterReturning(value = "@annotation(zookeeperLock)")
-    public void afterReturning(JoinPoint joinPoint, ZookeeperLock zookeeperLock) throws Throwable {
-        releaseLock(zookeeperLock, joinPoint);
+        releaseLock(redisLock, joinPoint);
         cleanUpThreadLocal();
     }
 
-    @AfterThrowing(value = "@annotation(zookeeperLock)", throwing = "ex")
-    public void afterThrowing(JoinPoint joinPoint, ZookeeperLock zookeeperLock, Throwable ex) throws Throwable {
-        releaseLock(zookeeperLock, joinPoint);
+    @AfterThrowing(value = "@annotation(redisLock)", throwing = "ex")
+    public void afterThrowing(JoinPoint joinPoint, RedisLock redisLock, Throwable ex) throws Throwable {
+
+        releaseLock(redisLock, joinPoint);
         cleanUpThreadLocal();
         throw ex;
     }
@@ -80,6 +86,7 @@ public class ZookeeperLockAspectHandler {
      * 处理自定义加锁超时
      */
     private Object handleCustomLockTimeout(String lockTimeoutHandler, JoinPoint joinPoint) throws Throwable {
+
         // prepare invocation context
         Method currentMethod = ((MethodSignature) joinPoint.getSignature()).getMethod();
         Object target = joinPoint.getTarget();
@@ -97,7 +104,7 @@ public class ZookeeperLockAspectHandler {
         try {
             res = handleMethod.invoke(target, args);
         } catch (IllegalAccessException e) {
-            throw new ZookeeperLockInvocationException("Fail to invoke custom lock timeout handler: " + lockTimeoutHandler, e);
+            throw new RedisLockInvocationException("Fail to invoke custom lock timeout handler: " + lockTimeoutHandler, e);
         } catch (InvocationTargetException e) {
             throw e.getTargetException();
         }
@@ -108,14 +115,14 @@ public class ZookeeperLockAspectHandler {
     /**
      * 释放锁
      */
-    private void releaseLock(ZookeeperLock zookeeperLock, JoinPoint joinPoint) throws Throwable {
+    private void releaseLock(RedisLock redisLock, JoinPoint joinPoint) throws Throwable {
         LockRes lockRes = currentThreadLockRes.get();
         if (lockRes.getRes()) {
             boolean releaseRes = currentThreadLock.get().release();
             // avoid release lock twice when exception happens below
             lockRes.setRes(false);
             if (!releaseRes) {
-                handleReleaseTimeout(zookeeperLock, lockRes.getLockInfo(), joinPoint);
+                handleReleaseTimeout(redisLock, lockRes.getLockInfo(), joinPoint);
             }
         }
     }
@@ -124,18 +131,18 @@ public class ZookeeperLockAspectHandler {
     /**
      * 处理释放锁时已超时
      */
-    private void handleReleaseTimeout(ZookeeperLock zookeeperLock, LockInfo lockInfo, JoinPoint joinPoint) throws Throwable {
+    private void handleReleaseTimeout(RedisLock redisLock, LockInfo lockInfo, JoinPoint joinPoint) throws Throwable {
 
         if (logger.isWarnEnabled()) {
             logger.warn("Timeout while release Lock({})", lockInfo.getName());
         }
 
-        if (!StringUtils.isEmpty(zookeeperLock.customReleaseTimeoutStrategy())) {
+        if (!StringUtils.isEmpty(redisLock.customReleaseTimeoutStrategy())) {
 
-            handleCustomReleaseTimeout(zookeeperLock.customReleaseTimeoutStrategy(), joinPoint);
+            handleCustomReleaseTimeout(redisLock.customReleaseTimeoutStrategy(), joinPoint);
 
         } else {
-            zookeeperLock.releaseTimeoutStrategy().handle(lockInfo);
+            redisLock.releaseTimeoutStrategy().handle(lockInfo);
         }
 
     }
@@ -159,7 +166,7 @@ public class ZookeeperLockAspectHandler {
         try {
             handleMethod.invoke(target, args);
         } catch (IllegalAccessException e) {
-            throw new ZookeeperLockInvocationException("Fail to invoke custom release timeout handler: " + releaseTimeoutHandler, e);
+            throw new RedisLockInvocationException("Fail to invoke custom release timeout handler: " + releaseTimeoutHandler, e);
         } catch (InvocationTargetException e) {
             throw e.getTargetException();
         }
@@ -199,6 +206,4 @@ public class ZookeeperLockAspectHandler {
         currentThreadLockRes.remove();
         currentThreadLock.remove();
     }
-
 }
-

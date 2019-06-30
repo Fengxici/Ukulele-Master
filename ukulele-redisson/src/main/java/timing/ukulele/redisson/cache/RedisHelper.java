@@ -1,11 +1,9 @@
-package timing.ukulele.redisson;
+package timing.ukulele.redisson.cache;
 
 import org.redisson.api.RBucket;
 import org.redisson.api.RType;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import timing.ukulele.redisson.cache.CacheManager;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -17,9 +15,10 @@ import java.util.concurrent.TimeUnit;
 /**
  * Redis缓存辅助类
  */
-public class RedissonHelper implements CacheManager {
+public class RedisHelper implements CacheManager {
     @Autowired
-    private RedissonClient redisTemplate = null;
+    RedissonClient redisTemplate;
+
     private Integer EXPIRE = 60;
 
     /**

@@ -5,7 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = ZookeeperLockConfig.PREFIX)
 public class ZookeeperLockConfig {
 
-    public static final String PREFIX = "spring.zookeeper.lock";
+    public static final String PREFIX = "timing.lock.zookeeper";
     private String password;
     private String clusterServer;
     //lock

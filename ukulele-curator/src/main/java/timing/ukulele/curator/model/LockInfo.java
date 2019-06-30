@@ -8,6 +8,7 @@ public class LockInfo {
     private LockType type;
     private String name;
     private long waitTime;
+    private long leaseTime;
 
     public LockInfo() {
     }
@@ -40,5 +41,13 @@ public class LockInfo {
 
     public void setType(LockType type) {
         this.type = type;
+    }
+
+    public long getLeaseTime() {
+        return leaseTime;
+    }
+
+    public void setLeaseTime(long leaseTime) {
+        this.leaseTime = leaseTime;
     }
 }

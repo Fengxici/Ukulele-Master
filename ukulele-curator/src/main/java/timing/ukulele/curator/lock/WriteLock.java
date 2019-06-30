@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 import static org.apache.curator.framework.state.ConnectionState.LOST;
 import static org.apache.curator.framework.state.ConnectionState.SUSPENDED;
 
-public class WriteLock implements Lock ,ConnectionStateListener {
+public class WriteLock implements Lock, ConnectionStateListener {
 
     private InterProcessReadWriteLock interProcessReadWriteLock;
 
@@ -19,8 +19,9 @@ public class WriteLock implements Lock ,ConnectionStateListener {
 
     private CuratorFramework curatorClient;
 
-    public WriteLock(CuratorFramework curatorClient) {
+    public WriteLock(CuratorFramework curatorClient, LockInfo info) {
         this.curatorClient = curatorClient;
+        this.lockInfo = info;
     }
 
     @Override
@@ -29,32 +30,34 @@ public class WriteLock implements Lock ,ConnectionStateListener {
             interProcessReadWriteLock = new InterProcessReadWriteLock(curatorClient, lockInfo.getName());
             return interProcessReadWriteLock.writeLock().acquire(lockInfo.getWaitTime(), TimeUnit.SECONDS);
         } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
     }
 
     @Override
-    public void release() throws Exception {
-        if(interProcessReadWriteLock.writeLock().isAcquiredInThisProcess()){
-            interProcessReadWriteLock.writeLock().release();
+    public boolean release() {
+        if (interProcessReadWriteLock.writeLock().isAcquiredInThisProcess()) {
+            try {
+                interProcessReadWriteLock.writeLock().release();
+                return true;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
         }
+        return false;
     }
+
     @Override
     public void stateChanged(CuratorFramework curatorFramework, ConnectionState connectionState) {
-        if(LOST==connectionState||SUSPENDED==connectionState)
+        if (LOST == connectionState || SUSPENDED == connectionState)
             try {
                 release();
             } catch (Exception e) {
                 e.printStackTrace();
             }
     }
-    public LockInfo getLockInfo() {
-        return lockInfo;
-    }
 
-    public Lock setLockInfo(LockInfo lockInfo) {
-        this.lockInfo = lockInfo;
-        return this;
-    }
 }
 

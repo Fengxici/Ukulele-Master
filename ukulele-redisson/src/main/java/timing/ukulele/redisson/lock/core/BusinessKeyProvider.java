@@ -1,4 +1,4 @@
-package timing.ukulele.redisson.core;
+package timing.ukulele.redisson.lock.core;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -10,8 +10,8 @@ import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.util.StringUtils;
-import timing.ukulele.redisson.annotation.RedissonLock;
-import timing.ukulele.redisson.annotation.RedissonLockKey;
+import timing.ukulele.redisson.lock.annotation.RedisLock;
+import timing.ukulele.redisson.lock.annotation.RedisLockKey;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
@@ -22,14 +22,15 @@ import java.util.List;
  * 获取用户定义业务key
  */
 public class BusinessKeyProvider {
+
     private ParameterNameDiscoverer nameDiscoverer = new DefaultParameterNameDiscoverer();
 
     private ExpressionParser parser = new SpelExpressionParser();
 
-    public String getKeyName(ProceedingJoinPoint joinPoint, RedissonLock lvLock) {
+    public String getKeyName(ProceedingJoinPoint joinPoint, RedisLock redisLock) {
         List<String> keyList = new ArrayList<>();
         Method method = getMethod(joinPoint);
-        List<String> definitionKeys = getSpelDefinitionKey(lvLock.keys(), method, joinPoint.getArgs());
+        List<String> definitionKeys = getSpelDefinitionKey(redisLock.keys(), method, joinPoint.getArgs());
         keyList.addAll(definitionKeys);
         List<String> parameterKeys = getParameterKey(method.getParameters(), joinPoint.getArgs());
         keyList.addAll(parameterKeys);
@@ -65,8 +66,8 @@ public class BusinessKeyProvider {
     private List<String> getParameterKey(Parameter[] parameters, Object[] parameterValues) {
         List<String> parameterKey = new ArrayList<>();
         for (int i = 0; i < parameters.length; i++) {
-            if (parameters[i].getAnnotation(RedissonLockKey.class) != null) {
-                RedissonLockKey keyAnnotation = parameters[i].getAnnotation(RedissonLockKey.class);
+            if (parameters[i].getAnnotation(RedisLockKey.class) != null) {
+                RedisLockKey keyAnnotation = parameters[i].getAnnotation(RedisLockKey.class);
                 if (keyAnnotation.value().isEmpty()) {
                     parameterKey.add(parameterValues[i].toString());
                 } else {

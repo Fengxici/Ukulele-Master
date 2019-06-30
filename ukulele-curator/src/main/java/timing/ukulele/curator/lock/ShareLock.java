@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 import static org.apache.curator.framework.state.ConnectionState.LOST;
 import static org.apache.curator.framework.state.ConnectionState.SUSPENDED;
 
-public class ShareLock implements Lock ,ConnectionStateListener {
+public class ShareLock implements Lock, ConnectionStateListener {
 
     private InterProcessLock shareLock;
 
@@ -20,38 +20,39 @@ public class ShareLock implements Lock ,ConnectionStateListener {
 
     private CuratorFramework curatorClient;
 
-    public ShareLock(CuratorFramework curatorClient) {
+    public ShareLock(CuratorFramework curatorClient, LockInfo info) {
         this.curatorClient = curatorClient;
+        this.lockInfo = info;
     }
 
     @Override
-    public boolean acquire()  {
+    public boolean acquire() {
         try {
             shareLock = new InterProcessSemaphoreMutex(curatorClient, lockInfo.getName());
             return shareLock.acquire(lockInfo.getWaitTime(), TimeUnit.SECONDS);
         } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
     }
 
     @Override
-    public void release() throws Exception {
+    public boolean release() {
         if (shareLock.isAcquiredInThisProcess()) {
-            shareLock.release();
-        }
-    }
-    @Override
-    public void stateChanged(CuratorFramework curatorFramework, ConnectionState connectionState) {
-        if(LOST==connectionState||SUSPENDED==connectionState)
             try {
-                release();
+                shareLock.release();
+                return true;
             } catch (Exception e) {
                 e.printStackTrace();
+                return false;
             }
+        }
+        return false;
     }
 
-    public Lock setLockInfo(LockInfo lockInfo) {
-        this.lockInfo = lockInfo;
-        return this;
+    @Override
+    public void stateChanged(CuratorFramework curatorFramework, ConnectionState connectionState) {
+        if (LOST == connectionState || SUSPENDED == connectionState)
+            release();
     }
 }

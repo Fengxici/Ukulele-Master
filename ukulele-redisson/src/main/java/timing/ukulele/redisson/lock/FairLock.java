@@ -2,8 +2,9 @@ package timing.ukulele.redisson.lock;
 
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
-import timing.ukulele.redisson.model.LockInfo;
+import timing.ukulele.redisson.lock.model.LockInfo;
 
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -18,12 +19,13 @@ public class FairLock implements Lock {
 
     private RLock rLock;
 
-    private LockInfo lockInfo;
+    private final LockInfo lockInfo;
 
     private RedissonClient redissonClient;
 
-    public FairLock(RedissonClient redissonClient) {
+    public FairLock(RedissonClient redissonClient, LockInfo info) {
         this.redissonClient = redissonClient;
+        this.lockInfo = info;
     }
 
     @Override
@@ -37,14 +39,15 @@ public class FairLock implements Lock {
     }
 
     @Override
-    public void release() {
+    public boolean release() {
         if (rLock.isHeldByCurrentThread()) {
-            rLock.unlockAsync();
+            try {
+                return rLock.forceUnlockAsync().get();
+            } catch (InterruptedException | ExecutionException e) {
+                return false;
+            }
         }
+        return false;
     }
 
-    public Lock setLockInfo(LockInfo lockInfo) {
-        this.lockInfo = lockInfo;
-        return this;
-    }
 }

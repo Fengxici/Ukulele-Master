@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 import static org.apache.curator.framework.state.ConnectionState.LOST;
 import static org.apache.curator.framework.state.ConnectionState.SUSPENDED;
 
-public class ReentrantLock implements Lock ,ConnectionStateListener {
+public class ReentrantLock implements Lock, ConnectionStateListener {
 
     private InterProcessLock reentrantLock;
 
@@ -20,41 +20,39 @@ public class ReentrantLock implements Lock ,ConnectionStateListener {
 
     private CuratorFramework curatorClient;
 
-    public ReentrantLock(CuratorFramework curatorClient) {
+    public ReentrantLock(CuratorFramework curatorClient, LockInfo info) {
         this.curatorClient = curatorClient;
+        this.lockInfo = info;
     }
+
     @Override
     public boolean acquire() {
         try {
             reentrantLock = new InterProcessMutex(curatorClient, lockInfo.getName());
             return reentrantLock.acquire(lockInfo.getWaitTime(), TimeUnit.SECONDS);
         } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
     }
 
     @Override
-    public void release() throws Exception {
-        if(reentrantLock.isAcquiredInThisProcess()){
-            reentrantLock.release();
-        }
-
-    }
-    @Override
-    public void stateChanged(CuratorFramework curatorFramework, ConnectionState connectionState) {
-        if(LOST==connectionState||SUSPENDED==connectionState)
+    public boolean release() {
+        if (reentrantLock.isAcquiredInThisProcess()) {
             try {
-                release();
+                reentrantLock.release();
+                return true;
             } catch (Exception e) {
                 e.printStackTrace();
+                return false;
             }
-    }
-    public LockInfo getLockInfo() {
-        return lockInfo;
+        }
+        return false;
     }
 
-    public Lock setLockInfo(LockInfo lockInfo) {
-        this.lockInfo = lockInfo;
-        return this;
+    @Override
+    public void stateChanged(CuratorFramework curatorFramework, ConnectionState connectionState) {
+        if (LOST == connectionState || SUSPENDED == connectionState)
+            release();
     }
 }

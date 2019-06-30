@@ -1,11 +1,8 @@
 package timing.ukulele.curator.lock;
 
-import timing.ukulele.curator.model.LockInfo;
-
 public interface Lock {
-    Lock setLockInfo(LockInfo lockInfo);
 
-    boolean acquire() throws Exception;
+    boolean acquire();
 
-    void release() throws Exception;
+    boolean release();
 }

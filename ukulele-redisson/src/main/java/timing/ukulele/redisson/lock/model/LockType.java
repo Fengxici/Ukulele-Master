@@ -1,4 +1,4 @@
-package timing.ukulele.redisson.model;
+package timing.ukulele.redisson.lock.model;
 
 /**
  * Content :锁类型
