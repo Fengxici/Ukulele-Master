@@ -23,7 +23,7 @@ import java.util.List;
 @Configuration
 @EnableConfigurationProperties(RedisProperties.class)
 @ConditionalOnClass({Redisson.class})
-@ConditionalOnExpression("'${timing.redis.mode}'=='single' or '${timing.redis.mode}'=='cluster' or '${timing.redis.mode}'=='sentinel'")
+@ConditionalOnExpression("'${ukulele.redis.mode}'=='single' or '${ukulele.redis.mode}'=='cluster' or '${ukulele.redis.mode}'=='sentinel'")
 public class TimingRedisAutoConfiguration {
     private final RedisProperties redisProperties;
 
@@ -36,7 +36,7 @@ public class TimingRedisAutoConfiguration {
      * 单机模式 redisson 客户端
      */
     @Bean(destroyMethod = "shutdown")
-    @ConditionalOnProperty(name = "timing.redis.mode", havingValue = "single")
+    @ConditionalOnProperty(name = "ukulele.redis.mode", havingValue = "single")
     RedissonClient redissonSingle() throws Exception {
         Config config = new Config();
         String node = redisProperties.getSingle().getAddress();
@@ -57,7 +57,7 @@ public class TimingRedisAutoConfiguration {
      * 集群模式的 redisson 客户端
      */
     @Bean(destroyMethod = "shutdown")
-    @ConditionalOnProperty(name = "timing.redis.mode", havingValue = "cluster")
+    @ConditionalOnProperty(name = "ukulele.redis.mode", havingValue = "cluster")
     RedissonClient redissonCluster() throws Exception {
         System.out.println("cluster redisProperties:" + redisProperties.getCluster());
         Config config = new Config();
@@ -96,7 +96,7 @@ public class TimingRedisAutoConfiguration {
      * 哨兵模式 redisson 客户端
      */
     @Bean(destroyMethod = "shutdown")
-    @ConditionalOnProperty(name = "timing.redis.mode", havingValue = "sentinel")
+    @ConditionalOnProperty(name = "ukulele.redis.mode", havingValue = "sentinel")
     RedissonClient redissonSentinel() throws Exception {
         System.out.println("sentinel redisProperties:" + redisProperties.getSentinel());
         Config config = new Config();

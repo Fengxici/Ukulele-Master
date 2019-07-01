@@ -5,7 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = RedisLockConfig.PREFIX)
 public class RedisLockConfig {
 
-    static final String PREFIX = "timing.redis.lock";
+    static final String PREFIX = "ukulele.redis.lock";
     //lock
     private long waitTime = 60;
     private long leaseTime = 60;
