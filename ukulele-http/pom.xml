@@ -10,9 +10,8 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>ukulele-http</artifactId>
     <name>ukulele-http</name>
-    <url>https://gitee.com/fengxici</url>
-    <description>okhttp3及retrofit2整合</description>
-
+    <url>https://fengxici.github.io</url>
+    <description>OkHttp3及Retrofit2整合</description>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
