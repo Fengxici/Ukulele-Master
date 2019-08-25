@@ -12,10 +12,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import springfox.documentation.builders.ApiInfoBuilder;
-import springfox.documentation.builders.ParameterBuilder;
-import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.builders.*;
 import springfox.documentation.schema.ModelRef;
 import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
@@ -26,12 +23,15 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Configuration
-@Import( {
-        Swagger2Configuration.class
-})
+@Import({Swagger2Configuration.class})
 public class SwaggerAutoConfiguration implements BeanFactoryAware {
 
     private BeanFactory beanFactory;
+
+    @Override
+    public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
+        this.beanFactory = beanFactory;
+    }
 
     @Bean
     @ConditionalOnMissingBean
@@ -45,7 +45,6 @@ public class SwaggerAutoConfiguration implements BeanFactoryAware {
     public List<Docket> createRestApi(SwaggerProperties swaggerProperties) {
         ConfigurableBeanFactory configurableBeanFactory = (ConfigurableBeanFactory) beanFactory;
         List<Docket> docketList = new LinkedList<>();
-
         // 没有分组
         if (swaggerProperties.getDocket().size() == 0) {
             final Docket docket = createDocket(swaggerProperties);
@@ -105,9 +104,8 @@ public class SwaggerAutoConfiguration implements BeanFactoryAware {
                             )
                     )
                     .build()
-                    .securitySchemes(securitySchemes())
-                    .securityContexts(securityContexts());
-
+                    .securitySchemes(Lists.newArrayList(oauth(swaggerProperties)))
+                    .securityContexts(Lists.newArrayList(securityContext()));
             configurableBeanFactory.registerSingleton(groupName, docket);
             docketList.add(docket);
         }
@@ -163,39 +161,50 @@ public class SwaggerAutoConfiguration implements BeanFactoryAware {
                         )
                 )
                 .build()
-                .securitySchemes(securitySchemes())
-                .securityContexts(securityContexts());
+                .securitySchemes(Lists.newArrayList(oauth(swaggerProperties)))
+                .securityContexts(Lists.newArrayList(securityContext()));
     }
 
-    @Override
-    public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
-        this.beanFactory = beanFactory;
+    private List<GrantType> grantTypes(SwaggerProperties swaggerProperties) {
+        String tokenUrl = swaggerProperties.getOauthUrl() + "/oauth/token", authorizeUrl = swaggerProperties.getOauthUrl() + "/oauth/authorize";
+        List<GrantType> grantTypes = new ArrayList<>();
+        ClientCredentialsGrant clientCredentialsGrant = new ClientCredentialsGrant(tokenUrl);
+        ResourceOwnerPasswordCredentialsGrant resourceOwnerPasswordCredentialsGrant =
+                new ResourceOwnerPasswordCredentialsGrant(tokenUrl);
+        AuthorizationCodeGrant authorizationCodeGrant = new AuthorizationCodeGrant(new TokenRequestEndpoint(authorizeUrl
+                , "clientId", "clientSecret"), new TokenEndpoint(tokenUrl, "access_token"));
+        ImplicitGrant implicitGrant = new ImplicitGrant(new LoginEndpoint(tokenUrl), "access_token");
+        grantTypes.add(resourceOwnerPasswordCredentialsGrant);
+        grantTypes.add(implicitGrant);
+        grantTypes.add(authorizationCodeGrant);
+        grantTypes.add(clientCredentialsGrant);
+        return grantTypes;
     }
 
-    private List<SecurityContext> securityContexts() {
-        List<SecurityContext> contexts = new ArrayList<>(1);
-        SecurityContext securityContext = SecurityContext.builder()
+    private SecurityContext securityContext() {
+        return SecurityContext.builder()
                 .securityReferences(defaultAuth())
-                //.forPaths(PathSelectors.regex("^(?!auth).*$"))
+                .forPaths(PathSelectors.ant("/api/**"))//配置哪些url需要做oauth2认证
                 .build();
-        contexts.add(securityContext);
-        return contexts;
     }
 
     private List<SecurityReference> defaultAuth() {
-        AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything");
-        AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
-        authorizationScopes[0] = authorizationScope;
-        List<SecurityReference> references = new ArrayList<>(1);
-        references.add(new SecurityReference("Authorization", authorizationScopes));
-        return references;
+        return Lists.newArrayList(
+                new SecurityReference("oauth2", scopes().toArray(new AuthorizationScope[0])));
     }
 
-    private List<ApiKey> securitySchemes() {
-        List<ApiKey> apiKeys = new ArrayList<>(1);
-        ApiKey apiKey = new ApiKey("Authorization", "Authorization", "header");
-        apiKeys.add(apiKey);
-        return apiKeys;
+    private SecurityScheme oauth(SwaggerProperties swaggerProperties) {
+        return new OAuthBuilder()
+                .name("oauth2")
+                .scopes(scopes())
+                .grantTypes(grantTypes(swaggerProperties))
+                .build();
+    }
+
+    private List<AuthorizationScope> scopes() {
+        List<AuthorizationScope> list = new ArrayList<>();
+        list.add(new AuthorizationScope("user", "Grants user access"));
+        return list;
     }
 
     private List<Parameter> buildGlobalOperationParametersFromSwaggerProperties(
