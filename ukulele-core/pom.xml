@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>ukulele-core</artifactId>
     <name>ukulele-core</name>
-    <url>https://gitee.com/fengxici</url>
+    <url>https://fengxici.github.io</url>
     <description>核心类库</description>
 
     <dependencies>
@@ -24,4 +24,15 @@
             <artifactId>slf4j-api</artifactId>
         </dependency>
     </dependencies>
+    <developers>
+        <developer>
+            <name>吕自聪</name>
+            <id>lvzc</id>
+            <email>lvzc@bsoft.com.cn</email>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>+8</timezone>
+        </developer>
+    </developers>
 </project>
