@@ -2,10 +2,8 @@ package timing.ukulele.curator.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties(prefix = ZookeeperLockConfig.PREFIX)
+@ConfigurationProperties(prefix = "ukulele.zookeeper.lock")
 public class ZookeeperLockConfig {
-
-    public static final String PREFIX = "ukulele.zookeeper.lock";
     private String password;
     private String clusterServer;
     //lock

@@ -10,10 +10,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>ukulele-curator</artifactId>
-
     <name>ukulele-curator</name>
-    <url>https://gitee.com/fengxici</url>
-    <description>基于redisson的缓存及分布式锁整合</description>
+    <url>https://fengxici.github.io</url>
+    <description>基于curator的缓存及分布式锁整合</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -33,5 +32,15 @@
             <artifactId>aspectjrt</artifactId>
         </dependency>
     </dependencies>
-
+    <developers>
+        <developer>
+            <name>吕自聪</name>
+            <id>lvzc</id>
+            <email>lvzc@bsoft.com.cn</email>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>+8</timezone>
+        </developer>
+    </developers>
 </project>
