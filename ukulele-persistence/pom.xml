@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>ukulele-persistence</artifactId>
     <name>ukulele-persistence</name>
-    <url>https://gitee.com/fengxici</url>
+    <url>https://fengxici.github.io</url>
     <description>基于mybatis、mybatis-plus的持久层组件</description>
     <dependencies>
         <dependency>
@@ -99,9 +99,16 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <dependency>
-            <groupId>p6spy</groupId>
-            <artifactId>p6spy</artifactId>
-        </dependency>
     </dependencies>
+    <developers>
+        <developer>
+            <name>吕自聪</name>
+            <id>lvzc</id>
+            <email>lvzc@bsoft.com.cn</email>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>+8</timezone>
+        </developer>
+    </developers>
 </project>
