@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>ukulele-redisson</artifactId>
     <name>ukulele-redisson</name>
-    <url>https://gitee.com/fengxici</url>
+    <url>https://fengxici.github.io</url>
     <description>基于redisson的缓存及分布式锁整合</description>
 
     <properties>
@@ -37,5 +37,15 @@
             <artifactId>aspectjrt</artifactId>
         </dependency>
     </dependencies>
-
+    <developers>
+        <developer>
+            <name>吕自聪</name>
+            <id>lvzc</id>
+            <email>lvzc@bsoft.com.cn</email>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>+8</timezone>
+        </developer>
+    </developers>
 </project>

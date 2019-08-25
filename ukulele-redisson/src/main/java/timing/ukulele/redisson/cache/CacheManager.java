@@ -5,6 +5,7 @@ import java.util.Set;
 
 public interface CacheManager {
 	Object get(final String key);
+	Object get(final String key,boolean expire);
 
 	Set<Object> getAll(final String pattern);
 

@@ -44,15 +44,28 @@ public class RedisHelper implements CacheManager {
     /**
      * 根据键值获取对象
      *
+     * @param key    键值
+     * @param expire 是否延长
+     * @return 对象
+     */
+    public final Object get(final String key, boolean expire) {
+        RBucket<Object> temp = getRedisBucket(key);
+        if (expire)
+            expire(temp, EXPIRE);
+        return temp.get();
+    }
+
+    /**
+     * 根据键值获取对象
+     *
      * @param key 键值
      * @return 对象
      */
     public final Object get(final String key) {
         RBucket<Object> temp = getRedisBucket(key);
-//		get时暂时不设置过期时间 吕自聪 2017/06/15
-//		expire(temp, EXPIRE);
         return temp.get();
     }
+
 
     /**
      * 设置某个键值，默认的过期时间
