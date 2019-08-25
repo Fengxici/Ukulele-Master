@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>ukulele-web</artifactId>
     <name>ukulele-web</name>
-    <url>https://gitee.com/fengxici</url>
+    <url>https://fengxici.github.io</url>
     <description>web类库</description>
 
     <dependencies>
@@ -41,4 +41,15 @@
             <artifactId>jackson-datatype-jsr310</artifactId>
         </dependency>
     </dependencies>
+    <developers>
+        <developer>
+            <name>吕自聪</name>
+            <id>lvzc</id>
+            <email>lvzc@bsoft.com.cn</email>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>+8</timezone>
+        </developer>
+    </developers>
 </project>
