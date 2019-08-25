@@ -1,0 +1,325 @@
+{
+  "groups": [
+    {
+      "name": "ukulele.swagger",
+      "description": "swagger配置组.",
+      "type": "timing.ukulele.swagger.SwaggerProperties",
+      "sourceType": "timing.ukulele.swagger.SwaggerProperties"
+    },
+    {
+      "name": "ukulele.swagger.contact",
+      "type": "timing.ukulele.swagger.SwaggerProperties$Contact",
+      "sourceType": "timing.ukulele.swagger.SwaggerProperties",
+      "description": "swagger文档联系人配置组.",
+      "sourceMethod": "getContact()"
+    },
+    {
+      "name": "ukulele.swagger.docket.default",
+      "type": "timing.ukulele.swagger.SwaggerProperties$DocketInfo",
+      "sourceType": "timing.ukulele.swagger.SwaggerProperties",
+      "description": "默认分组文档配置(演示)."
+    },
+    {
+      "name": "ukulele.swagger.global-operation-parameters.param[0]",
+      "type": "timing.ukulele.swagger.SwaggerProperties$GlobalOperationParameter",
+      "sourceType": "timing.ukulele.swagger.SwaggerProperties",
+      "description": "全局参数配置项目(演示)."
+    }
+  ],
+  "properties": [
+    {
+      "name": "ukulele.swagger.enabled",
+      "type": "java.lang.Boolean",
+      "sourceType": "timing.ukulele.swagger.SwaggerProperties",
+      "description": "是否开启swagger.",
+      "defaultValue": false
+    },
+    {
+      "name": "ukulele.swagger.title",
+      "type": "java.lang.String",
+      "sourceType": "timing.ukulele.swagger.SwaggerProperties",
+      "description": "标题.",
+      "defaultValue": ""
+    },
+    {
+      "name": "ukulele.swagger.description",
+      "type": "java.lang.String",
+      "sourceType": "timing.ukulele.swagger.SwaggerProperties",
+      "description": "描述.",
+      "defaultValue": ""
+    },
+    {
+      "name": "ukulele.swagger.version",
+      "type": "java.lang.String",
+      "sourceType": "timing.ukulele.swagger.SwaggerProperties",
+      "description": "版本.",
+      "defaultValue": ""
+    },
+    {
+      "name": "ukulele.swagger.license",
+      "type": "java.lang.String",
+      "sourceType": "timing.ukulele.swagger.SwaggerProperties",
+      "description": "许可证."
+    },
+    {
+      "name": "ukulele.swagger.license-url",
+      "type": "java.lang.String",
+      "sourceType": "timing.ukulele.swagger.SwaggerProperties",
+      "description": "许可证URL.",
+      "defaultValue": ""
+    },
+    {
+      "name": "ukulele.swagger.terms-of-service-url",
+      "type": "java.lang.String",
+      "sourceType": "timing.ukulele.swagger.SwaggerProperties",
+      "description": "服务条款URL.",
+      "defaultValue": ""
+    },
+    {
+      "name": "ukulele.swagger.base-package",
+      "type": "java.lang.String",
+      "sourceType": "timing.ukulele.swagger.SwaggerProperties",
+      "description": "swagger会解析的包路径.",
+      "defaultValue": ""
+    },
+    {
+      "name": "ukulele.swagger.base-path",
+      "type": "java.util.ArrayList<java.lang.String>",
+      "sourceType": "timing.ukulele.swagger.SwaggerProperties",
+      "description": "swagger会解析的url规则."
+    },
+    {
+      "name": "ukulele.swagger.exclude-path",
+      "type": "java.util.ArrayList<java.lang.String>",
+      "sourceType": "timing.ukulele.swagger.SwaggerProperties",
+      "description": "在basePath基础上需要排除的url规则."
+    },
+    {
+      "name": "ukulele.swagger.host",
+      "type": "java.lang.String",
+      "sourceType": "timing.ukulele.swagger.SwaggerProperties",
+      "description": "host信息.",
+      "defaultValue": ""
+    },
+    {
+      "name": "ukulele.swagger.oauth-url",
+      "type": "java.lang.String",
+      "sourceType": "timing.ukulele.swagger.SwaggerProperties",
+      "description": "host信息.",
+      "defaultValue": ""
+    },
+    {
+      "name": "ukulele.swagger.docket",
+      "type": "java.util.LinkedHashMap<java.lang.String,timing.ukulele.swagger.SwaggerProperties$DocketInfo>",
+      "sourceType": "timing.ukulele.swagger.SwaggerProperties",
+      "description": "分组文档."
+    },
+    {
+      "name": "ukulele.swagger.docket.default.title",
+      "type": "java.lang.String",
+      "sourceType": "timing.ukulele.swagger.SwaggerProperties",
+      "description": "标题(演示).",
+      "defaultValue": ""
+    },
+    {
+      "name": "ukulele.swagger.docket.default.description",
+      "type": "java.lang.String",
+      "sourceType": "timing.ukulele.swagger.SwaggerProperties",
+      "description": "描述(演示).",
+      "defaultValue": ""
+    },
+    {
+      "name": "ukulele.swagger.docket.default.version",
+      "type": "java.lang.String",
+      "sourceType": "timing.ukulele.swagger.SwaggerProperties",
+      "description": "版本(演示).",
+      "defaultValue": ""
+    },
+    {
+      "name": "ukulele.swagger.docket.default.license",
+      "type": "java.lang.String",
+      "sourceType": "timing.ukulele.swagger.SwaggerProperties",
+      "description": "许可证(演示).",
+      "defaultValue": ""
+    },
+    {
+      "name": "ukulele.swagger.docket.default.license-url",
+      "type": "java.lang.String",
+      "sourceType": "timing.ukulele.swagger.SwaggerProperties",
+      "description": "许可证URL(演示).",
+      "defaultValue": ""
+    },
+    {
+      "name": "ukulele.swagger.docket.default.terms-of-service-url",
+      "type": "java.lang.String",
+      "sourceType": "timing.ukulele.swagger.SwaggerProperties",
+      "description": "服务条款URL(演示).",
+      "defaultValue": ""
+    },
+    {
+      "name": "ukulele.swagger.docket.default.base-package",
+      "type": "java.lang.String",
+      "sourceType": "timing.ukulele.swagger.SwaggerProperties",
+      "description": "swagger会解析的包路径(演示).",
+      "defaultValue": ""
+    },
+    {
+      "name": "ukulele.swagger.docket.default.contact",
+      "type": "timing.ukulele.swagger.SwaggerProperties$Contact",
+      "sourceType": "timing.ukulele.swagger.SwaggerProperties",
+      "description": "联系人(演示)."
+    },
+    {
+      "name": "ukulele.swagger.docket.default.contact.name",
+      "type": "java.lang.String",
+      "sourceType": "timing.ukulele.swagger.SwaggerProperties",
+      "description": "联系人姓名(演示).",
+      "defaultValue": ""
+    },
+    {
+      "name": "ukulele.swagger.docket.default.contact.url",
+      "type": "java.lang.String",
+      "sourceType": "timing.ukulele.swagger.SwaggerProperties",
+      "description": "联系人url(演示).",
+      "defaultValue": ""
+    },
+    {
+      "name": "ukulele.swagger.docket.default.contact.email",
+      "type": "java.lang.String",
+      "sourceType": "timing.ukulele.swagger.SwaggerProperties",
+      "description": "联系人email(演示).",
+      "defaultValue": ""
+    },
+    {
+      "name": "ukulele.swagger.docket.default.base-path",
+      "type": "java.util.ArrayList<java.lang.String>",
+      "sourceType": "timing.ukulele.swagger.SwaggerProperties",
+      "description": "swagger会解析的url规则(演示)."
+    },
+    {
+      "name": "ukulele.swagger.docket.default.exclude-path",
+      "type": "java.util.ArrayList<java.lang.String>",
+      "sourceType": "timing.ukulele.swagger.SwaggerProperties",
+      "description": "在basePath基础上需要排除的url规则(演示)."
+    },
+    {
+      "name": "ukulele.swagger.docket.default.global-operation-parameters",
+      "type": "java.util.ArrayList<java.lang.String,timing.ukulele.swagger.SwaggerProperties$GlobalOperationParameter>",
+      "sourceType": "timing.ukulele.swagger.SwaggerProperties",
+      "description": "全局参数配置(演示)."
+    },
+    {
+      "name": "ukulele.swagger.contact",
+      "type": "timing.ukulele.swagger.SwaggerProperties$DocketInfo$Contact",
+      "sourceType": "timing.ukulele.swagger.SwaggerProperties",
+      "description": "联系人信息."
+    },
+    {
+      "name": "ukulele.swagger.contact.name",
+      "type": "java.lang.String",
+      "sourceType": "timing.ukulele.swagger.SwaggerProperties",
+      "description": "联系人姓名.",
+      "defaultValue": ""
+    },
+    {
+      "name": "ukulele.swagger.contact.url",
+      "type": "java.lang.String",
+      "sourceType": "timing.ukulele.swagger.SwaggerProperties",
+      "description": "联系人url.",
+      "defaultValue": ""
+    },
+    {
+      "name": "ukulele.swagger.contact.email",
+      "type": "java.lang.String",
+      "sourceType": "timing.ukulele.swagger.SwaggerProperties",
+      "description": "联系人email.",
+      "defaultValue": ""
+    },
+    {
+      "name": "ukulele.swagger.global-operation-parameters",
+      "type": "java.util.ArrayList<timing.ukulele.swagger.SwaggerProperties$GlobalOperationParameter>",
+      "sourceType": "timing.ukulele.swagger.SwaggerProperties",
+      "description": "全局参数配置."
+    },
+    {
+      "name": "ukulele.swagger.global-operation-parameters.param[0].name",
+      "type": "java.lang.String",
+      "sourceType": "timing.ukulele.swagger.SwaggerProperties",
+      "description": "参数名(演示)."
+    },
+    {
+      "name": "ukulele.swagger.global-operation-parameters.param[0].description",
+      "type": "java.lang.String",
+      "sourceType": "timing.ukulele.swagger.SwaggerProperties",
+      "description": "描述信息(演示)."
+    },
+    {
+      "name": "ukulele.swagger.global-operation-parameters.param[0].model-ref",
+      "type": "java.lang.String",
+      "sourceType": "timing.ukulele.swagger.SwaggerProperties",
+      "description": "指定参数类型(演示)."
+    },
+    {
+      "name": "ukulele.swagger.global-operation-parameters.param[0].parameter-type",
+      "type": "java.lang.String",
+      "sourceType": "timing.ukulele.swagger.SwaggerProperties",
+      "description": "参数放在哪个地方:header,query,path,body.form(演示)."
+    },
+    {
+      "name": "ukulele.swagger.global-operation-parameters.param[0].required",
+      "type": "java.lang.Boolean",
+      "sourceType": "timing.ukulele.swagger.SwaggerProperties",
+      "description": "参数是否必须传(演示).",
+      "default": false
+    }
+  ],
+  "hints": [
+    {
+      "name": "ukulele.swagger.enabled",
+      "values": [
+        {
+          "value": true,
+          "description": "启用."
+        },
+        {
+          "value": false,
+          "description": "不启用."
+        }
+      ]
+    },
+    {
+      "name": "ukulele.swagger.global-operation-parameters.param[0].required",
+      "values": [
+        {
+          "value": true,
+          "description": "必传."
+        },
+        {
+          "value": false,
+          "description": "非必传."
+        }
+      ]
+    },
+    {
+      "name": "ukulele.swagger.global-operation-parameters.param[0].parameter-ype",
+      "values": [
+        {
+          "value": "header",
+          "description": "请求头."
+        },
+        {
+          "value": "query",
+          "description": "请求参数."
+        },
+        {
+          "value": "path",
+          "description": "请求路径."
+        },
+        {
+          "value": "body.form",
+          "description": "请求体."
+        }
+      ]
+    }
+  ]
+}

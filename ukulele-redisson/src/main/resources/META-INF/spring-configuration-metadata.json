@@ -1,0 +1,269 @@
+{
+  "groups": [
+    {
+      "name": "ukulele.redis",
+      "type": "timing.ukulele.redisson.properties.RedisProperties",
+      "sourceType": "timing.ukulele.redisson.properties.RedisProperties",
+      "description": "给予redisson的redis配置."
+    },
+    {
+      "name": "ukulele.redis.lock",
+      "type": "timing.ukulele.redisson.lock.config.RedisLockConfig",
+      "sourceType": "timing.ukulele.redisson.lock.config.RedisLockConfig",
+      "description": "给予redisson的redis锁配置."
+    },
+    {
+      "name": "ukulele.redis.mode",
+      "type": "timing.ukulele.redisson.lock.config.RedisLockConfig",
+      "sourceType": "timing.ukulele.redisson.lock.config.RedisLockConfig",
+      "description": "给予redisson的redis模式."
+    },
+    {
+      "name": "ukulele.redis.pool",
+      "type": "timing.ukulele.redisson.properties.RedisPoolProperties",
+      "sourceType": "timing.ukulele.redisson.lock.config.RedisLockConfig",
+      "description": "连接池."
+    },
+    {
+      "name": "ukulele.redis.single",
+      "type": "timing.ukulele.redisson.properties.RedisSingleProperties",
+      "sourceType": "timing.ukulele.redisson.lock.config.RedisLockConfig",
+      "description": "单机模式."
+    },
+    {
+      "name": "ukulele.redis.cluster",
+      "type": "timing.ukulele.redisson.properties.RedisClusterProperties",
+      "sourceType": "timing.ukulele.redisson.lock.config.RedisLockConfig",
+      "description": "集群模式."
+    },
+    {
+      "name": "ukulele.redis.sentinel",
+      "type": "timing.ukulele.redisson.properties.RedisSentinelProperties",
+      "sourceType": "timing.ukulele.redisson.lock.config.RedisLockConfig",
+      "description": "哨兵模式."
+    }
+  ],
+  "properties": [
+    {
+      "name": "ukulele.redis.database",
+      "type": "java.lang.Integer",
+      "sourceType": "timing.ukulele.redisson.properties.RedisProperties",
+      "description": "库编号.",
+      "default": 0
+    },
+    {
+      "name": "ukulele.redis.timeout",
+      "type": "java.lang.Integer",
+      "sourceType": "timing.ukulele.redisson.properties.RedisProperties",
+      "description": "等待节点回复命令的时间。该时间从命令发送成功时开始计时."
+    },
+    {
+      "name": "ukulele.redis.password",
+      "type": "java.lang.String",
+      "sourceType": "timing.ukulele.redisson.properties.RedisProperties",
+      "description": "密码."
+    },
+    {
+      "name": "ukulele.redis.mode",
+      "type": "java.lang.String",
+      "sourceType": "timing.ukulele.redisson.lock.config.RedisLockConfig",
+      "description": "模式."
+    },
+    {
+      "name": "ukulele.redis.codec",
+      "type": "java.lang.String",
+      "sourceType": "timing.ukulele.redisson.lock.config.RedisLockConfig",
+      "description": "编码.",
+      "default": "org.redisson.codec.JsonJacksonCodec"
+    },
+    {
+      "name": "ukulele.redis.pool.max-idle",
+      "type": "java.lang.Integer",
+      "sourceType": "timing.ukulele.redisson.lock.config.RedisLockConfig",
+      "description": "maxIdle."
+    },
+    {
+      "name": "ukulele.redis.pool.min-idle",
+      "type": "java.lang.Integer",
+      "sourceType": "timing.ukulele.redisson.lock.config.RedisLockConfig",
+      "description": "minIdle."
+    },
+    {
+      "name": "ukulele.redis.pool.max-active",
+      "type": "java.lang.Integer",
+      "sourceType": "timing.ukulele.redisson.lock.config.RedisLockConfig",
+      "description": "minIdle."
+    },
+    {
+      "name": "ukulele.redis.pool.max-wait",
+      "type": "java.lang.Integer",
+      "sourceType": "timing.ukulele.redisson.lock.config.RedisLockConfig",
+      "description": "maxWait."
+    },
+    {
+      "name": "ukulele.redis.pool.conn-timeout",
+      "type": "java.lang.Integer",
+      "sourceType": "timing.ukulele.redisson.lock.config.RedisLockConfig",
+      "description": "connTimeout."
+    },
+    {
+      "name": "ukulele.redis.pool.so-timeout",
+      "type": "java.lang.Integer",
+      "sourceType": "timing.ukulele.redisson.lock.config.RedisLockConfig",
+      "description": "soTimeout."
+    },
+    {
+      "name": "ukulele.redis.pool.size",
+      "type": "java.lang.Integer",
+      "sourceType": "timing.ukulele.redisson.lock.config.RedisLockConfig",
+      "description": "池大小."
+    },
+    {
+      "name": "ukulele.redis.single.address",
+      "type": "java.lang.String",
+      "sourceType": "timing.ukulele.redisson.lock.config.RedisLockConfig",
+      "description": "地址."
+    },
+    {
+      "name": "ukulele.redis.cluster.scan-interval",
+      "type": "java.lang.Integer",
+      "sourceType": "timing.ukulele.redisson.lock.config.RedisLockConfig",
+      "description": "集群状态扫描间隔时间，单位是毫秒."
+    },
+    {
+      "name": "ukulele.redis.cluster.nodes",
+      "type": "java.lang.String",
+      "sourceType": "timing.ukulele.redisson.lock.config.RedisLockConfig",
+      "description": "集群节点,逗号隔开."
+    },
+    {
+      "name": "ukulele.redis.cluster.read-mode",
+      "type": "java.lang.String",
+      "sourceType": "timing.ukulele.redisson.lock.config.RedisLockConfig",
+      "description": "设置读取操作选择节点的模式."
+    },
+    {
+      "name": "ukulele.redis.cluster.slave-connection-pool-size",
+      "type": "java.lang.Integer",
+      "sourceType": "timing.ukulele.redisson.lock.config.RedisLockConfig",
+      "description": "从节点连接池大小.",
+      "default": 64
+    },
+    {
+      "name": "ukulele.redis.cluster.master=connection-pool-size",
+      "type": "java.lang.Integer",
+      "sourceType": "timing.ukulele.redisson.lock.config.RedisLockConfig",
+      "description": "主节点连接池大小.",
+      "default": 64
+    },
+    {
+      "name": "ukulele.redis.cluster.retry-attempts",
+      "type": "java.lang.Integer",
+      "sourceType": "timing.ukulele.redisson.lock.config.RedisLockConfig",
+      "description": "命令失败重试次数.",
+      "default": 3
+    },
+    {
+      "name": "ukulele.redis.cluster.retry-interval",
+      "type": "java.lang.Integer",
+      "sourceType": "timing.ukulele.redisson.lock.config.RedisLockConfig",
+      "description": "命令重试发送时间间隔(毫秒).",
+      "default": 1500
+    },
+    {
+      "name": "ukulele.redis.cluster.failed-attempts",
+      "type": "java.lang.Integer",
+      "sourceType": "timing.ukulele.redisson.lock.config.RedisLockConfig",
+      "description": "执行失败最大次数默认值.",
+      "default": 3
+    },
+    {
+      "name": "ukulele.redis.sentinel.master",
+      "type": "java.lang.String",
+      "sourceType": "timing.ukulele.redisson.lock.config.RedisLockConfig",
+      "description": "哨兵master名称."
+    },
+    {
+      "name": "ukulele.redis.sentinel.nodes",
+      "type": "java.lang.String",
+      "sourceType": "timing.ukulele.redisson.lock.config.RedisLockConfig",
+      "description": "哨兵节点."
+    },
+    {
+      "name": "ukulele.redis.sentinel.master-only-write",
+      "type": "java.lang.Boolean",
+      "sourceType": "timing.ukulele.redisson.lock.config.RedisLockConfig",
+      "description": "masterOnlyWrite.",
+      "default": false
+    },
+    {
+      "name": "ukulele.redis.sentinel.fail-max",
+      "type": "java.lang.Integer",
+      "sourceType": "timing.ukulele.redisson.lock.config.RedisLockConfig",
+      "description": "failMax."
+    },
+    {
+      "name": "ukulele.redis.lock.wait-time",
+      "type": "java.lang.Integer",
+      "sourceType": "timing.ukulele.redisson.lock.config.RedisLockConfig",
+      "description": "等待时间(单位秒).",
+      "default": 60
+    },
+    {
+      "name": "ukulele.redis.lock.lease-time",
+      "type": "java.lang.Integer",
+      "sourceType": "timing.ukulele.redisson.lock.config.RedisLockConfig",
+      "description": "锁定时间(单位秒).",
+      "default": 60
+    }
+  ],
+  "hints": [
+    {
+      "name": "ukulele.redis.mode",
+      "values": [
+        {
+          "value": "sentinel",
+          "description": "哨兵模式."
+        },
+        {
+          "value": "single",
+          "descriptiom": "单机模式."
+        },
+        {
+          "value": "cluster",
+          "description": "集群模式."
+        }
+      ]
+    },
+    {
+      "name": "ukulele.redis.cluster.read-mode",
+      "values": [
+        {
+          "value": "SLAVE",
+          "description": "只在从服务节点里读取."
+        },
+        {
+          "value": "MASTER",
+          "description": "只在主服务节点里读取."
+        },
+        {
+          "value": "MASTER_SLAVE",
+          "description": "在主从服务节点里都可以读取."
+        }
+      ]
+    },
+    {
+      "name": "ukulele.redis.sentinel.master-only-write",
+      "values": [
+        {
+          "value": true,
+          "description": "主节点只写."
+        },
+        {
+          "value": false,
+          "description": "主节点可读可写."
+        }
+      ]
+    }
+  ]
+}

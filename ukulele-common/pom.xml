@@ -9,7 +9,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>ukulele-common</artifactId>
     <name>ukulele-common</name>
-    <url>https://gitee.com/fengxici</url>
+    <url>https://fengxici.github.io</url>
     <description>基础组件</description>
     <dependencies>
         <dependency>
@@ -60,4 +60,15 @@
             <artifactId>spring-web</artifactId>
         </dependency>
     </dependencies>
+    <developers>
+        <developer>
+            <name>吕自聪</name>
+            <id>lvzc</id>
+            <email>lvzc@bsoft.com.cn</email>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>+8</timezone>
+        </developer>
+    </developers>
 </project>

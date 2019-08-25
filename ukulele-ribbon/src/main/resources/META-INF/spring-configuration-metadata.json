@@ -1,0 +1,41 @@
+{
+  "groups": [
+    {
+      "name": "ukulele.rest-template",
+      "type": "timing.ukulele.ribbon.config.UkuleleRestTemplateProperties",
+      "sourceType": "timing.ukulele.ribbon.config.UkuleleRestTemplateProperties",
+      "description": "ribbon客户端模板配置."
+    }
+  ],
+  "properties": [
+    {
+      "name": "ukulele.rest-template.max-total",
+      "type": "java.lang.Integer",
+      "sourceType": "timing.ukulele.ribbon.config.UkuleleRestTemplateProperties",
+      "description": "最大链接数.",
+      "default": 200
+    },
+    {
+      "name": "ukulele.rest-template.max-per-route",
+      "type": "java.lang.Integer",
+      "sourceType": "timing.ukulele.ribbon.config.UkuleleRestTemplateProperties",
+      "description": "同路由最大并发数.",
+      "default": 20
+    },
+    {
+      "name": "ukulele.rest-template.read-timeout",
+      "type": "java.lang.Integer",
+      "sourceType": "timing.ukulele.ribbon.config.UkuleleRestTemplateProperties",
+      "description": "读取超时时间(ms).",
+      "default": 35000
+    },
+    {
+      "name": "ukulele.rest-template.connect-timeout",
+      "type": "java.lang.Integer",
+      "sourceType": "timing.ukulele.ribbon.config.UkuleleRestTemplateProperties",
+      "description": "链接超时时间(ms).",
+      "default": 10000
+    }
+  ],
+  "hints": []
+}

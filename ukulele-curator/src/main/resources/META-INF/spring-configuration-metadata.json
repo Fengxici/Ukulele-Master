@@ -1,0 +1,32 @@
+{
+  "groups": [
+    {
+      "name": "ukulele.zookeeper.lock",
+      "type": "timing.ukulele.curator.config.ZookeeperLockConfig",
+      "sourceType": "timing.ukulele.curator.config.ZookeeperLockConfig",
+      "description": "基于zookeeper的分布式锁配置."
+    }
+  ],
+  "properties": [
+    {
+      "name": "ukulele.zookeeper.lock.password",
+      "type": "java.lang.String",
+      "sourceType": "timing.ukulele.swagger.SwaggerProperties",
+      "description": "zookeeper连接密码."
+    },
+    {
+      "name": "ukulele.zookeeper.lock.cluster-server",
+      "type": "java.lang.String",
+      "sourceType": "timing.ukulele.curator.config.ZookeeperLockConfig",
+      "description": "zookeeper服务地址,逗号隔开."
+    },
+    {
+      "name": "ukulele.zookeeper.lock.wait-time",
+      "type": "java.lang.Integer",
+      "sourceType": "timing.ukulele.curator.config.ZookeeperLockConfig",
+      "description": "等待时间(单位秒).",
+      "default": 60
+    }
+  ],
+  "hints": []
+}
