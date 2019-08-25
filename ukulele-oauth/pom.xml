@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>ukulele-oauth</artifactId>
     <name>ukulele-auth</name>
-    <url>https://gitee.com/fengxici</url>
+    <url>https://fengxici.github.io</url>
     <description>OAuth2配置，定义了一些通用的类，例如授权服务器、资源服务器配置类，服务继承该类来简化配置</description>
 
     <dependencies>
@@ -40,4 +40,15 @@
             <artifactId>feign-core</artifactId>
         </dependency>
     </dependencies>
+    <developers>
+        <developer>
+            <name>吕自聪</name>
+            <id>lvzc</id>
+            <email>lvzc@bsoft.com.cn</email>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>+8</timezone>
+        </developer>
+    </developers>
 </project>
