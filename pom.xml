@@ -19,6 +19,7 @@
         <module>ukulele-swagger</module>
         <module>ukulele-ribbon</module>
         <module>ukulele-curator</module>
+        <module>ukulele-eureka</module>
     </modules>
     <name>ukulele-master</name>
     <url>https://fengxici.github.io</url>
