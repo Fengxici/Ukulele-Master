@@ -16,7 +16,7 @@
         <dependency>
             <groupId>timing.ukulele</groupId>
             <artifactId>ukulele-common</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -52,24 +52,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>com.github.pagehelper</groupId>-->
-            <!--<artifactId>pagehelper-spring-boot-starter</artifactId>-->
-            <!--<exclusions>-->
-                <!--<exclusion>-->
-                    <!--<groupId>org.springframework.boot</groupId>-->
-                    <!--<artifactId>*</artifactId>-->
-                <!--</exclusion>-->
-                <!--<exclusion>-->
-                    <!--<artifactId>jsqlparser</artifactId>-->
-                    <!--<groupId>com.github.jsqlparser</groupId>-->
-                <!--</exclusion>-->
-                <!--<exclusion>-->
-                    <!--<artifactId>mybatis-spring</artifactId>-->
-                    <!--<groupId>org.mybatis</groupId>-->
-                <!--</exclusion>-->
-            <!--</exclusions>-->
-        <!--</dependency>-->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
@@ -78,16 +60,11 @@
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>*</artifactId>
                 </exclusion>
-                <!--<exclusion>-->
-                    <!--<artifactId>mybatis</artifactId>-->
-                    <!--<groupId>org.mybatis</groupId>-->
-                <!--</exclusion>-->
             </exclusions>
         </dependency>
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-support</artifactId>
-            <version>2.3.3</version>
         </dependency>
         <dependency>
             <groupId>com.baomidou</groupId>
@@ -104,7 +81,7 @@
         <developer>
             <name>吕自聪</name>
             <id>lvzc</id>
-            <email>lvzc@bsoft.com.cn</email>
+            <email>910980941@qq.com</email>
             <roles>
                 <role>Developer</role>
             </roles>

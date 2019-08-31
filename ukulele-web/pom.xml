@@ -17,13 +17,13 @@
         <dependency>
             <groupId>timing.ukulele</groupId>
             <artifactId>ukulele-common</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>provided</scope>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.projectlombok</groupId>-->
+            <!--<artifactId>lombok</artifactId>-->
+            <!--<scope>provided</scope>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -45,7 +45,7 @@
         <developer>
             <name>吕自聪</name>
             <id>lvzc</id>
-            <email>lvzc@bsoft.com.cn</email>
+            <email>910980941@qq.com</email>
             <roles>
                 <role>Developer</role>
             </roles>
