@@ -12,9 +12,6 @@
     <name>ukulele-http</name>
     <url>https://fengxici.github.io</url>
     <description>OkHttp3及Retrofit2整合</description>
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
     <dependencies>
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>

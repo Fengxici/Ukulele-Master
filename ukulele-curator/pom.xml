@@ -14,10 +14,6 @@
     <url>https://fengxici.github.io</url>
     <description>基于curator的缓存及分布式锁整合</description>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>

@@ -60,7 +60,6 @@ public abstract class AbstractSecurityConfig extends WebSecurityConfigurerAdapte
                 .headers()
                 .frameOptions()
                 .disable()
-                .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()

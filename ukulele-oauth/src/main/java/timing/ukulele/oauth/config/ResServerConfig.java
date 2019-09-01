@@ -46,7 +46,6 @@ public abstract class ResServerConfig extends ResourceServerConfigurerAdapter {
                 .headers()
                 .frameOptions()
                 .disable()
-            .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
