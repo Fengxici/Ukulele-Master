@@ -1,3 +1,2 @@
-# Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 timing.ukulele.eureka.EurekaClientServiceRegistryAutoConfiguration
