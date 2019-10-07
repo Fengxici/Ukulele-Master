@@ -71,16 +71,10 @@ public class UkuleleRibbonAutoConfigure extends FeignClientsConfiguration implem
         return new DefaultPropertiesFactory();
     }
 
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new XlabelMvcHeaderInterceptor());
-    }
-
     @LoadBalanced
     @Bean
     public RestTemplate restTemplate() {
         RestTemplate restTemplate = new RestTemplate();
-        restTemplate.getInterceptors().add(new XlabelHttpclientRequestInterceptor());
         restTemplate.setRequestFactory(httpRequestFactory());
         return restTemplate;
     }

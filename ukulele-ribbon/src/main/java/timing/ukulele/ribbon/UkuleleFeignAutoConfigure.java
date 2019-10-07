@@ -3,6 +3,7 @@ package timing.ukulele.ribbon;
 import feign.Logger;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
 /**
  * Feign统一配置
  */
@@ -18,7 +19,7 @@ public class UkuleleFeignAutoConfigure {
     }
 
     @Bean
-    public XlabelFeignHeaderInterceptor xlabelFeignHeaderInterceptor() {
-        return new XlabelFeignHeaderInterceptor();
+    FeignBasicAuthRequestInterceptor feignBasicAuthRequestInterceptor() {
+        return new FeignBasicAuthRequestInterceptor();
     }
 }

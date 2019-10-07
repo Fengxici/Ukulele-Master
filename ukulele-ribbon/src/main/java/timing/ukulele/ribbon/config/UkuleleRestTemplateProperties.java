@@ -5,7 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 /**
  * RestTemplate 配置
  */
-@ConfigurationProperties(prefix = "ukulele.rest-template", ignoreUnknownFields = true)
+@ConfigurationProperties(prefix = "ukulele.rest-template")
 public class UkuleleRestTemplateProperties {
     /**
      * 最大链接数

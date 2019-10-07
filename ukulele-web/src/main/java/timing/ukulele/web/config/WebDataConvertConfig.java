@@ -47,18 +47,6 @@ public class WebDataConvertConfig implements WebMvcConfigurer {
     @Bean
     public MappingJackson2HttpMessageConverter jackson2HttpMessageConverter() {
         MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-//        ObjectMapper mapper = new ObjectMapper();
-//        //日期格式转换
-//        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-//        //Long类型转String类型
-//        SimpleModule simpleModule = new SimpleModule();
-//        simpleModule.addSerializer(Long.class, ToStringSerializer.instance);
-//        simpleModule.addSerializer(Long.TYPE, ToStringSerializer.instance);
-//        simpleModule.addSerializer(Date.class, new DateSerializer(false,new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")));
-//        mapper.registerModule(simpleModule);
-//        converter.setObjectMapper(mapper);
-//        return converter;
-//        ObjectMapper objectMapper = new Jackson2ObjectMapperBuilder().createXmlMapper(false).build();
         ObjectMapper objectMapper = serializingObjectMapper();
         //忽略value为null时key的输出
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);

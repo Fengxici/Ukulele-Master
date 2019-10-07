@@ -8,6 +8,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import timing.ukulele.common.util.JsonUtils;
+import timing.ukulele.web.WebConstant;
 import timing.ukulele.web.annotation.RequiredPermission;
 import timing.ukulele.web.service.PermissionService;
 import timing.ukulele.web.util.Request2ModelUtil;
@@ -53,17 +54,6 @@ public class PermissionInterceptor implements HandlerInterceptor {
      * @return
      */
     private boolean hasPermission(HttpServletRequest request, Object handler) {
-        String acl = request.getHeader("x-role-header");
-        if (StringUtils.isEmpty(acl))
-            return false;
-        String[] aclArray = acl.split(",");
-        Set<String> aclSet = new HashSet<>(aclArray.length);
-        for (String s : aclArray) {
-            aclSet.add(s.trim());
-        }
-        //没有设置角色则不通过
-        if (CollectionUtils.isEmpty(aclSet))
-            return false;
         if (handler instanceof HandlerMethod) {
             HandlerMethod handlerMethod = (HandlerMethod) handler;
             // 获取方法上的角色与权限注解
@@ -72,6 +62,17 @@ public class PermissionInterceptor implements HandlerInterceptor {
             if (requiredPermission == null) {
                 return true;
             }
+            String acl = request.getHeader(WebConstant.X_ROLE_HEADER);
+            if (StringUtils.isEmpty(acl))
+                return false;
+            String[] aclArray = acl.split(",");
+            Set<String> aclSet = new HashSet<>(aclArray.length);
+            for (String s : aclArray) {
+                aclSet.add(s.trim());
+            }
+            //没有设置角色则不通过
+            if (CollectionUtils.isEmpty(aclSet))
+                return false;
             if (StringUtils.isEmpty(requiredPermission.ability()) || requiredPermission.acl().length < 1 || StringUtils.isEmpty(requiredPermission.router()))
                 throw new RuntimeException("角色权限未设置");
             Set<String> abilitySet = permissionService.abilitySet(requiredPermission.router(), Arrays.asList(requiredPermission.acl()));
