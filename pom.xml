@@ -26,7 +26,6 @@
     <packaging>pom</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <poi-version>4.1.0</poi-version>
         <javax.servlet-api-version>4.0.1</javax.servlet-api-version>
         <javax.validation-api-version>2.0.1.Final</javax.validation-api-version>
         <ehcache-version>2.10.6</ehcache-version>
@@ -94,11 +93,6 @@
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-webmvc</artifactId>
                 <version>${org.springframework-version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.poi</groupId>
-                <artifactId>poi-ooxml</artifactId>
-                <version>${poi-version}</version>
             </dependency>
             <dependency>
                 <groupId>javax.servlet</groupId>
