@@ -227,7 +227,7 @@
         },
         {
           "value": "single",
-          "descriptiom": "单机模式."
+          "description": "单机模式."
         },
         {
           "value": "cluster",
