@@ -41,7 +41,7 @@ public final class Request2ListUtil {
                     String[] value = stringMap.get(key);
                     if (value != null && i < value.length) {
                         Class<?>[] type = method.getParameterTypes();
-                        Object[] param_value = new Object[] { TypeParseUtil.convert(value[i], type[0], null) };
+                        Object[] param_value = new Object[]{TypeParseUtil.convert(value[i], type[0], null)};
                         method.invoke(object, param_value);
                     }
                 }
@@ -60,7 +60,7 @@ public final class Request2ListUtil {
      * @param T
      * @return
      */
-    private static final <T> Set<Method> get_declared_methods(Class<T> T) {
+    private static <T> Set<Method> get_declared_methods(Class<T> T) {
         Method[] methods = T.getDeclaredMethods();
         Set<Method> methodSet = new HashSet<>();
         for (Method method : methods) {

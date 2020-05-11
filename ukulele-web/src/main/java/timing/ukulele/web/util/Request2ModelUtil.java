@@ -23,9 +23,7 @@ public final class Request2ModelUtil {
             K obj = T.getDeclaredConstructor().newInstance();
             // 获取类的方法集合
             Set<Method> methodSet = get_methods(T);
-            Iterator<Method> methodIterator = methodSet.iterator();
-            while (methodIterator.hasNext()) {
-                Method method = methodIterator.next();
+            for (Method method : methodSet) {
                 String key = method.getName().substring(3, 4).toLowerCase() + method.getName().substring(4);
                 String value = request.getParameter(key);
                 Class<?>[] type = method.getParameterTypes();
@@ -98,22 +96,18 @@ public final class Request2ModelUtil {
      */
     public static void covertObj(Object o, Map<String, String[]> parameterMap) {
         Class<?> clazz = o.getClass();
-        Iterator<Map.Entry<String, String[]>> iterator = parameterMap.entrySet().iterator();
-        while (iterator.hasNext()) {
-            Map.Entry<String, String[]> entry = iterator.next();
+        for (Map.Entry<String, String[]> entry : parameterMap.entrySet()) {
             String key = entry.getKey().trim();
             String value = entry.getValue()[0].trim();
             try {
                 Method method = setMethod(key, clazz);
                 if (method != null) {
                     Class<?>[] parameterTypes = method.getParameterTypes();
-                    if (method != null) {
-                        Object[] param_value = new Object[]{TypeParseUtil.convert(value, parameterTypes[0], null)};
-                        method.invoke(o, param_value);
-                    }
+                    Object[] param_value = new Object[]{TypeParseUtil.convert(value, parameterTypes[0], null)};
+                    method.invoke(o, param_value);
                 }
             } catch (Exception e) {
-                log.error("",e);
+                log.error("", e);
             }
         }
     }
@@ -126,19 +120,15 @@ public final class Request2ModelUtil {
      */
     public static void covertObjWithMap(Object o, Map<String, String> parameterMap) {
         Class<?> clazz = o.getClass();
-        Iterator<Map.Entry<String, String>> iterator = parameterMap.entrySet().iterator();
-        while (iterator.hasNext()) {
-            Map.Entry<String, String> entry = iterator.next();
+        for (Map.Entry<String, String> entry : parameterMap.entrySet()) {
             String key = entry.getKey().trim();
             String value = entry.getValue().trim();
             try {
                 Method method = setMethod(key, clazz);
                 if (method != null) {
                     Class<?>[] parameterTypes = method.getParameterTypes();
-                    if (method != null) {
-                        Object[] param_value = new Object[]{TypeParseUtil.convert(value, parameterTypes[0], null)};
-                        method.invoke(o, param_value);
-                    }
+                    Object[] param_value = new Object[]{TypeParseUtil.convert(value, parameterTypes[0], null)};
+                    method.invoke(o, param_value);
                 }
             } catch (Exception e) {
                 log.error("", e);
@@ -154,13 +144,12 @@ public final class Request2ModelUtil {
      */
     public static void covertObj(Object o, Object paramObj) {
         Field[] fields = o.getClass().getDeclaredFields();
-        for (int i = 0; i < fields.length; i++) {
+        for (Field item : fields) {
             try {
-                Field field = fields[i];
-                Method getMethod = getMethod(field.getName(), paramObj.getClass());
+                Method getMethod = getMethod(item.getName(), paramObj.getClass());
                 if (getMethod != null) {
                     Object value = getMethod.invoke(paramObj);
-                    Method setMethod = setMethod(field.getName(), o.getClass());
+                    Method setMethod = setMethod(item.getName(), o.getClass());
                     if (setMethod != null) {
                         if (value != null && !value.toString().equals("")) {
                             setMethod.invoke(o, value);
@@ -181,14 +170,13 @@ public final class Request2ModelUtil {
     public static Object init(Object obj, Object obiExtend) {
         Class<?> clazz = obj.getClass();
         Set<Method> getMethods = Request2ModelUtil.get_getDeclared_methods(clazz);
-        Iterator<Method> ite = getMethods.iterator();
-        while (ite.hasNext()) {
+        for (Method method : getMethods) {
             try {
-                Method method = ite.next();
                 String name = method.getName();
                 String fileName = name.substring(3, 4).toLowerCase() + name.substring(4, name.length());
                 Object o = method.invoke(obj);
                 Method setMethod = Request2ModelUtil.setMethod(fileName, clazz);
+                assert setMethod != null;
                 setMethod.invoke(obiExtend, o);
             } catch (Exception e) {
                 log.error("", e);
@@ -202,12 +190,10 @@ public final class Request2ModelUtil {
             Class<?>[] parameterTypes = new Class[1];
             Field field = clazz.getDeclaredField(fieldName);
             parameterTypes[0] = field.getType();
-            StringBuffer sb = new StringBuffer();
-            sb.append("set");
-            sb.append(fieldName.substring(0, 1).toUpperCase());
-            sb.append(fieldName.substring(1));
-            Method method = clazz.getMethod(sb.toString(), parameterTypes);
-            return method;
+            String sb = "set" +
+                    fieldName.substring(0, 1).toUpperCase() +
+                    fieldName.substring(1);
+            return clazz.getMethod(sb, parameterTypes);
         } catch (Exception e) {
             log.error("", e);
         }
@@ -215,7 +201,7 @@ public final class Request2ModelUtil {
     }
 
     public static Method getMethod(String fieldName, Class<?> clazz) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         sb.append("get");
         sb.append(fieldName.substring(0, 1).toUpperCase());
         sb.append(fieldName.substring(1));

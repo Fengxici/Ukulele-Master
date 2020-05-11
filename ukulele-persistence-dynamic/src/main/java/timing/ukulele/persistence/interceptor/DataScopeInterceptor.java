@@ -48,7 +48,7 @@ public class DataScopeInterceptor extends SqlParserHandler implements Intercepto
         } else {
             String scopeName = dataScope.getScopeName();
             List<Integer> deptIds = dataScope.getDeptIds();
-            if(StringUtils.isNotEmpty(scopeName) && !CollectionUtils.isEmpty(deptIds)){
+            if (StringUtils.isNotEmpty(scopeName) && !CollectionUtils.isEmpty(deptIds)) {
                 StringBuilder join = new StringBuilder();
                 deptIds.forEach(deptId -> join.append(deptId).append(","));
                 join.deleteCharAt(join.lastIndexOf(","));

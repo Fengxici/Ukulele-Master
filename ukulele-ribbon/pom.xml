@@ -9,6 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>ukulele-ribbon</artifactId>
+    <version>1.0-SNAPSHOT</version>
     <name>ukulele-ribbon</name>
     <url>https://fengxici.github.io</url>
     <description>ribbon封装</description>

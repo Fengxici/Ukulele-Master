@@ -29,7 +29,6 @@ import java.util.Set;
 public class PermissionInterceptor implements HandlerInterceptor {
     private final PermissionService permissionService;
 
-    @Autowired
     public PermissionInterceptor(PermissionService permissionService) {
         this.permissionService = permissionService;
     }

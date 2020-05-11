@@ -20,6 +20,7 @@
         <module>ukulele-ribbon</module>
         <module>ukulele-curator</module>
         <module>ukulele-eureka</module>
+        <module>ukulele-persistence-dynamic</module>
     </modules>
     <name>ukulele-master</name>
     <url>https://fengxici.github.io</url>

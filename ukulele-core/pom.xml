@@ -9,6 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>ukulele-core</artifactId>
+    <version>1.0-SNAPSHOT</version>
     <name>ukulele-core</name>
     <url>https://fengxici.github.io</url>
     <description>核心类库</description>
