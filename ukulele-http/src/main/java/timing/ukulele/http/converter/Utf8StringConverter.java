@@ -15,8 +15,9 @@ public final class Utf8StringConverter<T> implements Converter<T, String> {
     public String convert(T value) throws IOException {
         String v = String.valueOf(value);
 //        如果含中文则进行utf8编码
-        if ((v.length() != v.getBytes().length))
+        if ((v.length() != v.getBytes().length)) {
             return new String(String.valueOf(value).getBytes(), UTF_8);
+        }
         return v;
     }
 }

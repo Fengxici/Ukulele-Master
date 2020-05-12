@@ -33,8 +33,8 @@ public final class TypeParseUtil {
         return convert(value, type.getName(), format);
     }
 
-    private static final String message = "Could not convert %1$s to %2$s";
-    private static final String support = "Convert from %1$s to %2$s not currently supported";
+    private static final String MESSAGE = "Could not convert %1$s to %2$s";
+    private static final String SUPPORT = "Convert from %1$s to %2$s not currently supported";
 
     /**
      * 转换核心实现方法
@@ -76,7 +76,7 @@ public final class TypeParseUtil {
         } else if ("String".equalsIgnoreCase(type) || DataType.STRING.equalsIgnoreCase(type)) {
             return value.toString();
         } else {
-            throw new DataParseException(String.format(support, value.getClass().getName(), type));
+            throw new DataParseException(String.format(SUPPORT, value.getClass().getName(), type));
         }
     }
 
@@ -95,7 +95,7 @@ public final class TypeParseUtil {
                 return Integer.parseInt("0");
             }
         } else {
-            throw new DataParseException(String.format(support, fromType, type));
+            throw new DataParseException(String.format(SUPPORT, fromType, type));
         }
     }
 
@@ -119,7 +119,7 @@ public final class TypeParseUtil {
         } else if ("Timestamp".equalsIgnoreCase(type) || DataType.TIMESTAMP.equalsIgnoreCase(type)) {
             return value;
         } else {
-            throw new DataParseException(String.format(support, fromType, type));
+            throw new DataParseException(String.format(SUPPORT, fromType, type));
         }
     }
 
@@ -143,7 +143,7 @@ public final class TypeParseUtil {
         } else if ("Timestamp".equalsIgnoreCase(type) || DataType.TIMESTAMP.equalsIgnoreCase(type)) {
             return new Timestamp(dte.getTime());
         } else {
-            throw new DataParseException(String.format(support, fromType, type));
+            throw new DataParseException(String.format(SUPPORT, fromType, type));
         }
     }
 
@@ -167,7 +167,7 @@ public final class TypeParseUtil {
         } else if ("Timestamp".equalsIgnoreCase(type) || DataType.TIMESTAMP.equalsIgnoreCase(type)) {
             return new Timestamp(dte.getTime());
         } else {
-            throw new DataParseException(String.format(support, fromType, type));
+            throw new DataParseException(String.format(SUPPORT, fromType, type));
         }
     }
 
@@ -197,7 +197,7 @@ public final class TypeParseUtil {
         } else if ("Integer".equalsIgnoreCase(type) || DataType.INTEGER.equalsIgnoreCase(type)) {
             return value;
         } else {
-            throw new DataParseException(String.format(support, fromType, type));
+            throw new DataParseException(String.format(SUPPORT, fromType, type));
         }
     }
 
@@ -226,7 +226,7 @@ public final class TypeParseUtil {
         } else if ("Timestamp".equalsIgnoreCase(type) || DataType.TIMESTAMP.equalsIgnoreCase(type)) {
             return new Timestamp(lng);
         } else {
-            throw new DataParseException(String.format(support, fromType, type));
+            throw new DataParseException(String.format(SUPPORT, fromType, type));
         }
     }
 
@@ -246,7 +246,7 @@ public final class TypeParseUtil {
         } else if ("Integer".equalsIgnoreCase(type) || DataType.INTEGER.equalsIgnoreCase(type)) {
             return Integer.parseInt(flt.toString());
         } else {
-            throw new DataParseException(String.format(support, fromType, type));
+            throw new DataParseException(String.format(SUPPORT, fromType, type));
         }
     }
 
@@ -267,7 +267,7 @@ public final class TypeParseUtil {
         } else if ("BigDecimal".equalsIgnoreCase(type) || DataType.BIGDECIMAL.equalsIgnoreCase(type)) {
             return new BigDecimal(dbl.toString());
         } else {
-            throw new DataParseException(String.format(support, fromType, type));
+            throw new DataParseException(String.format(SUPPORT, fromType, type));
         }
     }
 
@@ -288,7 +288,7 @@ public final class TypeParseUtil {
         } else if ("Integer".equals(type) || DataType.INTEGER.equalsIgnoreCase(type)) {
             return Integer.parseInt(bigD.toString());
         } else {
-            throw new DataParseException(String.format(support, fromType, type));
+            throw new DataParseException(String.format(SUPPORT, fromType, type));
         }
     }
 
@@ -302,10 +302,11 @@ public final class TypeParseUtil {
             } else if (str.length() == 0) {
                 return null;
             } else if ("Boolean".equalsIgnoreCase(type) || DataType.BOOLEAN.equals(type)) {
-                if (str.equalsIgnoreCase("TRUE"))
+                if ("TRUE".equalsIgnoreCase(str)) {
                     return Boolean.TRUE;
-                else
+                } else {
                     return Boolean.FALSE;
+                }
             } else if ("Double".equalsIgnoreCase(type) || DataType.DOUBLE.equalsIgnoreCase(type)) {
                 Number tempNum = getNf(locale).parse(str.replaceAll(",", ""));
                 return Double.parseDouble(tempNum.toString());
@@ -348,56 +349,61 @@ public final class TypeParseUtil {
                 SimpleDateFormat sdf = new SimpleDateFormat(format);
                 return sdf.parse(str);
             } else if ("java.sql.Date".equalsIgnoreCase(type)) {
-                if (format == null || format.length() == 0)
+                if (format == null || format.length() == 0) {
                     try {
                         return Date.valueOf(str);
                     } catch (Exception e) {
                         try {
                             DateFormat df ;
-                            if (locale != null)
+                            if (locale != null) {
                                 df = DateFormat.getDateInstance(3, locale);
-                            else
+                            } else {
                                 df = DateFormat.getDateInstance(3);
+                            }
                             java.util.Date fieldDate = df.parse(str);
                             return new Date(fieldDate.getTime());
                         } catch (ParseException e1) {
-                            throw new DataParseException(String.format(message, str, type), e);
+                            throw new DataParseException(String.format(MESSAGE, str, type), e);
                         }
                     }
+                }
                 SimpleDateFormat sdf = new SimpleDateFormat(format);
                 java.util.Date fieldDate = sdf.parse(str);
                 return new Date(fieldDate.getTime());
             } else if ("Timestamp".equalsIgnoreCase(type) || DataType.TIMESTAMP.equalsIgnoreCase(type)) {
-                if (str.length() == 10)
+                if (str.length() == 10) {
                     str = str + " 00:00:00";
-                if (format == null || format.length() == 0)
+                }
+                if (format == null || format.length() == 0) {
                     try {
                         return Timestamp.valueOf(str);
                     } catch (Exception e) {
                         try {
                             DateFormat df;
-                            if (locale != null)
+                            if (locale != null) {
                                 df = DateFormat.getDateTimeInstance(3, 3, locale);
-                            else
+                            } else {
                                 df = DateFormat.getDateTimeInstance(3, 3);
+                            }
                             java.util.Date fieldDate = df.parse(str);
                             return new Timestamp(fieldDate.getTime());
                         } catch (ParseException e1) {
-                            throw new DataParseException(String.format(message, str, type), e);
+                            throw new DataParseException(String.format(MESSAGE, str, type), e);
                         }
                     }
+                }
                 try {
                     SimpleDateFormat sdf = new SimpleDateFormat(format);
                     java.util.Date fieldDate = sdf.parse(str);
                     return new Timestamp(fieldDate.getTime());
                 } catch (ParseException e) {
-                    throw new DataParseException(String.format(message, str, type), e);
+                    throw new DataParseException(String.format(MESSAGE, str, type), e);
                 }
             } else {
-                throw new DataParseException(String.format(support, fromType, type));
+                throw new DataParseException(String.format(SUPPORT, fromType, type));
             }
         } catch (Exception e) {
-            throw new DataParseException(String.format(message, str, type), e);
+            throw new DataParseException(String.format(MESSAGE, str, type), e);
         }
     }
 

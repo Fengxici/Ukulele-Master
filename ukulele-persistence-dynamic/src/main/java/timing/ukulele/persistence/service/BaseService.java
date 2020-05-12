@@ -26,20 +26,25 @@ public class BaseService<M extends BaseMapper<T>, T extends BaseModel> extends S
         Date now = new Date();
         entity.setCreateTime(now);
         entity.setUpdateTime(now);
-        if (entity.getDeleted() == null) entity.setDeleted(Boolean.FALSE);
+        if (entity.getDeleted() == null) {
+            entity.setDeleted(Boolean.FALSE);
+        }
         return super.save(entity);
     }
 
     @DS("master")
     @Override
     public boolean saveBatch(Collection<T> entityList, int batchSize) {
-        if (CollectionUtils.isEmpty(entityList))
+        if (CollectionUtils.isEmpty(entityList)) {
             return false;
+        }
         Date now = new Date();
         entityList.forEach(entity -> {
             entity.setUpdateTime(now);
             entity.setCreateTime(now);
-            if (entity.getDeleted() == null) entity.setDeleted(Boolean.FALSE);
+            if (entity.getDeleted() == null) {
+                entity.setDeleted(Boolean.FALSE);
+            }
         });
         return super.saveBatch(entityList, batchSize);
     }
@@ -51,7 +56,9 @@ public class BaseService<M extends BaseMapper<T>, T extends BaseModel> extends S
         entity.setUpdateTime(now);
         if (entity.getId() == null) {
             entity.setCreateTime(now);
-            if (entity.getDeleted() == null) entity.setDeleted(Boolean.FALSE);
+            if (entity.getDeleted() == null) {
+                entity.setDeleted(Boolean.FALSE);
+            }
         }
         return super.saveOrUpdate(entity);
     }
@@ -59,14 +66,17 @@ public class BaseService<M extends BaseMapper<T>, T extends BaseModel> extends S
     @DS("master")
     @Override
     public boolean saveOrUpdateBatch(Collection<T> entityList) {
-        if (CollectionUtils.isEmpty(entityList))
+        if (CollectionUtils.isEmpty(entityList)) {
             return false;
+        }
         Date now = new Date();
         entityList.forEach(entity -> {
             entity.setUpdateTime(now);
             if (entity.getId() == null) {
                 entity.setCreateTime(now);
-                if (entity.getDeleted() == null) entity.setDeleted(Boolean.FALSE);
+                if (entity.getDeleted() == null) {
+                    entity.setDeleted(Boolean.FALSE);
+                }
             }
         });
         return super.saveOrUpdateBatch(entityList);
@@ -75,14 +85,17 @@ public class BaseService<M extends BaseMapper<T>, T extends BaseModel> extends S
     @DS("master")
     @Override
     public boolean saveOrUpdateBatch(Collection<T> entityList, int batchSize) {
-        if (CollectionUtils.isEmpty(entityList))
+        if (CollectionUtils.isEmpty(entityList)) {
             return false;
+        }
         Date now = new Date();
         entityList.forEach(entity -> {
             entity.setUpdateTime(now);
             if (entity.getId() == null) {
                 entity.setCreateTime(now);
-                if (entity.getDeleted() == null) entity.setDeleted(Boolean.FALSE);
+                if (entity.getDeleted() == null) {
+                    entity.setDeleted(Boolean.FALSE);
+                }
             }
         });
         return super.saveOrUpdateBatch(entityList, batchSize);
@@ -129,8 +142,9 @@ public class BaseService<M extends BaseMapper<T>, T extends BaseModel> extends S
     @DS("master")
     @Override
     public boolean updateBatchById(Collection<T> entityList, int batchSize) {
-        if (CollectionUtils.isEmpty(entityList))
+        if (CollectionUtils.isEmpty(entityList)) {
             return false;
+        }
         Date now = new Date();
         entityList.forEach(entity -> entity.setUpdateTime(now));
         return super.updateBatchById(entityList, batchSize);

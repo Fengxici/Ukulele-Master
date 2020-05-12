@@ -51,12 +51,13 @@ public class WriteLock implements Lock, ConnectionStateListener {
 
     @Override
     public void stateChanged(CuratorFramework curatorFramework, ConnectionState connectionState) {
-        if (LOST == connectionState || SUSPENDED == connectionState)
+        if (LOST == connectionState || SUSPENDED == connectionState) {
             try {
                 release();
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
     }
 
 }

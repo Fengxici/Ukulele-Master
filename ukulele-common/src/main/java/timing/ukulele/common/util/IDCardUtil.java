@@ -6,13 +6,15 @@ import java.text.SimpleDateFormat;
 
 /**
  * 身份证验证辅助类
-  */
+ */
 public final class IDCardUtil {
     private IDCardUtil() {
     }
 
-    static final char[] code = { '1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2' }; // 11个校验码字符
-    static final int[] factor = { 7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2, 1 }; // 18个加权因子
+    // 11个校验码字符
+    static final int[] FACTOR = {7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2, 1};
+    // 18个加权因子
+    static final char[] CODE = {'1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2'};
 
     /**
      * 修补15位居民身份证号码为18位，并校验15位身份证有效性
@@ -22,11 +24,13 @@ public final class IDCardUtil {
      * @throws Exception 无效的身份证号
      */
     public static String fixPersonIDCodeWithCheck(String personIDCode) throws Throwable {
-        if (personIDCode == null || personIDCode.trim().length() != 15)
+        if (personIDCode == null || personIDCode.trim().length() != 15) {
             throw new RuntimeException("输入的身份证号不足15位，请检查");
+        }
 
-        if (!isIdentity(personIDCode))
+        if (!isIdentity(personIDCode)) {
             throw new RuntimeException("输入的身份证号无效，请检查");
+        }
 
         return fixPersonIDCodeWithoutCheck(personIDCode);
     }
@@ -38,10 +42,12 @@ public final class IDCardUtil {
      * @return 十八位身份证号码
      */
     public static String fixPersonIDCodeWithoutCheck(String personIDCode) {
-        if (personIDCode == null || personIDCode.trim().length() != 15)
+        if (personIDCode == null || personIDCode.trim().length() != 15) {
             throw new RuntimeException("输入的身份证号不足15位，请检查");
+        }
 
-        String id17 = personIDCode.substring(0, 6) + "19" + personIDCode.substring(6, 15); // 15位身份证补'19'
+        // 15位身份证补'19'
+        String id17 = personIDCode.substring(0, 6) + "19" + personIDCode.substring(6, 15);
 
         int[] idcd = new int[18];
         int sum; // 根据公式 ∑(ai×Wi) 计算
@@ -51,10 +57,10 @@ public final class IDCardUtil {
         }
         sum = 0;
         for (int i = 0; i < 17; i++) {
-            sum = sum + idcd[i] * factor[i];
+            sum = sum + idcd[i] * FACTOR[i];
         }
         remainder = sum % 11;
-        String lastCheckBit = String.valueOf(code[remainder]);
+        String lastCheckBit = String.valueOf(CODE[remainder]);
         return id17 + lastCheckBit;
     }
 
@@ -84,18 +90,21 @@ public final class IDCardUtil {
      * @throws Throwable 无效的身份证号
      */
     public static String getFixedPersonIDCode(String personIDCode) throws Throwable {
-        if (personIDCode == null)
+        if (personIDCode == null) {
             throw new RuntimeException("输入的身份证号无效，请检查");
+        }
 
         if (personIDCode.length() == 18) {
-            if (isIdentity(personIDCode))
+            if (isIdentity(personIDCode)) {
                 return personIDCode;
-            else
+            } else {
                 throw new RuntimeException("输入的身份证号无效，请检查");
-        } else if (personIDCode.length() == 15)
+            }
+        } else if (personIDCode.length() == 15) {
             return fixPersonIDCodeWithCheck(personIDCode);
-        else
+        } else {
             throw new RuntimeException("输入的身份证号无效，请检查");
+        }
     }
 
     /**
@@ -118,27 +127,34 @@ public final class IDCardUtil {
      * @return 是否为有效的身份证号码
      */
     public static boolean isIdentity(String identity) {
-        if (identity == null)
+        if (identity == null) {
             return false;
+        }
         if (identity.length() == 18 || identity.length() == 15) {
-            String id15 = null;
-            if (identity.length() == 18)
+            String id15;
+            if (identity.length() == 18) {
                 id15 = identity.substring(0, 6) + identity.substring(8, 17);
-            else
+            } else {
                 id15 = identity;
+            }
             try {
-                Long.parseLong(id15); // 校验是否为数字字符串
+                // 校验是否为数字字符串
+                Long.parseLong(id15);
                 String birthday = "19" + id15.substring(6, 12);
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-                sdf.parse(birthday); // 校验出生日期
-                if (identity.length() == 18 && !fixPersonIDCodeWithoutCheck(id15).equals(identity))
-                    return false; // 校验18位身份证
+                // 校验出生日期
+                sdf.parse(birthday);
+                if (identity.length() == 18 && !fixPersonIDCodeWithoutCheck(id15).equals(identity)) {
+                    // 校验18位身份证
+                    return false;
+                }
             } catch (Exception e) {
                 return false;
             }
             return true;
-        } else
+        } else {
             return false;
+        }
     }
 
     public static void main(String[] args) throws Throwable {
@@ -179,6 +195,7 @@ public final class IDCardUtil {
             return value;
         }
 
+        @Override
         public String toString() {
             return this.name;
         }

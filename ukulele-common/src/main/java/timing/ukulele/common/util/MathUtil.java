@@ -10,6 +10,7 @@ public final strictfp class MathUtil {
 
     // 默认运算精度
     private static int DEF_SCALE = 10;
+    private static Pattern pattern = Pattern.compile("\\d+(.\\d+)?$");
 
     /**
      * 提供数据类型转换为BigDecimal
@@ -17,7 +18,7 @@ public final strictfp class MathUtil {
      * @param object 原始数据
      * @return BigDecimal
      */
-    public static  BigDecimal bigDecimal(Object object) {
+    public static BigDecimal bigDecimal(Object object) {
         if (object == null) {
             throw new NullPointerException();
         }
@@ -37,7 +38,7 @@ public final strictfp class MathUtil {
      * @param num2 加数
      * @return 两个参数的和
      */
-    public static  Double add(Object num1, Object num2) {
+    public static Double add(Object num1, Object num2) {
         BigDecimal result = bigDecimal(num1).add(bigDecimal(num2));
         return result.setScale(DEF_SCALE, BigDecimal.ROUND_HALF_UP).doubleValue();
     }
@@ -73,15 +74,15 @@ public final strictfp class MathUtil {
      * @param num2 除数
      * @return 两个参数的商
      */
-    public static  Double divide(Object num1, Object num2) {
+    public static Double divide(Object num1, Object num2) {
         return divide(num1, num2, DEF_SCALE);
     }
 
     /**
      * 提供(相对)精确的除法运算。 当发生除不尽的情况时，由scale参数指定精度，以后的数字四舍五入。
      *
-     * @param num1 被除数
-     * @param num2 除数
+     * @param num1  被除数
+     * @param num2  除数
      * @param scale 表示表示需要精确到小数点以后几位。
      * @return 两个参数的商
      */
@@ -100,7 +101,7 @@ public final strictfp class MathUtil {
     /**
      * 提供精确的小数位四舍五入处理。
      *
-     * @param num 需要四舍五入的数字
+     * @param num   需要四舍五入的数字
      * @param scale 小数点后保留几位
      * @return 四舍五入后的结果
      */
@@ -116,17 +117,17 @@ public final strictfp class MathUtil {
      * 获取start到end区间的随机数,不包含start+end
      *
      * @param start int
-     * @param end int
+     * @param end   int
      * @return 差值
      */
-    public static final BigDecimal getRandom(int start, int end) {
+    public static BigDecimal getRandom(int start, int end) {
         return new BigDecimal(start + Math.random() * end);
     }
 
     /**
      * 格式化
      *
-     * @param obj Object
+     * @param obj     Object
      * @param pattern String
      * @return 格式化后的字符串
      */
@@ -143,11 +144,12 @@ public final strictfp class MathUtil {
 
     /**
      * 是否数字
+     *
      * @param object 要判断的对象
      * @return 是否为数字
      */
-    public static  boolean isNumber(Object object) {
-        Pattern pattern = Pattern.compile("\\d+(.\\d+)?$");
+    public static boolean isNumber(Object object) {
+
         return pattern.matcher(object.toString()).matches();
     }
 

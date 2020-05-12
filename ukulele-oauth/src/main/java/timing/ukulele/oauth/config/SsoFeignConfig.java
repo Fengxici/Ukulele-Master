@@ -34,8 +34,9 @@ public class SsoFeignConfig implements RequestInterceptor {
     private HttpServletRequest getHttpServletRequest() {
         try {
             ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-            if (attributes != null)
+            if (attributes != null) {
                 return attributes.getRequest();
+            }
         } catch (Exception e) {
             log.error(e.getMessage());
             return null;

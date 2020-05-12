@@ -96,13 +96,13 @@ public class EncryptUtil {
      * @return 转换后的int值
      */
     private static int decode(char c) {
-        if (c >= 'A' && c <= 'Z')
+        if (c >= 'A' && c <= 'Z') {
             return ((int) c) - 65;
-        else if (c >= 'a' && c <= 'z')
+        } else if (c >= 'a' && c <= 'z') {
             return ((int) c) - 97 + 26;
-        else if (c >= '0' && c <= '9')
+        } else if (c >= '0' && c <= '9') {
             return ((int) c) - 48 + 26 + 26;
-        else
+        } else {
             switch (c) {
                 case '+':
                     return 62;
@@ -113,6 +113,7 @@ public class EncryptUtil {
                 default:
                     throw new RuntimeException("unexpected code: " + c);
             }
+        }
     }
 
     /**
@@ -146,21 +147,25 @@ public class EncryptUtil {
         int len = s.length();
 
         while (true) {
-            while (i < len && s.charAt(i) <= ' ')
+            while (i < len && s.charAt(i) <= ' ') {
                 i++;
+            }
 
-            if (i == len)
+            if (i == len) {
                 break;
+            }
 
             int tri = (decode(s.charAt(i)) << 18) + (decode(s.charAt(i + 1)) << 12)
                     + (decode(s.charAt(i + 2)) << 6) + (decode(s.charAt(i + 3)));
 
             os.write((tri >> 16) & 255);
-            if (s.charAt(i + 2) == '=')
+            if (s.charAt(i + 2) == '=') {
                 break;
+            }
             os.write((tri >> 8) & 255);
-            if (s.charAt(i + 3) == '=')
+            if (s.charAt(i + 3) == '=') {
                 break;
+            }
             os.write(tri & 255);
 
             i += 4;
@@ -525,7 +530,7 @@ public class EncryptUtil {
         X509EncodedKeySpec x509KeySpec = new X509EncodedKeySpec(keyBytes);
         KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
         Key publicK = keyFactory.generatePublic(x509KeySpec);
-        Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding",new org.bouncycastle.jce.provider.BouncyCastleProvider());
+        Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding", new org.bouncycastle.jce.provider.BouncyCastleProvider());
         cipher.init(Cipher.DECRYPT_MODE, publicK);
         int inputLen = encryptedData.length;
         ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -702,7 +707,7 @@ public class EncryptUtil {
         } catch (Exception e) {
             e.printStackTrace();
         }
-       String json = "[{\"ZYH\":\"546786\",\"ZYHM\":\"657566\",\"WDHM\":\"5467\",\"XM\":\"eteryuytr\",\"XB\":\"45678i7654\",\"DQBQ\":\"5678\",\"DQCW\":\"ertyu\"}]";
+        String json = "[{\"ZYH\":\"546786\",\"ZYHM\":\"657566\",\"WDHM\":\"5467\",\"XM\":\"eteryuytr\",\"XB\":\"45678i7654\",\"DQBQ\":\"5678\",\"DQCW\":\"ertyu\"}]";
         System.out.println(json);
         try {
             Map keyMap = genKeyPair();

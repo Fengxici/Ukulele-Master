@@ -18,8 +18,9 @@ public final class Request2ListUtil {
             if (stringMap.containsKey(key)) {
                 tempSize = stringMap.get(key).length;
             }
-            if (tempSize > size)
+            if (tempSize > size) {
                 size = tempSize;
+            }
         }
         return size;
     }

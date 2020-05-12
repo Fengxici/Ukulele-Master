@@ -10,7 +10,7 @@ import java.net.URL;
  * Ehcache缓存工具
  */
 public final class EhcacheUtil {
-    private static final String path = "/ehcache.xml";
+    private static final String PATH = "/ehcache.xml";
     private URL url;
     private CacheManager manager;
     private static EhcacheUtil ehCache;
@@ -22,7 +22,7 @@ public final class EhcacheUtil {
 
     public static EhcacheUtil getInstance() {
         if (ehCache == null) {
-            ehCache = new EhcacheUtil(path);
+            ehCache = new EhcacheUtil(PATH);
         }
         return ehCache;
     }

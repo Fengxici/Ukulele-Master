@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -22,13 +21,13 @@ public final class Request2ModelUtil {
         try {
             K obj = T.getDeclaredConstructor().newInstance();
             // 获取类的方法集合
-            Set<Method> methodSet = get_methods(T);
+            Set<Method> methodSet = getMethods(T);
             for (Method method : methodSet) {
                 String key = method.getName().substring(3, 4).toLowerCase() + method.getName().substring(4);
                 String value = request.getParameter(key);
                 Class<?>[] type = method.getParameterTypes();
-                Object[] param_value = new Object[]{TypeParseUtil.convert(value, type[0], null)};
-                method.invoke(obj, param_value);
+                Object[] paramValue = new Object[]{TypeParseUtil.convert(value, type[0], null)};
+                method.invoke(obj, paramValue);
             }
             return obj;
         } catch (Exception ex) {
@@ -43,7 +42,7 @@ public final class Request2ModelUtil {
      * @param T calss
      * @return method set
      */
-    public static Set<Method> get_methods(Class<?> T) {
+    public static Set<Method> getMethods(Class<?> T) {
         Method[] methods = T.getMethods();
         Set<Method> methodSet = new HashSet<>();
         for (Method method : methods) {
@@ -60,7 +59,7 @@ public final class Request2ModelUtil {
      * @param T calss
      * @return method set
      */
-    public static Set<Method> get_declared_methods(Class<?> T) {
+    public static Set<Method> getDeclaredMethods(Class<?> T) {
         Method[] methods = T.getMethods();
         Set<Method> methodSet = new HashSet<>();
         for (Method method : methods) {
@@ -77,7 +76,7 @@ public final class Request2ModelUtil {
      * @param T class
      * @return declared methods set
      */
-    public static Set<Method> get_getDeclared_methods(Class<?> T) {
+    public static Set<Method> getGetDeclaredMethods(Class<?> T) {
         Method[] methods = T.getDeclaredMethods();
         Set<Method> methodSet = new HashSet<>();
         for (Method method : methods) {
@@ -103,8 +102,8 @@ public final class Request2ModelUtil {
                 Method method = setMethod(key, clazz);
                 if (method != null) {
                     Class<?>[] parameterTypes = method.getParameterTypes();
-                    Object[] param_value = new Object[]{TypeParseUtil.convert(value, parameterTypes[0], null)};
-                    method.invoke(o, param_value);
+                    Object[] paramValue = new Object[]{TypeParseUtil.convert(value, parameterTypes[0], null)};
+                    method.invoke(o, paramValue);
                 }
             } catch (Exception e) {
                 log.error("", e);
@@ -127,8 +126,8 @@ public final class Request2ModelUtil {
                 Method method = setMethod(key, clazz);
                 if (method != null) {
                     Class<?>[] parameterTypes = method.getParameterTypes();
-                    Object[] param_value = new Object[]{TypeParseUtil.convert(value, parameterTypes[0], null)};
-                    method.invoke(o, param_value);
+                    Object[] paramValue = new Object[]{TypeParseUtil.convert(value, parameterTypes[0], null)};
+                    method.invoke(o, paramValue);
                 }
             } catch (Exception e) {
                 log.error("", e);
@@ -151,7 +150,7 @@ public final class Request2ModelUtil {
                     Object value = getMethod.invoke(paramObj);
                     Method setMethod = setMethod(item.getName(), o.getClass());
                     if (setMethod != null) {
-                        if (value != null && !value.toString().equals("")) {
+                        if (value != null && !"".equals(value.toString())) {
                             setMethod.invoke(o, value);
                         }
                     }
@@ -169,7 +168,7 @@ public final class Request2ModelUtil {
      */
     public static Object init(Object obj, Object obiExtend) {
         Class<?> clazz = obj.getClass();
-        Set<Method> getMethods = Request2ModelUtil.get_getDeclared_methods(clazz);
+        Set<Method> getMethods = Request2ModelUtil.getGetDeclaredMethods(clazz);
         for (Method method : getMethods) {
             try {
                 String name = method.getName();

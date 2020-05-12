@@ -26,8 +26,9 @@ public class ParameterRequestWrapper extends HttpServletRequestWrapper {
 
     @Override
     public String[] getParameterValues(String name) {
-        if (map != null)
+        if (map != null) {
             return map.get(name);
+        }
         return super.getParameterValues(name);
     }
 }

@@ -12,6 +12,9 @@ import java.util.concurrent.TimeUnit;
  * okHttp3 管理类，封装了okHttp的网络连接方法
  */
 public enum OkHttpManager {
+    /**
+     * 实例
+     */
     INSTANCE;
 
     public OkHttpManager getInstance() {

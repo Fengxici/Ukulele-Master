@@ -15,6 +15,9 @@ import timing.ukulele.http.converter.Utf8GsonConverterFactory;
  * •@date: 2019/8/23
  */
 public enum RetrofitManager {
+    /**
+     * 实例
+     */
     INSTANCE;
 
     public RetrofitManager getInstance() {
@@ -57,8 +60,9 @@ public enum RetrofitManager {
      *                     author: 吕自聪
      */
     public synchronized void buid(OkHttpClient okHttpClient) {
-        if (mBaseUrl == null)
-            new IllegalAccessError("没有设置网络请求基地址！");
+        if (mBaseUrl == null) {
+            throw new IllegalAccessError("没有设置网络请求基地址！");
+        }
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").serializeNulls().create();
         retrofit = new Retrofit.Builder().client(okHttpClient).baseUrl(mBaseUrl)
                 .addConverterFactory(new NullOnEmptyConverterFactory())
@@ -76,8 +80,9 @@ public enum RetrofitManager {
      * author: 吕自聪
      */
     public Retrofit getRetrofit() {
-        if (retrofit == null)
+        if (retrofit == null) {
             new IllegalAccessException("retrofit没有实例化！");
+        }
         return retrofit;
     }
 }

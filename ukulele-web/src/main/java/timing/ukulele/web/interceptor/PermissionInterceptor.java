@@ -35,8 +35,9 @@ public class PermissionInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        if (null == permissionService)
+        if (null == permissionService) {
             throw new RuntimeException("尚未设置角色权限服务");
+        }
         // 验证权限
         if (this.hasPermission(request, handler)) {
             return true;
@@ -62,34 +63,40 @@ public class PermissionInterceptor implements HandlerInterceptor {
                 return true;
             }
             String acl = request.getHeader(WebConstant.X_ROLE_HEADER);
-            if (StringUtils.isEmpty(acl))
+            if (StringUtils.isEmpty(acl)) {
                 return false;
+            }
             String[] aclArray = acl.split(",");
             Set<String> aclSet = new HashSet<>(aclArray.length);
             for (String s : aclArray) {
                 aclSet.add(s.trim());
             }
             //没有设置角色则不通过
-            if (CollectionUtils.isEmpty(aclSet))
+            if (CollectionUtils.isEmpty(aclSet)) {
                 return false;
-            if (StringUtils.isEmpty(requiredPermission.ability()) || requiredPermission.acl().length < 1 || StringUtils.isEmpty(requiredPermission.router()))
+            }
+            if (StringUtils.isEmpty(requiredPermission.ability()) || requiredPermission.acl().length < 1 || StringUtils.isEmpty(requiredPermission.router())) {
                 throw new RuntimeException("角色权限未设置");
+            }
             Set<String> abilitySet = permissionService.abilitySet(requiredPermission.router(), Arrays.asList(requiredPermission.acl()));
             //没有设置权限点则不通过
-            if (CollectionUtils.isEmpty(abilitySet))
+            if (CollectionUtils.isEmpty(abilitySet)) {
                 return false;
+            }
             //没有权限点则不通过
-            if (!abilitySet.contains(requiredPermission.ability()))
+            if (!abilitySet.contains(requiredPermission.ability())) {
                 return false;
+            }
             Set<String> requiredAclSet = new HashSet<>(Arrays.asList(requiredPermission.acl()));
             Set<String> result = new HashSet<>(aclSet);
             //去交集
             result.retainAll(requiredAclSet);
             //要求所有权限则返回交集大小是否等于需要的权限集合大小
-            if (requiredPermission.aclAll())
+            if (requiredPermission.aclAll()) {
                 return result.size() == requiredAclSet.size();
-            else
+            } else {
                 return result.size() > 0;
+            }
         }
         return true;
     }

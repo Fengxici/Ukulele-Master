@@ -7,6 +7,8 @@ import java.util.regex.Pattern;
  * 正则验证工具
  */
 public final class RegexUtil {
+    private static Pattern regex = Pattern.compile("^1[345789]\\d{9}$");
+
     /**
      * 手机号验证
      *
@@ -15,7 +17,6 @@ public final class RegexUtil {
      */
     public static boolean checkMobileNumber(String mobileNumber) {
         try {
-            Pattern regex = Pattern.compile("^1[345789]\\d{9}$");
             Matcher matcher = regex.matcher(mobileNumber);
             return matcher.matches();
         } catch (Exception e) {

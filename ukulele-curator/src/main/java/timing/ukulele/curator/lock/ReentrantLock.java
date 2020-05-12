@@ -52,7 +52,8 @@ public class ReentrantLock implements Lock, ConnectionStateListener {
 
     @Override
     public void stateChanged(CuratorFramework curatorFramework, ConnectionState connectionState) {
-        if (LOST == connectionState || SUSPENDED == connectionState)
+        if (LOST == connectionState || SUSPENDED == connectionState) {
             release();
+        }
     }
 }

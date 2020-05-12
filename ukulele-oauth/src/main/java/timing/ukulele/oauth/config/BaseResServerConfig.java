@@ -22,7 +22,7 @@ import java.util.Objects;
  */
 @EnableResourceServer
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
-public abstract class ResServerConfig extends ResourceServerConfigurerAdapter {
+public abstract class BaseResServerConfig extends ResourceServerConfigurerAdapter {
 
     @Autowired(required = false)
     private RemoteTokenServices remoteTokenServices;

@@ -19,8 +19,9 @@ public class FeignBasicAuthRequestInterceptor implements RequestInterceptor {
             if (headerNames != null) {
                 while (headerNames.hasMoreElements()) {
                     String name = headerNames.nextElement();
-                    if (!(name.equalsIgnoreCase("x-role-header") || name.equalsIgnoreCase("x-user-header")))
+                    if (!("x-role-header".equalsIgnoreCase(name) || "x-user-header".equalsIgnoreCase(name))) {
                         continue;
+                    }
                     String values = request.getHeader(name);
                     requestTemplate.header(name, values);
                 }

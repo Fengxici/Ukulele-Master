@@ -48,10 +48,12 @@ public class RedisHelper implements CacheManager {
      * @param expire 是否延长
      * @return 对象
      */
+    @Override
     public final Object get(final String key, boolean expire) {
         RBucket<Object> temp = getRedisBucket(key);
-        if (expire)
+        if (expire) {
             expire(temp, EXPIRE);
+        }
         return temp.get();
     }
 
@@ -61,6 +63,7 @@ public class RedisHelper implements CacheManager {
      * @param key 键值
      * @return 对象
      */
+    @Override
     public final Object get(final String key) {
         RBucket<Object> temp = getRedisBucket(key);
         return temp.get();
@@ -73,6 +76,7 @@ public class RedisHelper implements CacheManager {
      * @param key   键
      * @param value 值
      */
+    @Override
     public final void set(final String key, final Serializable value) {
         RBucket<Object> temp = getRedisBucket(key);
         temp.set(value);
@@ -86,6 +90,7 @@ public class RedisHelper implements CacheManager {
      * @param value   值
      * @param seconds 过期时间
      */
+    @Override
     public final void set(final String key, final Serializable value, int seconds) {
         RBucket<Object> temp = getRedisBucket(key);
         temp.set(value);
@@ -107,6 +112,7 @@ public class RedisHelper implements CacheManager {
      * @param key 键值
      * @return 是否存在
      */
+    @Override
     public final Boolean exists(final String key) {
         RBucket<Object> temp = getRedisBucket(key);
         return temp.isExists();
@@ -117,6 +123,7 @@ public class RedisHelper implements CacheManager {
      *
      * @param key 键
      */
+    @Override
     public final void del(final String key) {
         getRedis().getKeys().deleteAsync(key);
     }
@@ -126,6 +133,7 @@ public class RedisHelper implements CacheManager {
      *
      * @param pattern 表达式
      */
+    @Override
     public final void delAll(final String pattern) {
         getRedis().getKeys().deleteByPattern(pattern);
     }
@@ -136,6 +144,7 @@ public class RedisHelper implements CacheManager {
      * @param key 键
      * @return 类型字符串
      */
+    @Override
     public final String type(final String key) {
         RType type = getRedis().getKeys().getType(key);
         if (type == null) {
@@ -161,20 +170,24 @@ public class RedisHelper implements CacheManager {
      * @param unixTime 时间
      * @return 是否设置时间
      */
+    @Override
     public final Boolean expireAt(final String key, final long unixTime) {
         return getRedis().getBucket(key).expireAt(new Date(unixTime));
     }
 
+    @Override
     public final Long ttl(final String key) {
         RBucket<Object> rBucket = getRedisBucket(key);
         return rBucket.remainTimeToLive();
     }
 
+    @Override
     public final Object getSet(final String key, final Serializable value) {
         RBucket<Object> rBucket = getRedisBucket(key);
         return rBucket.getAndSet(value);
     }
 
+    @Override
     public Set<Object> getAll(String pattern) {
         Set<Object> set = new HashSet<>();
         Iterable<String> keys = getRedis().getKeys().getKeysByPattern(pattern);
@@ -184,28 +197,34 @@ public class RedisHelper implements CacheManager {
         return set;
     }
 
+    @Override
     public Boolean expire(String key, int seconds) {
         RBucket<Object> bucket = getRedisBucket(key);
         expire(bucket, seconds);
         return true;
     }
 
+    @Override
     public boolean setnx(String key, Serializable value) {
         return getRedis().getLock(key).tryLock();
     }
 
+    @Override
     public void unlock(String key) {
         getRedis().getLock(key).unlock();
     }
 
+    @Override
     public void hset(String key, String field, String value) {
         getRedis().getMap(key).put(field, value);
     }
 
+    @Override
     public Object hget(String key, String field) {
         return getRedis().getMap(key).get(field);
     }
 
+    @Override
     public void hdel(String key, String field) {
         getRedis().getMap(key).remove(field);
     }

@@ -224,6 +224,7 @@ public class UkuleleRibbonAutoConfigure extends FeignClientsConfiguration implem
         }
     }
 
+    @Override
     @Bean
     public Decoder feignDecoder() {
         HttpMessageConverter jacksonConverter = new MappingJackson2HttpMessageConverter(customObjectMapper());
@@ -231,6 +232,7 @@ public class UkuleleRibbonAutoConfigure extends FeignClientsConfiguration implem
         return new ResponseEntityDecoder(new SpringDecoder(objectFactory));
     }
 
+    @Override
     @Bean
     public Encoder feignEncoder() {
         HttpMessageConverter jacksonConverter = new MappingJackson2HttpMessageConverter(customObjectMapper());
