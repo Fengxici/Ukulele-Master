@@ -1,5 +1,6 @@
 package timing.ukulele.persistence.model;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -11,5 +12,6 @@ public abstract class BaseModel implements Serializable, IdModel {
     private Date createTime;
     private String updateBy;
     private Date updateTime;
+    @TableField("deleted_")
     private Boolean deleted;
 }
