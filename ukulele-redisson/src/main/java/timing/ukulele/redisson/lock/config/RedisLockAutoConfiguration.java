@@ -13,6 +13,7 @@ import timing.ukulele.redisson.lock.core.RedisLockAspectHandler;
 
 /**
  * Content :自动装配
+ * @author fengxici
  */
 @Configuration
 @AutoConfigureAfter(TimingRedisAutoConfiguration.class)

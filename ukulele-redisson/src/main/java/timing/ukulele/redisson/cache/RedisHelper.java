@@ -14,6 +14,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Redis缓存辅助类
+ * @author fengxici
  */
 public class RedisHelper implements CacheManager {
     @Autowired

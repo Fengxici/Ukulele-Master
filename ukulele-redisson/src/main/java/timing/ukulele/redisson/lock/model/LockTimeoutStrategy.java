@@ -8,6 +8,10 @@ import timing.ukulele.redisson.lock.Lock;
 import java.util.concurrent.TimeUnit;
 
 
+/**
+ * @author fengxici
+ */
+
 public enum LockTimeoutStrategy implements LockTimeoutHandler {
 
     /**

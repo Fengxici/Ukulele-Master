@@ -9,6 +9,8 @@ import java.lang.reflect.Type;
 
 /**
  * 自定义ConverterFactory
+ *
+ * @author fengxici
  */
 public final class NullOnEmptyConverterFactory extends Converter.Factory {
 

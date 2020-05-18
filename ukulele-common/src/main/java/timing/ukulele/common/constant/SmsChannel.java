@@ -5,13 +5,15 @@ package timing.ukulele.common.constant;
  */
 public enum SmsChannel {
 
-    // 阿里云短信
+    /**
+     * 阿里云短信
+     */
     ALIYUN("ALIYUN_SMS", "阿里云短信");
 
-    // 通道名称
+    /*** 通道名称*/
     private String name;
 
-    // 通道描述
+    /*** 通道描述*/
     private String description;
 
     SmsChannel(String name, String description) {

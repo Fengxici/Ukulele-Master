@@ -11,6 +11,9 @@ import java.util.concurrent.TimeUnit;
 import static org.apache.curator.framework.state.ConnectionState.LOST;
 import static org.apache.curator.framework.state.ConnectionState.SUSPENDED;
 
+/**
+ * @author fengxici
+ */
 public class ReadLock implements Lock, ConnectionStateListener {
 
     private InterProcessReadWriteLock interProcessReadWriteLock;

@@ -1,5 +1,8 @@
 package timing.ukulele.redisson.lock.handler;
 
+/**
+ * @author fengxici
+ */
 public class RedisLockTimeoutException extends RuntimeException {
 
     public RedisLockTimeoutException() {

@@ -9,6 +9,7 @@ import java.util.List;
 /**
  * 数据权限、参考guns实现
  * 增强查询参数
+ * @author fengxici
  */
 @EqualsAndHashCode(callSuper = true)
 @Data

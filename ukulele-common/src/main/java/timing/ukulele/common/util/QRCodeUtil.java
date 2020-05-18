@@ -28,7 +28,7 @@ public class QRCodeUtil {
             String qrcodeFormat = "png";
             HashMap<EncodeHintType, String> hints = new HashMap<>(8);
             hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
-            BitMatrix bitMatrix = new MultiFormatWriter().encode("http://www.cnblogs.com/java-class/",
+            BitMatrix bitMatrix = new MultiFormatWriter().encode("https://fengxici.github.io/",
                     BarcodeFormat.QR_CODE, qrcodeWidth, qrcodeHeight, hints);
 
             BufferedImage image = new BufferedImage(qrcodeWidth, qrcodeHeight, BufferedImage.TYPE_INT_RGB);

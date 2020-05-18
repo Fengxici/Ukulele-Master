@@ -9,6 +9,9 @@ import timing.ukulele.curator.config.ZookeeperLockConfig;
 import timing.ukulele.curator.model.LockInfo;
 import timing.ukulele.curator.model.LockType;
 
+/**
+ * @author fengxici
+ */
 public class LockInfoProvider {
     public static final String LOCK_NAME_PREFIX = "/lock";
     public static final String LOCK_NAME_SEPARATOR = ".";

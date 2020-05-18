@@ -8,9 +8,7 @@ import java.util.List;
 public class TreeUtil {
     /**
      * 两层循环实现建树
-     *
      * @param treeNodes 传入的树节点列表
-     * @return
      */
     public static <T extends TreeNode> List<T> bulid(List<T> treeNodes, Object root) {
 
@@ -36,9 +34,6 @@ public class TreeUtil {
 
     /**
      * 使用递归方法建树
-     *
-     * @param treeNodes
-     * @return
      */
     public static <T extends TreeNode> List<T> buildByRecursive(List<T> treeNodes, Object root) {
         List<T> trees = new ArrayList<>();
@@ -52,9 +47,6 @@ public class TreeUtil {
 
     /**
      * 递归查找子节点
-     *
-     * @param treeNodes
-     * @return
      */
     public static <T extends TreeNode> T findChildren(T treeNode, List<T> treeNodes) {
         for (T it : treeNodes) {

@@ -17,6 +17,9 @@ import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author fengxici
+ */
 @RestController
 @RequestMapping("eureka-client")
 public class ServiceRegistryController extends BaseController {

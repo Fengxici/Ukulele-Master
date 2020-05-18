@@ -21,6 +21,8 @@ import java.lang.reflect.Method;
 
 /**
  * 给添加@TRedisLock切面加锁处理
+ *
+ * @author fengxici
  */
 @Aspect
 @Component
@@ -100,7 +102,7 @@ public class RedisLockAspectHandler {
         Object[] args = joinPoint.getArgs();
 
         // invoke
-        Object res = null;
+        Object res;
         try {
             res = handleMethod.invoke(target, args);
         } catch (IllegalAccessException e) {
@@ -172,7 +174,7 @@ public class RedisLockAspectHandler {
         }
     }
 
-    private class LockRes {
+    private static class LockRes {
 
         private LockInfo lockInfo;
 
@@ -200,7 +202,9 @@ public class RedisLockAspectHandler {
         }
     }
 
-    // avoid memory leak
+    /**
+     * avoid memory leak
+     */
     private void cleanUpThreadLocal() {
 
         currentThreadLockRes.remove();

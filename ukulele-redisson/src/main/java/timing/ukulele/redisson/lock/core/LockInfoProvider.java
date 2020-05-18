@@ -10,6 +10,9 @@ import timing.ukulele.redisson.lock.config.RedisLockConfig;
 import timing.ukulele.redisson.lock.model.LockInfo;
 import timing.ukulele.redisson.lock.model.LockType;
 
+/**
+ * @author fengxici
+ */
 public class LockInfoProvider {
 
     public static final String LOCK_NAME_PREFIX = "lock";

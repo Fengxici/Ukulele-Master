@@ -11,9 +11,6 @@ public final class RegexUtil {
 
     /**
      * 手机号验证
-     *
-     * @param mobileNumber
-     * @return
      */
     public static boolean checkMobileNumber(String mobileNumber) {
         try {

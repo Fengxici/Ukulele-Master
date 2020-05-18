@@ -7,6 +7,7 @@ import lombok.EqualsAndHashCode;
 
 /**
  * 数据库ID自增
+ * @author fengxici
  */
 @EqualsAndHashCode(callSuper = true)
 @Data

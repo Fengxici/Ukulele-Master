@@ -11,9 +11,13 @@ public final class IDCardUtil {
     private IDCardUtil() {
     }
 
-    // 11个校验码字符
+    /**
+     * 11个校验码字符
+     */
     static final int[] FACTOR = {7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2, 1};
-    // 18个加权因子
+    /**
+     * 18个加权因子
+     */
     static final char[] CODE = {'1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2'};
 
     /**
@@ -50,8 +54,10 @@ public final class IDCardUtil {
         String id17 = personIDCode.substring(0, 6) + "19" + personIDCode.substring(6, 15);
 
         int[] idcd = new int[18];
-        int sum; // 根据公式 ∑(ai×Wi) 计算
-        int remainder; // 第18位校验码
+        // 根据公式 ∑(ai×Wi) 计算
+        int sum;
+        // 第18位校验码
+        int remainder;
         for (int i = 0; i < 17; i++) {
             idcd[i] = Integer.parseInt(id17.substring(i, i + 1));
         }
@@ -166,8 +172,6 @@ public final class IDCardUtil {
 
     /**
      * 性别
-     *
-     * @author ShenHuaJie
      */
     public enum Sex {
         /**

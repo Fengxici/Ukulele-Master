@@ -2,6 +2,7 @@ package timing.ukulele.redisson.properties;
 
 /**
  * redis 池配置
+ * @author fengxici
  */
 public class RedisPoolProperties {
     private int maxIdle;

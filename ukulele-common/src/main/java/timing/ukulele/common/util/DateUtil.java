@@ -233,9 +233,9 @@ public final class DateUtil {
      */
     public static Date getDate4Number(Integer years) {
         Calendar now = Calendar.getInstance();
-        Integer year = now.get(Calendar.YEAR);
-        Integer month = now.get(Calendar.MONTH) + 1;
-        Integer day = now.get(Calendar.DATE);
+        int year = now.get(Calendar.YEAR);
+        int month = now.get(Calendar.MONTH) + 1;
+        int day = now.get(Calendar.DATE);
         Integer birthYear = year - years + 1;
         String monStr = month < 10 ? ("0" + month) : month + "";
         String dayStr = day < 10 ? ("0" + day) : day + "";

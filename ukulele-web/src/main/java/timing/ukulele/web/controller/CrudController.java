@@ -4,6 +4,9 @@ import timing.ukulele.common.data.ResponseVO;
 
 import java.util.List;
 
+/**
+ * @author fengxici
+ */
 public abstract class CrudController<T> {
 
     /**

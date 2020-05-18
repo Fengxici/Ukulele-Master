@@ -5,6 +5,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import springfox.documentation.swagger2.configuration.Swagger2DocumentationConfiguration;
 
+/**
+ * @author fengxici
+ */
 @Configuration
 @ConditionalOnProperty(name = "ukulele.swagger.enabled", matchIfMissing = true)
 @Import({

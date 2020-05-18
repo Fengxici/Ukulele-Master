@@ -9,10 +9,10 @@ public enum ThirdPartyTypeEnum {
      */
     WX_APP(1, "微信小程序");
 
-    // 第三方平台类型
+    /*** 第三方平台类型*/
     private Integer value;
 
-    // 第三放平台描述
+    /*** 第三放平台描述*/
     private String description;
 
     ThirdPartyTypeEnum(Integer value, String description) {

@@ -11,7 +11,7 @@
     {
       "name": "ukulele.zookeeper.lock.password",
       "type": "java.lang.String",
-      "sourceType": "timing.ukulele.swagger.SwaggerProperties",
+      "sourceType": "timing.ukulele.curator.config.ZookeeperLockConfig",
       "description": "zookeeper连接密码."
     },
     {

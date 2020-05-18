@@ -4,6 +4,9 @@ import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import timing.ukulele.redisson.lock.model.LockInfo;
 
+/**
+ * @author fengxici
+ */
 public class LockFactory {
 
     @Autowired
@@ -11,8 +14,6 @@ public class LockFactory {
 
     public Lock getLock(LockInfo lockInfo) {
         switch (lockInfo.getType()) {
-            case Reentrant:
-                return new ReentrantLock(redissonClient, lockInfo);
             case Fair:
                 return new FairLock(redissonClient, lockInfo);
             case Read:

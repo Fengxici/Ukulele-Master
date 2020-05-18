@@ -1,5 +1,8 @@
 package timing.ukulele.curator.handler;
 
+/**
+ * @author fengxici
+ */
 public class ZookeeperLockTimeoutException extends RuntimeException {
 
     public ZookeeperLockTimeoutException() {

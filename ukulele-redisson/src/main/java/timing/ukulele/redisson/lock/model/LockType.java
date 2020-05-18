@@ -2,6 +2,7 @@ package timing.ukulele.redisson.lock.model;
 
 /**
  * Content :锁类型
+ * @author fengxici
  */
 public enum LockType {
     /**

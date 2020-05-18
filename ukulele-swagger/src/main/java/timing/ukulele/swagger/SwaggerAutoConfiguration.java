@@ -23,6 +23,9 @@ import springfox.documentation.spring.web.plugins.Docket;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * @author fengxici
+ */
 @Configuration
 @EnableConfigurationProperties(SwaggerProperties.class)
 @Import({Swagger2Configuration.class})
@@ -186,7 +189,8 @@ public class SwaggerAutoConfiguration implements BeanFactoryAware {
     private SecurityContext securityContext() {
         return SecurityContext.builder()
                 .securityReferences(defaultAuth())
-                .forPaths(PathSelectors.ant("/api/**"))//配置哪些url需要做oauth2认证
+                //配置哪些url需要做oauth2认证
+                .forPaths(PathSelectors.ant("/api/**"))
                 .build();
     }
 
@@ -230,10 +234,6 @@ public class SwaggerAutoConfiguration implements BeanFactoryAware {
 
     /**
      * 局部参数按照name覆盖局部参数
-     *
-     * @param globalOperationParameters
-     * @param docketOperationParameters
-     * @return
      */
     private List<Parameter> assemblyGlobalOperationParameters(
             List<SwaggerProperties.GlobalOperationParameter> globalOperationParameters,

@@ -25,16 +25,17 @@ public final class DataUtil {
     public static String byte2hex(byte[] b) { // 一个字节数，转成16进制字符串
         StringBuilder hs = new StringBuilder(b.length * 2);
         String stmp = "";
-        for (int n = 0; n < b.length; n++) {
+        for (byte value : b) {
             // 整数转成十六进制表示
-            stmp = Integer.toHexString(b[n] & 0XFF);
+            stmp = Integer.toHexString(value & 0XFF);
             if (stmp.length() == 1) {
                 hs.append("0").append(stmp);
             } else {
                 hs.append(stmp);
             }
         }
-        return hs.toString(); // 转成大写
+        // 转成大写
+        return hs.toString().toUpperCase();
     }
 
     /**
@@ -233,7 +234,7 @@ public final class DataUtil {
      * @param <K>          类的对象类型
      * @return 不为空则返回，为空的返回默认值
      */
-    public static final <K> K ifNull(K k, K defaultValue) {
+    public static <K> K ifNull(K k, K defaultValue) {
         if (k == null) {
             return defaultValue;
         }

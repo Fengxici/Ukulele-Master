@@ -4,6 +4,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * RestTemplate 配置
+ * @author fengxici
  */
 @ConfigurationProperties(prefix = "ukulele.rest-template")
 public class UkuleleRestTemplateProperties {

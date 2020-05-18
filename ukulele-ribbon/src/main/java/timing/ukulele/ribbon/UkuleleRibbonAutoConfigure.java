@@ -52,6 +52,8 @@ import java.util.TimeZone;
 
 /**
  * Ribbon扩展配置类
+ *
+ * @author fengxici
  */
 @Configuration
 @EnableCircuitBreaker
@@ -61,6 +63,7 @@ public class UkuleleRibbonAutoConfigure extends FeignClientsConfiguration implem
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss");
     private final UkuleleRestTemplateProperties restTemplateProperties;
+
     @Autowired
     public UkuleleRibbonAutoConfigure(UkuleleRestTemplateProperties restTemplateProperties) {
         this.restTemplateProperties = restTemplateProperties;

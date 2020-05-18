@@ -33,33 +33,33 @@ public class ResponseVO<T> implements Serializable {
         this.status = ResponseVO.Status.FAILED;
     }
 
-    public static ResponseVO success() {
-        return new ResponseVO();
+    public static ResponseVO<Object> success() {
+        return new ResponseVO<>();
     }
 
-    public static ResponseVO success(Object result) {
-        ResponseVO response = new ResponseVO();
+    public static ResponseVO<Object> success(Object result) {
+        ResponseVO<Object> response = new ResponseVO<>();
         response.setResult(result);
         return response;
     }
 
-    public static ResponseVO failure(IError error) {
-        ResponseVO response = new ResponseVO();
+    public static ResponseVO<Object> failure(IError error) {
+        ResponseVO<Object> response = new ResponseVO<>();
         response.errorCode = error.getErrorCode();
         response.errorMessage = error.getErrorMessage();
         response.status = Status.FAILED;
         return response;
     }
 
-    public static ResponseVO failure(String message) {
-        ResponseVO response = new ResponseVO();
+    public static ResponseVO<Object> failure(String message) {
+        ResponseVO<Object> response = new ResponseVO<>();
         response.setErrorMessage(message);
         response.status = Status.FAILED;
         return response;
     }
 
-    public static ResponseVO warring(Object result) {
-        ResponseVO response = new ResponseVO();
+    public static ResponseVO<Object> warring(Object result) {
+        ResponseVO<Object> response = new ResponseVO<>();
         response.setResult(result);
         response.status = Status.WARRING;
         return response;
@@ -111,10 +111,16 @@ public class ResponseVO<T> implements Serializable {
 
     public enum Status {
         /**
-         * 状态
+         * 成功
          */
         SUCCEED,
+        /**
+         * 警告
+         */
         WARRING,
+        /**
+         * 失败
+         */
         FAILED;
 
         Status() {

@@ -20,6 +20,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * @author fengxici
+ */
 @Configuration
 @EnableConfigurationProperties(RedisProperties.class)
 @ConditionalOnClass({Redisson.class})

@@ -8,6 +8,7 @@ import javax.crypto.spec.SecretKeySpec;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 import java.security.*;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
@@ -83,7 +84,7 @@ public class EncryptUtil {
      */
     public static String encode(String data) {
         try {
-            return encode(data.getBytes("UTF-8"));
+            return encode(data.getBytes(StandardCharsets.UTF_8));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -226,18 +227,24 @@ public class EncryptUtil {
     ////////////////////////////////////////////MD5////////////////////////////////////////////////////////////
     public static String getMD5(String source) {
         String s = null;
-        char hexChar[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D',
+        char[] hexChar = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D',
                 'E', 'F'};
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
-            md.update(source.getBytes());// 使用指定的byte数组更新摘要
-            byte[] hashCalc = md.digest();// 完成哈希计算
-            char result[] = new char[16 * 2];// MD5结果返回的是32位字符串，每位是16进制表示的
+            // 使用指定的byte数组更新摘要
+            md.update(source.getBytes());
+            // 完成哈希计算
+            byte[] hashCalc = md.digest();
+            // MD5结果返回的是32位字符串，每位是16进制表示的
+            char[] result = new char[16 * 2];
             int k = 0;
-            for (int i = 0; i < 16; i++) {// 循环16次，对每个字节进行操作转换
+            // 循环16次，对每个字节进行操作转换
+            for (int i = 0; i < 16; i++) {
                 byte everyByte = hashCalc[i];
-                result[k++] = hexChar[everyByte >>> 4 & 0xf];// 对每个字节的高4位进行处理，逻辑右移，再相与
-                result[k++] = hexChar[everyByte & 0xf];// 低4位转换
+                // 对每个字节的高4位进行处理，逻辑右移，再相与
+                result[k++] = hexChar[everyByte >>> 4 & 0xf];
+                // 低4位转换
+                result[k++] = hexChar[everyByte & 0xf];
             }
             s = new String(result);
         } catch (Exception e) {
@@ -310,12 +317,12 @@ public class EncryptUtil {
     ////////////////////////////////////////////DES,3DES,AES//////////////////////////////////////////////////
     private final static String KEY_DES = "DES";
     private static final String KEY_3_DES = "DESede";
-    private final static String KEY_AES = "AES"; // 测试
-    //长度8字节
     private final static String DES_KEY = "12345678";
-    //长度24字节
+    /***长度8字节*/
+    private final static String KEY_AES = "AES";
+    /***长度24字节*/
     private final static String DES_3_KEY = "213456781234567812345678";
-    //长度16，24，32字节
+    /***长度16，24，32字节*/
     private final static String AES_KEY = "1234567812345678";
 
     private static byte[] decByDes(byte[] data) throws Exception {
@@ -323,48 +330,48 @@ public class EncryptUtil {
         SecureRandom random = new SecureRandom();
         DESKeySpec desKey = new DESKeySpec(DES_KEY.getBytes());
         SecretKeyFactory keyFactory = SecretKeyFactory.getInstance(KEY_DES);
-        SecretKey securekey = keyFactory.generateSecret(desKey);
+        SecretKey secureKey = keyFactory.generateSecret(desKey);
         Cipher cipher = Cipher.getInstance(KEY_DES);
-        cipher.init(Cipher.DECRYPT_MODE, securekey, random);
+        cipher.init(Cipher.DECRYPT_MODE, secureKey, random);
         return cipher.doFinal(data);
     }
 
     private static byte[] encByDes(byte[] data) throws Exception {
         DESKeySpec desKey = new DESKeySpec(DES_KEY.getBytes());
         SecretKeyFactory keyFactory = SecretKeyFactory.getInstance(KEY_DES);
-        SecretKey securekey = keyFactory.generateSecret(desKey);
+        SecretKey secretKey = keyFactory.generateSecret(desKey);
         Cipher cipher = Cipher.getInstance(KEY_DES);
-        cipher.init(Cipher.ENCRYPT_MODE, securekey);
+        cipher.init(Cipher.ENCRYPT_MODE, secretKey);
         return cipher.doFinal(data);
     }
 
     private static byte[] decBy3Des(byte[] data) throws Exception {
         SecureRandom random = new SecureRandom();
-        SecretKey deskey = new SecretKeySpec(DES_3_KEY.getBytes(), KEY_3_DES);
+        SecretKey keySpec = new SecretKeySpec(DES_3_KEY.getBytes(), KEY_3_DES);
         Cipher cipher = Cipher.getInstance(KEY_3_DES);
-        cipher.init(Cipher.DECRYPT_MODE, deskey, random);
+        cipher.init(Cipher.DECRYPT_MODE, keySpec, random);
         return cipher.doFinal(data);
     }
 
     private static byte[] encBy3Des(byte[] data) throws Exception {
         SecureRandom random = new SecureRandom();
-        SecretKey deskey = new SecretKeySpec(DES_3_KEY.getBytes(), KEY_3_DES);
+        SecretKey keySpec = new SecretKeySpec(DES_3_KEY.getBytes(), KEY_3_DES);
         Cipher cipher = Cipher.getInstance(KEY_3_DES);
-        cipher.init(Cipher.ENCRYPT_MODE, deskey, random);
+        cipher.init(Cipher.ENCRYPT_MODE, keySpec, random);
         return cipher.doFinal(data);
     }
 
     private static byte[] decByAes(byte[] data) throws Exception {
-        SecretKey deskey = new SecretKeySpec(AES_KEY.getBytes(), KEY_AES);
+        SecretKey keySpec = new SecretKeySpec(AES_KEY.getBytes(), KEY_AES);
         Cipher cipher = Cipher.getInstance(KEY_AES);
-        cipher.init(Cipher.DECRYPT_MODE, deskey);
+        cipher.init(Cipher.DECRYPT_MODE, keySpec);
         return cipher.doFinal(data);
     }
 
     private static byte[] encByAes(byte[] data) throws Exception {
-        SecretKey deskey = new SecretKeySpec(AES_KEY.getBytes(), KEY_AES);
+        SecretKey keySpec = new SecretKeySpec(AES_KEY.getBytes(), KEY_AES);
         Cipher cipher = Cipher.getInstance(KEY_AES);
-        cipher.init(Cipher.ENCRYPT_MODE, deskey);
+        cipher.init(Cipher.ENCRYPT_MODE, keySpec);
         return cipher.doFinal(data);
     }
     ////////////////////////////////////////////DES,3DES,AES//////////////////////////////////////////////////
@@ -385,7 +392,8 @@ public class EncryptUtil {
      */
     private static final String PUBLIC_KEY = "RSAPublicKey";
 
-    private static final int keyLen = 2048;// 密钥长度
+    /*** 密钥长度*/
+    private static final int keyLen = 2048;
 
     /**
      * 获取私钥的key
@@ -403,14 +411,7 @@ public class EncryptUtil {
     private static final int MAX_DECRYPT_BLOCK = keyLen / 8;
 
     /**
-     * genKeyPair:(). <br/>
-     * <p>
      * 生成公司钥对，返回的是经过BASE64编码的密钥
-     *
-     * @return
-     * @throws Exception
-     * @author chiwei
-     * @since JDK 1.6
      */
     public static Map<String, Object> genKeyPair() throws Exception {
         KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance(KEY_ALGORITHM);
@@ -425,16 +426,7 @@ public class EncryptUtil {
     }
 
     /**
-     * sign:(). <br/>
-     * <p>
      * 用私钥进行签名，返回BASE64编码的内容
-     *
-     * @param data
-     * @param privateKey
-     * @return
-     * @throws Exception
-     * @author chiwei
-     * @since JDK 1.6
      */
     public static String sign(byte[] data, String privateKey) throws Exception {
         byte[] keyBytes = decode(privateKey);
@@ -448,17 +440,7 @@ public class EncryptUtil {
     }
 
     /**
-     * verify:(). <br/>
-     * <p>
      * 用公钥对签名进行验证
-     *
-     * @param data
-     * @param publicKey
-     * @param sign
-     * @return
-     * @throws Exception
-     * @author chiwei
-     * @since JDK 1.6
      */
     public static boolean verify(byte[] data, String publicKey, String sign) throws Exception {
         byte[] keyBytes = decode(publicKey);
@@ -472,16 +454,7 @@ public class EncryptUtil {
     }
 
     /**
-     * decryptByPrivateKey:(). <br/>
-     * <p>
      * 私钥解密
-     *
-     * @param encryptedData
-     * @param privateKey
-     * @return
-     * @throws Exception
-     * @author chiwei
-     * @since JDK 1.6
      */
     public static byte[] decryptByPrivateKey(byte[] encryptedData, String privateKey)
             throws Exception {
@@ -513,16 +486,7 @@ public class EncryptUtil {
     }
 
     /**
-     * decryptByPublicKey:(). <br/>
-     * <p>
      * 公钥解密
-     *
-     * @param encryptedData
-     * @param publicKey
-     * @return
-     * @throws Exception
-     * @author chiwei
-     * @since JDK 1.6
      */
     public static byte[] decryptByPublicKey(byte[] encryptedData, String publicKey)
             throws Exception {
@@ -554,16 +518,7 @@ public class EncryptUtil {
     }
 
     /**
-     * encryptByPublicKey:(). <br/>
-     * <p>
      * 公钥加密
-     *
-     * @param data
-     * @param publicKey
-     * @return
-     * @throws Exception
-     * @author chiwei
-     * @since JDK 1.6
      */
     public static byte[] encryptByPublicKey(byte[] data, String publicKey) throws Exception {
         byte[] keyBytes = decode(publicKey);
@@ -595,16 +550,7 @@ public class EncryptUtil {
     }
 
     /**
-     * encryptByPrivateKey:(). <br/>
-     * <p>
      * 私钥加密
-     *
-     * @param data
-     * @param privateKey
-     * @return
-     * @throws Exception
-     * @author chiwei
-     * @since JDK 1.6
      */
     public static byte[] encryptByPrivateKey(byte[] data, String privateKey) throws Exception {
         byte[] keyBytes = decode(privateKey);
@@ -635,15 +581,7 @@ public class EncryptUtil {
     }
 
     /**
-     * getPrivateKey:(). <br/>
-     * <p>
      * 获取BASE64编码的私钥
-     *
-     * @param keyMap
-     * @return
-     * @throws Exception
-     * @author chiwei
-     * @since JDK 1.6
      */
     public static String getPrivateKey(Map<String, Object> keyMap) throws Exception {
         Key key = (Key) keyMap.get(PRIVATE_KEY);
@@ -651,15 +589,7 @@ public class EncryptUtil {
     }
 
     /**
-     * getPublicKey:(). <br/>
-     * <p>
      * 获取BASE64编码的公钥
-     *
-     * @param keyMap
-     * @return
-     * @throws Exception
-     * @author chiwei
-     * @since JDK 1.6
      */
     public static String getPublicKey(Map<String, Object> keyMap) throws Exception {
         Key key = (Key) keyMap.get(PUBLIC_KEY);
@@ -686,7 +616,7 @@ public class EncryptUtil {
             String word = "123";
             System.out.println("原文：" + word);
             System.out.println("=============DES=============");
-            byte b[] = encByDes(word.getBytes());
+            byte[] b = encByDes(word.getBytes());
             String encWord = new String(b);
             System.out.println("加密后：" + encWord);
             System.out.println("解密后：" + new String(decByDes(b)));
@@ -710,14 +640,14 @@ public class EncryptUtil {
         String json = "[{\"ZYH\":\"546786\",\"ZYHM\":\"657566\",\"WDHM\":\"5467\",\"XM\":\"eteryuytr\",\"XB\":\"45678i7654\",\"DQBQ\":\"5678\",\"DQCW\":\"ertyu\"}]";
         System.out.println(json);
         try {
-            Map keyMap = genKeyPair();
+            Map<String, Object> keyMap = genKeyPair();
             String publicKey = getPublicKey(keyMap);
             String privateKey = getPrivateKey(keyMap);
             System.out.println("公钥-->" + publicKey);
             System.out.println("私钥-->" + privateKey);
             System.out.println("待加密的字符串：" + json);
             byte[] enBy = encryptByPublicKey(json.getBytes(), publicKey);
-            String enStr = new String(enBy, "UTF-8");
+            String enStr = new String(enBy, StandardCharsets.UTF_8);
             System.out.println("加密后：" + enStr);
             String enEncode = encode(enBy);
             System.out.println("加密后编码内容：" + enEncode);

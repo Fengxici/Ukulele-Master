@@ -8,7 +8,9 @@ public final strictfp class MathUtil {
     private MathUtil() {
     }
 
-    // 默认运算精度
+    /**
+     * 默认运算精度
+     */
     private static int DEF_SCALE = 10;
     private static Pattern pattern = Pattern.compile("\\d+(.\\d+)?$");
 

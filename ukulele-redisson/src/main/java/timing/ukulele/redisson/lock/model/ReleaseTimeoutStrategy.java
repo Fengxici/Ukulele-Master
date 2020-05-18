@@ -3,6 +3,10 @@ package timing.ukulele.redisson.lock.model;
 import timing.ukulele.redisson.lock.handler.RedisLockTimeoutException;
 import timing.ukulele.redisson.lock.handler.release.ReleaseTimeoutHandler;
 
+/**
+ * @author fengxici
+ */
+
 public enum ReleaseTimeoutStrategy implements ReleaseTimeoutHandler {
 
     /**

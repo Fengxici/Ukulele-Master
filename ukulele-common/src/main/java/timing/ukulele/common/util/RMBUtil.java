@@ -9,9 +9,9 @@ public final class RMBUtil {
     private RMBUtil() {
     }
 
-    private static String HanDigiStr[] = new String[]{"零", "壹", "贰", "叁", "肆", "伍", "陆", "柒", "捌", "玖"};
+    private static String[] HanDigiStr = new String[]{"零", "壹", "贰", "叁", "肆", "伍", "陆", "柒", "捌", "玖"};
 
-    private static String HanDiviStr[] = new String[]{"", "拾", "佰", "仟", "万", "拾", "佰", "仟", "亿", "拾", "佰", "仟", "万",
+    private static String[] HanDiviStr = new String[]{"", "拾", "佰", "仟", "万", "拾", "佰", "仟", "亿", "拾", "佰", "仟", "万",
             "拾", "佰", "仟", "亿", "拾", "佰", "仟", "万", "拾", "佰", "仟"};
 
     /**
@@ -20,7 +20,7 @@ public final class RMBUtil {
      * @param val 传入的数据
      * @return String 返回的人民币大写形式字符串
      */
-    public static final String numToRMBStr(double val) {
+    public static String numToRMBStr(double val) {
         String signStr = "";
         String tailStr = "";
         long fraction, integer;
@@ -69,7 +69,8 @@ public final class RMBUtil {
         // 输入字符串必须正整数，只允许前导空格(必须右对齐)，不宜有前导零
         String RMBStr = "";
         boolean lastzero = false;
-        boolean hasvalue = false; // 亿、万进位前有数值标记
+        // 亿、万进位前有数值标记
+        boolean hasvalue = false;
         int len, n;
         len = numStr.length();
         if (len > 15) {

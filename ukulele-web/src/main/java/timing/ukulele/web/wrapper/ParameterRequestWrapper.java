@@ -6,6 +6,7 @@ import java.util.Map;
 
 /**
  * 请求参数包装类
+ * @author fengxici
  */
 public class ParameterRequestWrapper extends HttpServletRequestWrapper {
     private Map<String, String[]> map;

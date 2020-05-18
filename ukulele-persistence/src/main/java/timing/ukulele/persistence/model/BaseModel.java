@@ -6,6 +6,9 @@ import lombok.Data;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * @author fengxici
+ */
 @Data
 public abstract class BaseModel implements Serializable, IdModel {
     private String createBy;

@@ -9,6 +9,9 @@ import timing.ukulele.persistence.model.BaseModel;
 import java.util.Collection;
 import java.util.Date;
 
+/**
+ * @author fengxici
+ */
 public class BaseService<M extends BaseMapper<T>, T extends BaseModel> extends ServiceImpl<M, T> {
 
     @Override

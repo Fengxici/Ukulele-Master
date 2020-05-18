@@ -1,21 +1,16 @@
 package timing.ukulele.web.interceptor;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
-import timing.ukulele.common.util.JsonUtils;
 import timing.ukulele.web.WebConstant;
 import timing.ukulele.web.annotation.RequiredPermission;
 import timing.ukulele.web.service.PermissionService;
-import timing.ukulele.web.util.Request2ModelUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -49,9 +44,6 @@ public class PermissionInterceptor implements HandlerInterceptor {
 
     /**
      * 是否有权限
-     *
-     * @param handler
-     * @return
      */
     private boolean hasPermission(HttpServletRequest request, Object handler) {
         if (handler instanceof HandlerMethod) {

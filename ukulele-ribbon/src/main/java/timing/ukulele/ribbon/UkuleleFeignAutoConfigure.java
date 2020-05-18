@@ -6,6 +6,8 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * Feign统一配置
+ *
+ * @author fengxici
  */
 @Configuration
 public class UkuleleFeignAutoConfigure {

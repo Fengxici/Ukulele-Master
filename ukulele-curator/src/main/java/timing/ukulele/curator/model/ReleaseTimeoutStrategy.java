@@ -4,6 +4,9 @@ package timing.ukulele.curator.model;
 import timing.ukulele.curator.handler.ZookeeperLockTimeoutException;
 import timing.ukulele.curator.handler.release.ReleaseTimeoutHandler;
 
+/**
+ * @author fengxici
+ */
 public enum ReleaseTimeoutStrategy implements ReleaseTimeoutHandler {
 
     /**

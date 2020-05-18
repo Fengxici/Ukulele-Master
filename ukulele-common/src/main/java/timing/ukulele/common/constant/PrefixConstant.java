@@ -17,5 +17,5 @@ public interface PrefixConstant {
     /**
      * 二维码连接标识
      */
-    String QR_CONNECT_ID = "qr_connect_id_";
+    String QR_CONNECT_ID = "QR_CONNECT_ID_";
 }

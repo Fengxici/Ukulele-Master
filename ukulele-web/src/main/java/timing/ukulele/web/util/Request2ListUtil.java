@@ -6,15 +6,18 @@ import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.util.*;
 
+/**
+ * @author fengxici
+ */
 public final class Request2ListUtil {
     private Request2ListUtil() {
     }
 
     private static Integer paramSize(Set<Method> methodSet, Map<String, String[]> stringMap) {
-        Integer size = 0;
+        int size = 0;
         for (Method method : methodSet) {
             String key = method.getName().substring(3, 4).toLowerCase() + method.getName().substring(4);
-            Integer tempSize = 0;
+            int tempSize = 0;
             if (stringMap.containsKey(key)) {
                 tempSize = stringMap.get(key).length;
             }
@@ -29,9 +32,8 @@ public final class Request2ListUtil {
         try {
 
             List<K> objectList = new LinkedList<>();
-            // Object obj = T.newInstance();
             // 获取类的方法集合
-            Set<Method> methodSet = get_declared_methods(T);
+            Set<Method> methodSet = getDeclaredMethods(T);
             Map<String, String[]> stringMap = request.getParameterMap();
             Integer valueSize = paramSize(methodSet, stringMap);
             System.out.println(T.getName() + " Max Length:" + valueSize);
@@ -42,8 +44,8 @@ public final class Request2ListUtil {
                     String[] value = stringMap.get(key);
                     if (value != null && i < value.length) {
                         Class<?>[] type = method.getParameterTypes();
-                        Object[] param_value = new Object[]{TypeParseUtil.convert(value[i], type[0], null)};
-                        method.invoke(object, param_value);
+                        Object[] paramValue = new Object[]{TypeParseUtil.convert(value[i], type[0], null)};
+                        method.invoke(object, paramValue);
                     }
                 }
                 objectList.add(object);
@@ -57,11 +59,8 @@ public final class Request2ListUtil {
 
     /**
      * 取自定义Set方法
-     *
-     * @param T
-     * @return
      */
-    private static <T> Set<Method> get_declared_methods(Class<T> T) {
+    private static <T> Set<Method> getDeclaredMethods(Class<T> T) {
         Method[] methods = T.getDeclaredMethods();
         Set<Method> methodSet = new HashSet<>();
         for (Method method : methods) {

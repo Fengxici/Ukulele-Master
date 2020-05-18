@@ -2,6 +2,7 @@ package timing.ukulele.redisson.properties;
 
 /**
  * 集群配置
+ * @author fengxici
  */
 public class RedisClusterProperties {
     /**

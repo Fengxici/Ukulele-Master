@@ -16,6 +16,7 @@ import java.util.Map;
  * 模式使用从库，增删改使用主库
  *
  * @param <T>
+ * @author fengxici
  */
 @DS("slave")
 public class BaseService<M extends BaseMapper<T>, T extends BaseModel> extends ServiceImpl<M, T> {

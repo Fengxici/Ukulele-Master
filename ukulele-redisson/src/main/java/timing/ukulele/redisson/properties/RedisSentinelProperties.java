@@ -2,6 +2,7 @@ package timing.ukulele.redisson.properties;
 
 /**
  * 哨兵配置
+ * @author fengxici
  */
 public class RedisSentinelProperties {
     /**

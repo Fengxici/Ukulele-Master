@@ -8,14 +8,30 @@ public enum LoginTypeEnum {
      * 用户名密码
      */
     PASSWORD(1, "用户名密码"),
+    /**
+     * 手机号验证码
+     */
     PHONE(2, "手机号验证码"),
+    /**
+     * 二维码
+     */
     QRCODE(3, "二维码"),
+    /**
+     * 第三方开放平台
+     */
     THIRD_OPEN(4, "第三方开放平台"),
+    /**
+     * 第三方oauth平台
+     */
     THIRD_OAUTH(5, "第三方oauth平台");
-    // 类型值
+    /**
+     * 类型值
+     */
     private Integer value;
 
-    // 类型描述
+    /**
+     * 类型描述
+     */
     private String description;
 
     LoginTypeEnum(Integer value, String description) {

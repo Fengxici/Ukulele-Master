@@ -19,14 +19,19 @@ import timing.ukulele.curator.lock.LockFactory;
 
 /**
  * Content :自动装配
+ *
+ * @author fengxici
  */
 @Configuration
 @EnableConfigurationProperties(ZookeeperLockConfig.class)
 @Import({ZookeeperLockAspectHandler.class})
 public class ZookeeperLockAutoConfiguration {
 
-    @Autowired
-    private ZookeeperLockConfig zookeeperLockConfig;
+    private final ZookeeperLockConfig zookeeperLockConfig;
+
+    public ZookeeperLockAutoConfiguration(ZookeeperLockConfig zookeeperLockConfig) {
+        this.zookeeperLockConfig = zookeeperLockConfig;
+    }
 
     @Bean(destroyMethod = "close")
     @ConditionalOnMissingBean
@@ -34,26 +39,30 @@ public class ZookeeperLockAutoConfiguration {
         RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000, 5);
 
         // 实例化Curator客户端
-        CuratorFramework client = CuratorFrameworkFactory.builder() // 使用工厂类来建造客户端的实例对象
-                .connectString(zookeeperLockConfig.getClusterServer())  // 放入zookeeper服务器ip
-                .sessionTimeoutMs(10000).retryPolicy(retryPolicy)  // 设定会话时间以及重连策略
-                .namespace("zookeeper-lock").build();  // 设置命名空间以及开始建立连接
+        // 使用工厂类来建造客户端的实例对象
+        CuratorFramework client = CuratorFrameworkFactory.builder()
+                // 放入zookeeper服务器ip
+                .connectString(zookeeperLockConfig.getClusterServer())
+                // 设4定会话时间以及重连策略
+                .sessionTimeoutMs(10000).retryPolicy(retryPolicy)
+                // 设置命名空间以及开始建立连接
+                .namespace("zookeeper-lock").build();
         client.start();
         return client;
     }
 
     @Bean
-    public LockInfoProvider lockInfoProvider(){
+    public LockInfoProvider lockInfoProvider() {
         return new LockInfoProvider();
     }
 
     @Bean
-    public BusinessKeyProvider businessKeyProvider(){
+    public BusinessKeyProvider businessKeyProvider() {
         return new BusinessKeyProvider();
     }
 
     @Bean
-    public LockFactory lockFactory(){
+    public LockFactory lockFactory() {
         return new LockFactory();
     }
 }

@@ -2,6 +2,9 @@ package timing.ukulele.redisson.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+/**
+ * @author fengxici
+ */
 @ConfigurationProperties(prefix = "ukulele.redis")
 public class RedisProperties {
     private int database;

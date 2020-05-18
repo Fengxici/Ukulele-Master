@@ -8,6 +8,9 @@ import retrofit2.Converter;
 
 import java.io.IOException;
 
+/**
+ * @author fengxici
+ */
 public final class Utf8GsonResponseBodyConverter<T> implements Converter<ResponseBody, T> {
     private final Gson gson;
     private final TypeAdapter<T> adapter;

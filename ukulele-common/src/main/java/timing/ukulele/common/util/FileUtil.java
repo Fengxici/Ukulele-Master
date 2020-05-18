@@ -37,12 +37,12 @@ public class FileUtil {
         return fileNum;
     }
 
-    public static void mkdirs(String filePath) {
+    public static void mkDirs(String filePath) {
         File file = new File(filePath);
-        mkdirs(file);
+        mkDirs(file);
     }
 
-    public static void mkdirs(File file) {
+    public static void mkDirs(File file) {
         if (!file.exists()) {
             if (file.isDirectory()) {
                 file.mkdirs();
@@ -56,7 +56,7 @@ public class FileUtil {
         if (file.isEmpty()) {
             return false;
         }
-        mkdirs(targetFileName);
+        mkDirs(targetFileName);
         File dest = new File(targetFileName);
         try {
             file.transferTo(dest);

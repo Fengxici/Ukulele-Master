@@ -9,6 +9,8 @@ import lombok.EqualsAndHashCode;
 /**
  * 用户输入ID
  * <p>该类型可以通过自己注册自动填充插件进行填充</p>
+ *
+ * @author fengxici
  */
 @EqualsAndHashCode(callSuper = true)
 @Data

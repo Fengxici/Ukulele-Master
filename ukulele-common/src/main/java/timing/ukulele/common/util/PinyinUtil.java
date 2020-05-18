@@ -32,14 +32,16 @@ public final class PinyinUtil {
         StringBuffer t4 = new StringBuffer();
         int t0 = t1.length;
         try {
-            for (int i = 0; i < t0; i++) {
+            for (char c : t1) {
                 // 判断是否为汉字字符
-                if (Character.toString(t1[i]).matches("[\\u4E00-\\u9FA5]+")) {
-                    t2 = PinyinHelper.toHanyuPinyinStringArray(t1[i], t3);// 将汉字的几种全拼都存到t2数组中
-                    t4.append(t2[0]);// 取出该汉字全拼的第一种读音并连接到字符串t4后
+                if (Character.toString(c).matches("[\\u4E00-\\u9FA5]+")) {
+                    // 将汉字的几种全拼都存到t2数组中
+                    t2 = PinyinHelper.toHanyuPinyinStringArray(c, t3);
+                    // 取出该汉字全拼的第一种读音并连接到字符串t4后
+                    t4.append(t2[0]);
                 } else {
                     // 如果不是汉字字符，直接取出字符并连接到字符串t4后
-                    t4.append(Character.toString(t1[i]));
+                    t4.append(Character.toString(c));
                 }
             }
         } catch (BadHanyuPinyinOutputFormatCombination e) {
@@ -69,8 +71,10 @@ public final class PinyinUtil {
             for (int i = 0; i < t0; i++) {
                 // 判断是否为汉字字符
                 if (Character.toString(t1[i]).matches("[\\u4E00-\\u9FA5]+")) {
-                    t2 = PinyinHelper.toHanyuPinyinStringArray(t1[i], t3);// 将汉字的几种全拼都存到t2数组中
-                    t = t2[0];// 取出该汉字全拼的第一种读音并连接到字符串t4后
+                    // 将汉字的几种全拼都存到t2数组中
+                    t2 = PinyinHelper.toHanyuPinyinStringArray(t1[i], t3);
+                    // 取出该汉字全拼的第一种读音并连接到字符串t4后
+                    t = t2[0];
                 } else {
                     // 如果不是汉字字符，直接取出字符并连接到字符串t4后
                     t = Character.toString(t1[i]);

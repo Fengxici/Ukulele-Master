@@ -23,6 +23,8 @@ import java.lang.reflect.Method;
 
 /**
  * 给添加@ZookeeperLock切面加锁处理
+ *
+ * @author fengxici
  */
 @Aspect
 @Component
@@ -165,7 +167,7 @@ public class ZookeeperLockAspectHandler {
         }
     }
 
-    private class LockRes {
+    private static class LockRes {
 
         private LockInfo lockInfo;
 
@@ -193,7 +195,9 @@ public class ZookeeperLockAspectHandler {
         }
     }
 
-    // avoid memory leak
+    /**
+     * avoid memory leak
+     */
     private void cleanUpThreadLocal() {
 
         currentThreadLockRes.remove();

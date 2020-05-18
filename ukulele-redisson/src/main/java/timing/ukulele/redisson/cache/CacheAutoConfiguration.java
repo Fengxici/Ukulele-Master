@@ -5,6 +5,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import timing.ukulele.redisson.TimingRedisAutoConfiguration;
 
+/**
+ * @author fengxici
+ */
 @Configuration
 @AutoConfigureAfter(TimingRedisAutoConfiguration.class)
 public class CacheAutoConfiguration {

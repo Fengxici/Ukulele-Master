@@ -25,6 +25,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
+/**
+ * @author fengxici
+ */
 @Configuration
 public class WebDataConvertConfig implements WebMvcConfigurer {
 
@@ -71,7 +74,7 @@ public class WebDataConvertConfig implements WebMvcConfigurer {
         javaTimeModule.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer());
         javaTimeModule.addSerializer(LocalDate.class, new LocalDateSerializer());
         javaTimeModule.addSerializer(LocalTime.class, new LocalTimeSerializer());
-        javaTimeModule.addSerializer(Date.class,new DateSerializer(false,simpleDateFormat));
+        javaTimeModule.addSerializer(Date.class, new DateSerializer(false, simpleDateFormat));
         //反序列化日期格式
         javaTimeModule.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer());
         javaTimeModule.addDeserializer(LocalDate.class, new LocalDateDeserializer());

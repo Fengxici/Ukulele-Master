@@ -20,6 +20,8 @@ import java.util.Properties;
 
 /**
  * 数据权限插件，guns
+ *
+ * @author fengxici
  */
 @Slf4j
 @Intercepts({@Signature(type = StatementHandler.class, method = "prepare", args = {Connection.class, Integer.class})})

@@ -28,6 +28,8 @@ import java.util.Set;
 
 /**
  * Desc <p>Controller统一异常advice</p>
+ *
+ * @author fengxici
  */
 @ControllerAdvice
 @ResponseBody
@@ -36,36 +38,36 @@ public class DefaultExceptionAdvice {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler({HttpMessageNotReadableException.class})
-    public ResponseEntity handleHttpMessageNotReadableException(HttpMessageNotReadableException e) {
+    public ResponseEntity<ResponseVO<Object>> handleHttpMessageNotReadableException(HttpMessageNotReadableException e) {
         log.error("参数解析失败", e);
-        ResponseVO response = ResponseVO.failure(DefaultError.INVALID_PARAMETER);
+        ResponseVO<Object> response = ResponseVO.failure(DefaultError.INVALID_PARAMETER);
         response.setExtMessage(e.getMessage());
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
     @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
     @ExceptionHandler({HttpRequestMethodNotSupportedException.class})
-    public ResponseEntity handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
+    public ResponseEntity<ResponseVO<Object>> handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
         log.error("不支持当前请求方法", e);
-        ResponseVO response = ResponseVO.failure(DefaultError.METHOD_NOT_SUPPORTED);
+        ResponseVO<Object> response = ResponseVO.failure(DefaultError.METHOD_NOT_SUPPORTED);
         response.setExtMessage(e.getMessage());
         return new ResponseEntity<>(response, HttpStatus.METHOD_NOT_ALLOWED);
     }
 
     @ResponseStatus(HttpStatus.UNSUPPORTED_MEDIA_TYPE)
     @ExceptionHandler({HttpMediaTypeNotSupportedException.class})
-    public ResponseEntity handleHttpMediaTypeNotSupportedException(HttpMediaTypeNotSupportedException e) {
+    public ResponseEntity<ResponseVO<Object>> handleHttpMediaTypeNotSupportedException(HttpMediaTypeNotSupportedException e) {
         log.error("不支持当前媒体类型", e);
-        ResponseVO response = ResponseVO.failure(DefaultError.CONTENT_TYPE_NOT_SUPPORT);
+        ResponseVO<Object> response = ResponseVO.failure(DefaultError.CONTENT_TYPE_NOT_SUPPORT);
         response.setExtMessage(e.getMessage());
         return new ResponseEntity<>(response, HttpStatus.UNSUPPORTED_MEDIA_TYPE);
     }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler({SQLException.class})
-    public ResponseEntity handleSQLException(SQLException e) {
+    public ResponseEntity<ResponseVO<Object>> handleSQLException(SQLException e) {
         log.error("服务运行SQLException异常", e);
-        ResponseVO response = ResponseVO.failure(DefaultError.SQL_EXCEPTION);
+        ResponseVO<Object> response = ResponseVO.failure(DefaultError.SQL_EXCEPTION);
         response.setExtMessage(e.getMessage());
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -77,7 +79,7 @@ public class DefaultExceptionAdvice {
      */
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
-    public ResponseEntity handleException(Exception ex) {
+    public ResponseEntity<ResponseVO<Object>> handleException(Exception ex) {
         log.error("未知异常", ex);
         IError error;
         String extMessage = null;
@@ -131,7 +133,7 @@ public class DefaultExceptionAdvice {
             error = DefaultError.SYSTEM_INTERNAL_ERROR;
             extMessage = ex.getMessage();
         }
-        ResponseVO response = ResponseVO.failure(error);
+        ResponseVO<Object> response = ResponseVO.failure(error);
         response.setExtMessage(extMessage);
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -143,9 +145,9 @@ public class DefaultExceptionAdvice {
      */
     @ResponseStatus(HttpStatus.OK)
     @ExceptionHandler(BusinessException.class)
-    public ResponseEntity handleException(BusinessException e) {
+    public ResponseEntity<ResponseVO<Object>> handleException(BusinessException e) {
         log.error("业务异常", e);
-        ResponseVO response = ResponseVO.failure(e.getError());
+        ResponseVO<Object> response = ResponseVO.failure(e.getError());
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
@@ -156,8 +158,8 @@ public class DefaultExceptionAdvice {
      */
     @ResponseStatus(HttpStatus.OK)
     @ExceptionHandler(ClientException.class)
-    public ResponseEntity handleException(ClientException e) {
-        ResponseVO response = ResponseVO.failure(DefaultError.CLIENT_EXCEPTION);
+    public ResponseEntity<ResponseVO<Object>> handleException(ClientException e) {
+        ResponseVO<Object> response = ResponseVO.failure(DefaultError.CLIENT_EXCEPTION);
         response.setExtMessage(e.getMessage());
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
@@ -169,8 +171,8 @@ public class DefaultExceptionAdvice {
      */
     @ResponseStatus(HttpStatus.OK)
     @ExceptionHandler(ServerException.class)
-    public ResponseEntity handleException(ServerException e) {
-        ResponseVO response = ResponseVO.failure(DefaultError.SERVER_EXCEPTION);
+    public ResponseEntity<ResponseVO<Object>> handleException(ServerException e) {
+        ResponseVO<Object> response = ResponseVO.failure(DefaultError.SERVER_EXCEPTION);
         response.setExtMessage(e.getMessage());
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
@@ -182,8 +184,8 @@ public class DefaultExceptionAdvice {
      */
     @ResponseStatus(HttpStatus.OK)
     @ExceptionHandler(SystemException.class)
-    public ResponseEntity handleException(SystemException e) {
-        ResponseVO response = ResponseVO.failure(DefaultError.SYSTEM_INTERNAL_ERROR);
+    public ResponseEntity<ResponseVO<Object>> handleException(SystemException e) {
+        ResponseVO<Object> response = ResponseVO.failure(DefaultError.SYSTEM_INTERNAL_ERROR);
         response.setExtMessage(e.getMessage());
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

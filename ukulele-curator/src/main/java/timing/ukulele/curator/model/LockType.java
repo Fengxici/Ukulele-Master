@@ -2,6 +2,7 @@ package timing.ukulele.curator.model;
 
 /**
  * Content :锁类型
+ * @author fengxici
  */
 public enum LockType {
     /**

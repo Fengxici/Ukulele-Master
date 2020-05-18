@@ -5,6 +5,9 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 
 import java.util.Map;
 
+/**
+ * @author fengxici
+ */
 public interface BaseExpandMapper {
     /**
      * 条件分页查询

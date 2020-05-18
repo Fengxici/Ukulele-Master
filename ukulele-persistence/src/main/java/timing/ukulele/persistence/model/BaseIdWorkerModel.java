@@ -9,6 +9,7 @@ import lombok.EqualsAndHashCode;
 /**
  * 全局唯一ID (idWorker)
  * 只有当插入对象ID 为空，才自动填充
+ * @author fengxici
  */
 @EqualsAndHashCode(callSuper = true)
 @Data

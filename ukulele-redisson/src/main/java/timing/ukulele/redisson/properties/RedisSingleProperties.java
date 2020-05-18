@@ -1,5 +1,8 @@
 package timing.ukulele.redisson.properties;
 
+/**
+ * @author fengxici
+ */
 public class RedisSingleProperties {
     private  String address;
 

@@ -11,6 +11,7 @@ import java.util.Map;
 
 /**
  * swagger2 属性配置
+ * @author fengxici
  */
 @Data
 @ConfigurationProperties("ukulele.swagger")

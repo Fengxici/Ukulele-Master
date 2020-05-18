@@ -2,6 +2,7 @@ package timing.ukulele.redisson.lock.model;
 
 /**
  * Content :锁基本信息
+ * @author fengxici
  */
 public class LockInfo {
 
