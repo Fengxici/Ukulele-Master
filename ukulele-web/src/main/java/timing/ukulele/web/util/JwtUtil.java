@@ -62,7 +62,7 @@ public final class JwtUtil {
      * @return
      */
     public static String getUsername() {
-        String token = CookieUtil.getCookie(WebConstant.TOKEN_COOKIE);
+        String token = CookieUtil.get(WebConstant.TOKEN_COOKIE);
         return getUsername(token);
     }
 
