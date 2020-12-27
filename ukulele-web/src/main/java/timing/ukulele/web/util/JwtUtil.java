@@ -74,17 +74,13 @@ public final class JwtUtil {
      */
     public static String generateToken(String username) {
         Date date = new Date(System.currentTimeMillis() + WebConstant.EXPIRE_MILLIS);
-        try {
-            Algorithm algorithm = Algorithm.HMAC256(WebConstant.TOKEN_SECRET);
-            // 附带username信息
-            return JWT.create()
-                    .withClaim(WebConstant.USERNAME, username)
-                    .withExpiresAt(date)
-                    .sign(algorithm);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        return null;
+
+        Algorithm algorithm = Algorithm.HMAC256(WebConstant.TOKEN_SECRET);
+        // 附带username信息
+        return JWT.create()
+                .withClaim(WebConstant.USERNAME, username)
+                .withExpiresAt(date)
+                .sign(algorithm);
     }
 
 }

@@ -85,13 +85,13 @@ public class SwaggerAutoConfiguration implements BeanFactoryAware {
             }
             List<Predicate<String>> basePath = new ArrayList<>(docketInfo.getBasePath().size());
             for (String path : docketInfo.getBasePath()) {
-                basePath.add(PathSelectors.ant(path));
+                basePath.add(AntPredicate.ant(path));
             }
 
             // exclude-path处理
             List<Predicate<String>> excludePath = new ArrayList<>(docketInfo.getExcludePath().size());
             for (String path : docketInfo.getExcludePath()) {
-                excludePath.add(PathSelectors.ant(path));
+                excludePath.add(AntPredicate.ant(path));
             }
 
             Docket docket = new Docket(DocumentationType.SWAGGER_2)
@@ -143,13 +143,13 @@ public class SwaggerAutoConfiguration implements BeanFactoryAware {
         }
         List<Predicate<String>> basePath = new ArrayList<>();
         for (String path : swaggerProperties.getBasePath()) {
-            basePath.add(PathSelectors.ant(path));
+            basePath.add( AntPredicate.ant(path));
         }
 
         // exclude-path处理
         List<Predicate<String>> excludePath = new ArrayList<>();
         for (String path : swaggerProperties.getExcludePath()) {
-            excludePath.add(PathSelectors.ant(path));
+            excludePath.add(AntPredicate.ant(path));
         }
 
         return new Docket(DocumentationType.SWAGGER_2)

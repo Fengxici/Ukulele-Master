@@ -77,7 +77,7 @@ public class TimingRedisAutoConfiguration {
                         redisProperties.getPool().getSoTimeout())
                 .setConnectTimeout(
                         redisProperties.getPool().getConnTimeout())
-                .setFailedAttempts(
+                .setFailedSlaveCheckInterval(
                         redisProperties.getCluster().getFailedAttempts())
                 .setRetryAttempts(
                         redisProperties.getCluster().getRetryAttempts())
@@ -111,7 +111,7 @@ public class TimingRedisAutoConfiguration {
                 .addSentinelAddress(newNodes.toArray(new String[0]))
                 .setMasterName(redisProperties.getSentinel().getMaster())
                 .setReadMode(ReadMode.SLAVE)
-                .setFailedAttempts(redisProperties.getSentinel().getFailMax())
+                .setFailedSlaveCheckInterval(redisProperties.getSentinel().getFailMax())
                 .setTimeout(redisProperties.getTimeout())
                 .setMasterConnectionPoolSize(redisProperties.getPool().getSize())
                 .setSlaveConnectionPoolSize(redisProperties.getPool().getSize());

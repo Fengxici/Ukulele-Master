@@ -2,7 +2,6 @@ package timing.ukulele.kaptcha;
 
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import lombok.NonNull;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import timing.ukulele.kaptcha.exception.KaptchaIncorrectException;
@@ -26,7 +25,6 @@ import static com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY;
  * •@author: 吕自聪
  * •@date: 2019/10/8
  */
-@Slf4j
 public class GoogleKaptcha implements Kaptcha {
 
     private DefaultKaptcha kaptcha;

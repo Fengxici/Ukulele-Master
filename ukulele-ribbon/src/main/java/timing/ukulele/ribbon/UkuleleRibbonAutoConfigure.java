@@ -35,7 +35,6 @@ import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import timing.ukulele.ribbon.config.UkuleleRestTemplateProperties;
 
@@ -235,7 +234,6 @@ public class UkuleleRibbonAutoConfigure extends FeignClientsConfiguration implem
         return new ResponseEntityDecoder(new SpringDecoder(objectFactory));
     }
 
-    @Override
     @Bean
     public Encoder feignEncoder() {
         HttpMessageConverter jacksonConverter = new MappingJackson2HttpMessageConverter(customObjectMapper());
