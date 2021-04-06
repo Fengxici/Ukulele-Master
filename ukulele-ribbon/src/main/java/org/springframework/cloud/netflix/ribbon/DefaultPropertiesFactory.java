@@ -1,5 +1,6 @@
 package org.springframework.cloud.netflix.ribbon;
 
+
 import com.netflix.loadbalancer.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -14,6 +15,7 @@ import static org.springframework.cloud.netflix.ribbon.SpringClientFactory.NAMES
  * 扩展 spring cloud ribbon的PropertiesFactory
  * 使其能够支持 配置全局的ribbon.NFLoadBalancerRuleClassName=package.YourRule
  * 然后各个微服务还可以根据自身情况做个性化定制。如:SERVICE_ID.ribbon.NFLoadBalancerRuleClassName=package.YourRule
+ *
  * @author fengxici
  */
 public class DefaultPropertiesFactory extends PropertiesFactory {
@@ -39,7 +41,7 @@ public class DefaultPropertiesFactory extends PropertiesFactory {
     public String getClassName(Class clazz, String name) {
         String className = super.getClassName(clazz, name);
         // 读取全局配置
-        if(!StringUtils.hasText(className) && this.classToProperty.containsKey(clazz)){
+        if (!StringUtils.hasText(className) && this.classToProperty.containsKey(clazz)) {
             String classNameProperty = this.classToProperty.get(clazz);
             className = environment.getProperty(NAMESPACE + "." + classNameProperty);
         }
