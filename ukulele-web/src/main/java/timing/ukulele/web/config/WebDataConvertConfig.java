@@ -51,6 +51,8 @@ public class WebDataConvertConfig implements WebMvcConfigurer {
     public MappingJackson2HttpMessageConverter jackson2HttpMessageConverter() {
         MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
         ObjectMapper objectMapper = serializingObjectMapper();
+        // 序列化枚举值
+        objectMapper.configure(SerializationFeature.WRITE_ENUMS_USING_TO_STRING, true);
         //忽略value为null时key的输出
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         //序列化成json时，将所有的Long变成string，以解决js中的精度丢失。
