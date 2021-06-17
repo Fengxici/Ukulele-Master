@@ -1,8 +1,12 @@
 package timing.ukulele.web;
 
+import java.time.format.DateTimeFormatter;
 import java.util.concurrent.TimeUnit;
 
 public interface WebConstant {
+    DateTimeFormatter DATETIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss");
     /**
      * 请求头角色常量
      */

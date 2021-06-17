@@ -1,0 +1,26 @@
+{
+  "properties": [
+    {
+      "name": "ukulele.web.ignore-null-field",
+      "type": "java.lang.Boolean",
+      "sourceType": "java.lang.Boolean",
+      "description": "是否忽略消息中值为空的字段.",
+      "defaultValue": false
+    }
+  ],
+  "hints": [
+    {
+      "name": "ukulele.web.ignore-null-field",
+      "values": [
+        {
+          "value": true,
+          "description": "忽略."
+        },
+        {
+          "value": false,
+          "description": "不忽略."
+        }
+      ]
+    }
+  ]
+}

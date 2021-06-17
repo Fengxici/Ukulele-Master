@@ -1,18 +1,21 @@
 package timing.ukulele.web.config;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.DateSerializer;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.springframework.context.annotation.Bean;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import timing.ukulele.web.deserializer.LocalDateDeserializer;
+import timing.ukulele.web.deserializer.LocalDateTimeDeserializer;
+import timing.ukulele.web.deserializer.LocalTimeDeserializer;
+import timing.ukulele.web.serializer.*;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -20,7 +23,6 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
@@ -31,9 +33,8 @@ import java.util.TimeZone;
 @Configuration
 public class WebDataConvertConfig implements WebMvcConfigurer {
 
-    private static final DateTimeFormatter DATETIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss");
+    @Value("${ukulele.web.ignore-null-field}")
+    private Boolean ignoreNullField;
 
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
@@ -47,14 +48,14 @@ public class WebDataConvertConfig implements WebMvcConfigurer {
      * 忽略value为null时key的输出
      * 注释部分和未注释部分代码相当，有待研究二者区别
      */
-    @Bean
     public MappingJackson2HttpMessageConverter jackson2HttpMessageConverter() {
         MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
         ObjectMapper objectMapper = serializingObjectMapper();
         // 序列化枚举值
         objectMapper.configure(SerializationFeature.WRITE_ENUMS_USING_TO_STRING, true);
         //忽略value为null时key的输出
-        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        if (ignoreNullField != null && ignoreNullField)
+            objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         //序列化成json时，将所有的Long变成string，以解决js中的精度丢失。
         SimpleModule simpleModule = new SimpleModule();
         simpleModule.addSerializer(Long.class, ToStringSerializer.instance);
@@ -102,69 +103,69 @@ public class WebDataConvertConfig implements WebMvcConfigurer {
     }
 
 
-    /**
-     * LocalDateTime序列化
-     */
-    private class LocalDateTimeSerializer extends JsonSerializer<LocalDateTime> {
-
-        @Override
-        public void serialize(LocalDateTime value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
-            gen.writeString(value.format(DATETIME_FORMATTER));
-        }
-    }
-
-    /**
-     * LocalDateTime反序列化
-     */
-    private class LocalDateTimeDeserializer extends JsonDeserializer<LocalDateTime> {
-
-        @Override
-        public LocalDateTime deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
-            return LocalDateTime.parse(p.getValueAsString(), DATETIME_FORMATTER);
-        }
-    }
-
-    /**
-     * LocalDate序列化
-     */
-    private class LocalDateSerializer extends JsonSerializer<LocalDate> {
-
-        @Override
-        public void serialize(LocalDate value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
-            gen.writeString(value.format(DATE_FORMATTER));
-        }
-    }
-
-    /**
-     * LocalDate反序列化
-     */
-    private class LocalDateDeserializer extends JsonDeserializer<LocalDate> {
-
-        @Override
-        public LocalDate deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
-            return LocalDate.parse(p.getValueAsString(), DATE_FORMATTER);
-        }
-    }
-
-    /**
-     * LocalTime序列化
-     */
-    private class LocalTimeSerializer extends JsonSerializer<LocalTime> {
-
-        @Override
-        public void serialize(LocalTime value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
-            gen.writeString(value.format(TIME_FORMATTER));
-        }
-    }
-
-    /**
-     * LocalTime反序列化
-     */
-    private class LocalTimeDeserializer extends JsonDeserializer<LocalTime> {
-
-        @Override
-        public LocalTime deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
-            return LocalTime.parse(p.getValueAsString(), TIME_FORMATTER);
-        }
-    }
+//    /**
+//     * LocalDateTime序列化
+//     */
+//    private class LocalDateTimeSerializer extends JsonSerializer<LocalDateTime> {
+//
+//        @Override
+//        public void serialize(LocalDateTime value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+//            gen.writeString(value.format(DATETIME_FORMATTER));
+//        }
+//    }
+//
+//    /**
+//     * LocalDateTime反序列化
+//     */
+//    private class LocalDateTimeDeserializer extends JsonDeserializer<LocalDateTime> {
+//
+//        @Override
+//        public LocalDateTime deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+//            return LocalDateTime.parse(p.getValueAsString(), DATETIME_FORMATTER);
+//        }
+//    }
+//
+//    /**
+//     * LocalDate序列化
+//     */
+//    private class LocalDateSerializer extends JsonSerializer<LocalDate> {
+//
+//        @Override
+//        public void serialize(LocalDate value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+//            gen.writeString(value.format(DATE_FORMATTER));
+//        }
+//    }
+//
+//    /**
+//     * LocalDate反序列化
+//     */
+//    private class LocalDateDeserializer extends JsonDeserializer<LocalDate> {
+//
+//        @Override
+//        public LocalDate deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+//            return LocalDate.parse(p.getValueAsString(), DATE_FORMATTER);
+//        }
+//    }
+//
+//    /**
+//     * LocalTime序列化
+//     */
+//    private class LocalTimeSerializer extends JsonSerializer<LocalTime> {
+//
+//        @Override
+//        public void serialize(LocalTime value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+//            gen.writeString(value.format(TIME_FORMATTER));
+//        }
+//    }
+//
+//    /**
+//     * LocalTime反序列化
+//     */
+//    private class LocalTimeDeserializer extends JsonDeserializer<LocalTime> {
+//
+//        @Override
+//        public LocalTime deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+//            return LocalTime.parse(p.getValueAsString(), TIME_FORMATTER);
+//        }
+//    }
 }
