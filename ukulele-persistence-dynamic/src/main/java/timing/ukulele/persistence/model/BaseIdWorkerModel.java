@@ -13,7 +13,7 @@ import lombok.EqualsAndHashCode;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class BaseIdWorkerModel extends BaseModel {
-    @TableId(value = "id_", type = IdType.ID_WORKER)
+public class BaseIdWorkerModel extends BaseModel<Long> {
+    @TableId(value = "id_", type = IdType.ASSIGN_ID)
     private Long id;
 }

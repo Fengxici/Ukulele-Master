@@ -14,7 +14,7 @@ import lombok.EqualsAndHashCode;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class BaseInputIdModel extends BaseModel {
+public class BaseInputIdModel extends BaseModel<String> {
     @TableId(value = "id_", type = IdType.INPUT)
-    private Long id;
+    private String id;
 }

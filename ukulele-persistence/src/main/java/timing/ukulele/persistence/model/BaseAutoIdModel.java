@@ -11,7 +11,7 @@ import lombok.EqualsAndHashCode;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class BaseAutoIdModel extends BaseModel {
+public class BaseAutoIdModel extends BaseModel<Long> {
     @TableId(value = "id_", type = IdType.AUTO)
     private Long id;
 }

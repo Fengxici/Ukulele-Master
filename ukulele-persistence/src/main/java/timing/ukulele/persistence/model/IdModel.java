@@ -3,8 +3,8 @@ package timing.ukulele.persistence.model;
 /**
  * @author fengxici
  */
-public interface IdModel {
-    void setId(Long id);
+public interface IdModel<T> {
+    void setId(T id);
 
-    Long getId();
+    T getId();
 }

@@ -10,7 +10,7 @@ import java.util.Date;
  * @author fengxici
  */
 @Data
-public abstract class BaseModel implements Serializable, IdModel {
+public abstract class BaseModel<T> implements Serializable, IdModel<T> {
     private String createBy;
     private Date createTime;
     private String updateBy;

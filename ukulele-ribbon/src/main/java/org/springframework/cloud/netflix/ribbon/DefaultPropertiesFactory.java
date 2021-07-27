@@ -1,7 +1,7 @@
 package org.springframework.cloud.netflix.ribbon;
 
 
-import com.netflix.loadbalancer.*;
+//import com.netflix.loadbalancer.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.util.StringUtils;
@@ -23,15 +23,15 @@ public class DefaultPropertiesFactory extends PropertiesFactory {
     @Autowired
     private Environment environment;
 
-    private Map<Class, String> classToProperty = new HashMap<>(5);
+    private Map<Class, String> classToProperty = new HashMap<>(8);
 
     public DefaultPropertiesFactory() {
         super();
-        classToProperty.put(ILoadBalancer.class, "NFLoadBalancerClassName");
-        classToProperty.put(IPing.class, "NFLoadBalancerPingClassName");
-        classToProperty.put(IRule.class, "NFLoadBalancerRuleClassName");
-        classToProperty.put(ServerList.class, "NIWSServerListClassName");
-        classToProperty.put(ServerListFilter.class, "NIWSServerListFilterClassName");
+//        classToProperty.put(ILoadBalancer.class, "NFLoadBalancerClassName");
+//        classToProperty.put(IPing.class, "NFLoadBalancerPingClassName");
+//        classToProperty.put(IRule.class, "NFLoadBalancerRuleClassName");
+//        classToProperty.put(ServerList.class, "NIWSServerListClassName");
+//        classToProperty.put(ServerListFilter.class, "NIWSServerListFilterClassName");
     }
 
     /**

@@ -13,7 +13,7 @@ import lombok.EqualsAndHashCode;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class BaseUuidModel extends BaseModel {
-    @TableId(value = "id_", type = IdType.UUID)
-    private Long id;
+public class BaseUuidModel extends BaseModel<String> {
+    @TableId(value = "id_", type = IdType.ASSIGN_UUID)
+    private String id;
 }

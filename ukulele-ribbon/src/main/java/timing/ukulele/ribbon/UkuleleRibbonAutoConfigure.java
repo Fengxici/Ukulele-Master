@@ -68,10 +68,10 @@ public class UkuleleRibbonAutoConfigure extends FeignClientsConfiguration implem
         this.restTemplateProperties = restTemplateProperties;
     }
 
-    @Bean
-    public DefaultPropertiesFactory defaultPropertiesFactory() {
-        return new DefaultPropertiesFactory();
-    }
+//    @Bean
+//    public DefaultPropertiesFactory defaultPropertiesFactory() {
+//        return new DefaultPropertiesFactory();
+//    }
 
     @LoadBalanced
     @Bean

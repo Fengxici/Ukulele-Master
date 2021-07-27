@@ -19,10 +19,10 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
             <exclusions>
-                <exclusion>
-                    <groupId>com.google.guava</groupId>
-                    <artifactId>guava</artifactId>
-                </exclusion>
+<!--                <exclusion>-->
+<!--                    <groupId>com.google.guava</groupId>-->
+<!--                    <artifactId>guava</artifactId>-->
+<!--                </exclusion>-->
                 <exclusion>
                     <artifactId>jackson-core</artifactId>
                     <groupId>com.fasterxml.jackson.core</groupId>
