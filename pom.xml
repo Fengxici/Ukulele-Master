@@ -48,11 +48,11 @@
         <com.fasterxml.jackson.core-version>2.12.4</com.fasterxml.jackson.core-version>
         <org.redission.redission-version>3.16.0</org.redission.redission-version>
         <druid-spring-boot-starter-version>1.2.6</druid-spring-boot-starter-version>
-        <spring-boot-starter-version>2.4.6</spring-boot-starter-version>
+        <spring-boot-starter-version>2.3.12.RELEASE</spring-boot-starter-version>
         <mybatis-plus-boot-starter-version>3.4.3.1</mybatis-plus-boot-starter-version>
         <mybatis-plus-support-version>2.3.3</mybatis-plus-support-version>
         <dynamic-datasource-spring-boot-starter-version>3.4.0</dynamic-datasource-spring-boot-starter-version>
-        <org.springframework-version>5.3.7</org.springframework-version>
+        <org.springframework-version>5.2.15.RELEASE</org.springframework-version>
         <lombok-version>1.18.20</lombok-version>
         <slf4j-api-version>2.0.0-alpha2</slf4j-api-version>
         <spring-security-jwt-version>1.0.10.RELEASE</spring-security-jwt-version>
@@ -62,8 +62,9 @@
         <springfox.version>2.9.2</springfox.version>
         <org.apache.httpcomponents-httpclient-version>4.5.13</org.apache.httpcomponents-httpclient-version>
         <curator-version>5.1.0</curator-version>
-        <spring-cloud-starter-netflix-version>3.0.3</spring-cloud-starter-netflix-version>
+        <spring-cloud-starter-netflix-version>2.2.9.RELEASE</spring-cloud-starter-netflix-version>
         <spring-cloud-starter-netflix-hystrix-version>2.2.9.RELEASE</spring-cloud-starter-netflix-hystrix-version>
+<!--        <spring-cloud-starter-netflix-ribbon-version>2.2.9.RELEASE</spring-cloud-starter-netflix-ribbon-version>-->
         <kaptchar-version>2.3.2</kaptchar-version>
         <com.google.guava-version>30.1.1-jre</com.google.guava-version>
     </properties>
@@ -258,6 +259,11 @@
                 <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
                 <version>${spring-cloud-starter-netflix-version}</version>
             </dependency>
+<!--            <dependency>-->
+<!--                <groupId>org.springframework.cloud</groupId>-->
+<!--                <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>-->
+<!--                <version>${spring-cloud-starter-netflix-ribbon-version}</version>-->
+<!--            </dependency>-->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-starter-openfeign</artifactId>

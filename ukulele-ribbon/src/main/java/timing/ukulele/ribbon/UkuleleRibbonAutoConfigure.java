@@ -21,9 +21,9 @@ import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
-import org.springframework.cloud.netflix.ribbon.DefaultPropertiesFactory;
+import org.springframework.cloud.netflix.hystrix.EnableHystrix;
+import org.springframework.cloud.netflix.ribbon.PropertiesFactory;
 import org.springframework.cloud.openfeign.FeignClientsConfiguration;
 import org.springframework.cloud.openfeign.support.ResponseEntityDecoder;
 import org.springframework.cloud.openfeign.support.SpringDecoder;
@@ -55,7 +55,7 @@ import java.util.TimeZone;
  * @author fengxici
  */
 @Configuration
-@EnableCircuitBreaker
+@EnableHystrix
 @EnableConfigurationProperties(UkuleleRestTemplateProperties.class)
 public class UkuleleRibbonAutoConfigure extends FeignClientsConfiguration implements WebMvcConfigurer {
     private static final DateTimeFormatter DATETIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -69,7 +69,7 @@ public class UkuleleRibbonAutoConfigure extends FeignClientsConfiguration implem
     }
 
 //    @Bean
-//    public DefaultPropertiesFactory defaultPropertiesFactory() {
+//    public PropertiesFactory defaultPropertiesFactory() {
 //        return new DefaultPropertiesFactory();
 //    }
 
