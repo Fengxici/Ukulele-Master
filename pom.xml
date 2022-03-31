@@ -48,7 +48,7 @@
         <com.fasterxml.jackson.core-version>2.12.4</com.fasterxml.jackson.core-version>
         <org.redission.redission-version>3.16.0</org.redission.redission-version>
         <druid-spring-boot-starter-version>1.2.6</druid-spring-boot-starter-version>
-        <spring-boot-starter-version>2.3.12.RELEASE</spring-boot-starter-version>
+        <spring-boot-starter-version>2.5.12</spring-boot-starter-version>
         <mybatis-plus-boot-starter-version>3.4.3.1</mybatis-plus-boot-starter-version>
         <mybatis-plus-support-version>2.3.3</mybatis-plus-support-version>
         <dynamic-datasource-spring-boot-starter-version>3.4.0</dynamic-datasource-spring-boot-starter-version>
