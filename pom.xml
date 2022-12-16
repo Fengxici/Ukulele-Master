@@ -52,7 +52,7 @@
         <mybatis-plus-boot-starter-version>3.4.3.1</mybatis-plus-boot-starter-version>
         <mybatis-plus-support-version>2.3.3</mybatis-plus-support-version>
         <dynamic-datasource-spring-boot-starter-version>3.4.0</dynamic-datasource-spring-boot-starter-version>
-        <org.springframework-version>5.2.15.RELEASE</org.springframework-version>
+        <org.springframework-version>5.2.20.RELEASE</org.springframework-version>
         <lombok-version>1.18.20</lombok-version>
         <slf4j-api-version>2.0.0-alpha2</slf4j-api-version>
         <spring-security-jwt-version>1.0.10.RELEASE</spring-security-jwt-version>
